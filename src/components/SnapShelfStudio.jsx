@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Camera, Clock, DollarSign, Users, Star, ArrowRight, Calendar, CheckCircle, Zap, Heart, Award, Phone, Mail, MapPin, Menu, X, ChevronDown } from 'lucide-react'
+import { Camera, Clock, DollarSign, Users, Star, ArrowRight, Calendar, CheckCircle, Zap, Heart, Award, Phone, Mail, MapPin, Menu, X, ChevronDown, Send } from 'lucide-react'
+import PackageSelector from './PackageSelector'
+import ContactForm from './ContactForm'
+import CalendlyBooking from './CalendlyBooking'
 
 const SnapShelfStudio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isVisible, setIsVisible] = useState({})
+  const [selectedPackage, setSelectedPackage] = useState(null)
+  const [bookingMethod, setBookingMethod] = useState('form')
 
   // FAQ Component
   const FAQItem = ({ question, answer }) => {
@@ -546,219 +551,198 @@ const SnapShelfStudio = () => {
       {/* Booking Section */}
       <section id="booking" className={`py-20 transition-all duration-1000 delay-600 ${isVisible.booking ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Maximize Your Existing Assets?
-            </h2>
-            <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-              Choose your package and book your transformation slot. 100% digital service—fast, efficient, effective.
-            </p>
-            
-            {/* Urgency Indicator */}
-            <div className="inline-flex items-center space-x-2 bg-orange-50 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-8">
-              <Clock className="w-4 h-4" />
-              <span>⚡ Only 3 spots left this week</span>
+         <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          Ready to Maximize Your Existing Assets?
+          </h2>
+          <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+          Choose your package and get your transformation quote. 100% digital service—fast, efficient, effective.
+          </p>
+      
+          {/* Urgency Indicator */}
+          <div className="inline-flex items-center space-x-2 bg-orange-50 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-8">
+            <Clock className="w-4 h-4" />
+            <span>⚡ Only 3 spots left this week</span>
             </div>
           </div>
 
           {/* Package Selection */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              Step 1: Select Your Package
-            </h3>
-            <div className="grid lg:grid-cols-3 gap-6">
-              {pricingPlans.map((plan, index) => (
-                <div key={index} className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all cursor-pointer border-2 hover:border-purple-500 ${plan.popular ? 'ring-2 ring-purple-600 border-purple-600' : 'border-gray-100'}`}>
-                  {plan.popular && (
-                    <div className="bg-purple-600 text-white text-center py-2 rounded-t-2xl text-sm font-medium">
-                      Most Popular Choice
-                    </div>
-                  )}
-                  
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h4 className="text-xl font-bold text-gray-900">{plan.name}</h4>
-                        <p className="text-sm text-gray-500">{plan.features[0]}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-gray-900">{plan.price}</div>
-                        <div className="text-sm text-gray-500">{plan.duration}</div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 mb-6">
-                      <div className="flex items-center space-x-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>{plan.features[1]}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>{plan.features[3]}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>{plan.features[4]}</span>
-                      </div>
-                    </div>
-
-                    <button className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
-                      plan.popular 
-                        ? 'bg-purple-600 text-white hover:bg-purple-700' 
-                        : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
-                    }`}>
-                      Choose {plan.name}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <PackageSelector 
+            selectedPackage={selectedPackage}
+            onPackageSelect={setSelectedPackage}
+            />
           </div>
 
-          {/* Booking Calendar */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              Step 2: Select Your Delivery Date
-            </h3>
-            
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Calendar Placeholder */}
-                <div>
-                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-8 border-2 border-dashed border-purple-200 text-center">
-                    <Calendar className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">Choose Your Date</h4>
-                    <p className="text-gray-600 mb-4">
-                      Select your preferred delivery date from available slots
-                    </p>
-                    <div className="text-sm text-purple-600 bg-purple-50 rounded-lg p-3">
-                      📅 <strong>Calendly Integration:</strong> Real calendar booking system goes here
+           {/* Booking Method Selection - Only show if package is selected */}
+            {selectedPackage && (
+              <div className="mb-16">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Step 2: How Would You Like to Proceed?
+                  </h3>
+                  <p className="text-gray-600">
+                    Choose your preferred way to get started with your project
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                  {/* Quick Quote Option */}
+                  <div 
+                    onClick={() => setBookingMethod('form')}
+                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+                      bookingMethod === 'form' 
+                        ? 'border-purple-500 bg-purple-50' 
+                        : 'border-gray-200 hover:border-purple-300'
+                    }`}
+                  >
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Send className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">Get Quick Quote</h4>
+                      <p className="text-gray-600 text-sm mb-4">
+                        Fill out our form and receive a detailed quote within 2 hours
+                      </p>
+                      <div className="space-y-1 text-xs text-gray-500">
+                        <div>✓ Instant submission</div>
+                        <div>✓ Detailed project form</div>
+                        <div>✓ 2-hour response time</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Consultation Option */}
+                  <div 
+                    onClick={() => setBookingMethod('calendar')}
+                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${
+                      bookingMethod === 'calendar' 
+                        ? 'border-blue-500 bg-blue-50' 
+                        : 'border-gray-200 hover:border-blue-300'
+                    }`}
+                  >
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Calendar className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">Book Consultation</h4>
+                      <p className="text-gray-600 text-sm mb-4">
+                        30-minute video call to discuss your project and get instant quote
+                      </p>
+                      <div className="space-y-1 text-xs text-gray-500">
+                        <div>✓ Personal discussion</div>
+                        <div>✓ Screen share review</div>
+                        <div>✓ Instant pricing</div>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
 
-                {/* Asset Requirements */}
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">What You'll Need to Provide:</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                      </div>
-                      <span className="text-gray-600">Your existing product photos (JPG/PNG)</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                      </div>
-                      <span className="text-gray-600">Brand colors/logos (if available)</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                      </div>
-                      <span className="text-gray-600">Platform preferences (Shopee, Amazon, etc.)</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-4 h-4 text-green-600" />
-                      </div>
-                      <span className="text-gray-600">Any specific messaging/text requirements</span>
-                    </div>
-                  </div>
+            {/* Contact Form - Show if form method selected */}
+            {selectedPackage && bookingMethod === 'form' && (
+              <div className="mb-16">
+                <ContactForm selectedPackage={selectedPackage} />
+              </div>
+            )}
 
-                  <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                    <h5 className="font-semibold text-blue-900 mb-2">📁 File Upload After Booking</h5>
-                    <p className="text-sm text-blue-700">
-                      After confirming your slot, you'll receive a secure upload link to share your assets with our design team.
+            {/* Calendly Booking - Show if calendar method selected */}
+            {selectedPackage && bookingMethod === 'calendar' && (
+              <div className="mb-16">
+                <CalendlyBooking selectedPackage={selectedPackage} />
+              </div>
+            )}
+
+            {/* What Happens Next - Only show if booking method is selected */}
+            {selectedPackage && (bookingMethod === 'form' || bookingMethod === 'calendar') && (
+              <div className="mb-16">
+                <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
+                  What Happens Next?
+                </h3>
+                <div className="grid md:grid-cols-4 gap-6">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                      1
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      {bookingMethod === 'form' ? 'Quote Review' : 'Consultation Call'}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {bookingMethod === 'form' 
+                        ? 'We review your requirements and send detailed quote' 
+                        : 'Discuss your project and get instant pricing'}
                     </p>
                   </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                      2
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Asset Upload</h4>
+                    <p className="text-sm text-gray-600">Upload your photos via secure link. Our team reviews and creates optimization plan</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                      3
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Design & Transform</h4>
+                    <p className="text-sm text-gray-600">Our designers create your platform-optimized visuals within 48 hours</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
+                      4
+                    </div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Download & Launch</h4>
+                    <p className="text-sm text-gray-600">Receive organized files ready for immediate deployment across all platforms</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Trust Elements */}
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="w-6 h-6 text-green-600" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Satisfaction Guarantee</h4>
+                  <p className="text-sm text-gray-600">Not happy? We'll revise until you love it or refund 100%</p>
+                </div>
+                
+                <div>
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Clock className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">48-Hour Guarantee</h4>
+                  <p className="text-sm text-gray-600">Your visuals delivered on time, every time, or we work for free</p>
+                </div>
+                
+                <div>
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Dedicated Designer</h4>
+                  <p className="text-sm text-gray-600">Direct access to your assigned designer throughout the project</p>
+                </div>
+              </div>
+
+              {/* Recent Activity */}
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <div className="flex items-center justify-center space-x-6 text-sm text-gray-600">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span>Sarah just booked Professional package</span>
+                  </div>
+                  <div className="hidden md:block text-gray-300">•</div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                    <span>Marcus scheduled his consultation</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* What Happens Next */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              What Happens Next?
-            </h3>
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  1
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Instant Confirmation</h4>
-                <p className="text-sm text-gray-600">Receive booking confirmation and upload instructions within 2 hours</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  2
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Asset Upload</h4>
-                <p className="text-sm text-gray-600">Upload your photos via secure link. Our team reviews and creates optimization plan</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  3
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Design & Transform</h4>
-                <p className="text-sm text-gray-600">Our designers create your platform-optimized visuals within 48 hours</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold">
-                  4
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Download & Launch</h4>
-                <p className="text-sm text-gray-600">Receive organized files ready for immediate deployment across all platforms</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Trust Elements */}
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div>
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-6 h-6 text-green-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Satisfaction Guarantee</h4>
-                <p className="text-sm text-gray-600">Not happy? We'll revise until you love it or refund 100%</p>
-              </div>
-              
-              <div>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="w-6 h-6 text-purple-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">48-Hour Guarantee</h4>
-                <p className="text-sm text-gray-600">Your visuals delivered on time, every time, or we work for free</p>
-              </div>
-              
-              <div>
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-6 h-6 text-blue-600" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-2">Dedicated Designer</h4>
-                <p className="text-sm text-gray-600">Direct access to your assigned designer throughout the project</p>
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <div className="flex items-center justify-center space-x-6 text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span>Sarah just booked Professional package</span>
-                </div>
-                <div className="hidden md:block text-gray-300">•</div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span>Marcus received his Amazon infographics</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Footer */}
