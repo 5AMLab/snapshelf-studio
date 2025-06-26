@@ -35,7 +35,7 @@ const ContactForm = ({ selectedPackage }) => {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const response = await fetch('https://formspree.io/f/myzjbenr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -217,10 +217,10 @@ const ContactForm = ({ selectedPackage }) => {
             rows={4}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             placeholder="Tell us about your project:
-• How many product images do you have?
-• Which platforms do you sell on? (Shopee, Amazon, Instagram, etc.)
-• Any specific requirements or brand guidelines?
-• Timeline and goals for the project"
+                • How many product images do you have?
+                • Which platforms do you sell on? (Shopee, Amazon, Instagram, etc.)
+                • Any specific requirements or brand guidelines?
+                • Timeline and goals for the project"
           />
         </div>
 

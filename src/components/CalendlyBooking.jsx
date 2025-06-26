@@ -19,7 +19,7 @@ const CalendlyBooking = ({ selectedPackage }) => {
 
   // Pre-fill Calendly with package information
   const calendlyUrl = selectedPackage 
-    ? `https://calendly.com/snapshelf/consultation?name=&email=&a1=${selectedPackage.name}&a2=${selectedPackage.price}`
+    ? `https://calendly.com/snapshelf/project-consultation?name=&email=&a1=${selectedPackage.name}&a2=${selectedPackage.price}`
     : 'https://calendly.com/snapshelf/project-consultation'
 
   return (

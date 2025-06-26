@@ -191,13 +191,13 @@ const SnapShelfStudio = () => {
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Transform Your 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500"> Existing Assets</span> 
-                Into Sales Gold
+                Get 50+ Platform-Ready Images 
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500"> From Your Phone Photos</span> 
+                <p></p>
               </h1>
               
               <p className="text-xl text-gray-600 leading-relaxed">
-                We repurpose your existing visuals into fresh, platform-optimized imagery for Shopee, Lazada, Amazon, and Instagram. 
+                Shopee banners, Instagram posts, Amazon infographics - all in 48 hours. 
                 100% digital service—no physical products needed, just human-driven creativity.
               </p>
 
@@ -239,24 +239,24 @@ const SnapShelfStudio = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <img 
-                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=400&fit=crop" 
+                    src="/images/hero/transformation-1.jpg" 
                     alt="Product Photography Example 1"
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   />
                   <img 
-                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop" 
+                    src="/images/hero/transformation-2.jpg" 
                     alt="Product Photography Example 2"
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   />
                 </div>
                 <div className="space-y-4 pt-8">
                   <img 
-                    src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop" 
+                    src="/images/hero/transformation-3.jpg" 
                     alt="Product Photography Example 3"
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   />
                   <img 
-                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=400&fit=crop" 
+                    src="/images/hero/transformation-4.jpg" 
                     alt="Product Photography Example 4"
                     className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
                   />
@@ -340,6 +340,98 @@ const SnapShelfStudio = () => {
           </div>
         </div>
       </section>
+
+      {/* Portfolio Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Transformation Examples
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how we transform existing assets into platform-ready visuals that drive sales
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Before/After Example 1 */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="relative">
+                <img 
+                  src="/images/portfolio/before-after-1.jpg"
+                  alt="SnapShelf Studio transformation example - product optimization"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Before → After
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Shopee Banner Optimization</h3>
+                <p className="text-gray-600 text-sm">Transformed basic product photo into eye-catching Shopee banner with 45% higher CTR</p>
+                <div className="mt-4 flex items-center space-x-4 text-sm">
+                  <span className="text-green-600 font-medium">+45% CTR</span>
+                  <span className="text-blue-600 font-medium">5 Platform Sizes</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Amazon Infographic Example */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="relative">
+                <img 
+                  src="/images/portfolio/amazon-infographic.jpg"
+                  alt="SnapShelf Studio Amazon infographic design example"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Infographic
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Amazon Listing Infographic</h3>
+                <p className="text-gray-600 text-sm">Data-driven infographic highlighting key product benefits and comparisons</p>
+                <div className="mt-4 flex items-center space-x-4 text-sm">
+                  <span className="text-green-600 font-medium">+62% Conversion</span>
+                  <span className="text-purple-600 font-medium">Amazon Optimized</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Media Suite */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="relative">
+                <img 
+                  src="/images/portfolio/social-media-suite.jpg"
+                  alt="SnapShelf Studio social media template design"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-pink-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  Social Suite
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Instagram Story Templates</h3>
+                <p className="text-gray-600 text-sm">Complete social media template set for Instagram posts, stories, and ads</p>
+                <div className="mt-4 flex items-center space-x-4 text-sm">
+                  <span className="text-green-600 font-medium">10+ Templates</span>
+                  <span className="text-blue-600 font-medium">Multi-Platform</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => scrollToSection('booking')}
+              className="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-700 transition-colors"
+            >
+              Get Similar Results
+            </button>
+          </div>
+        </div>
+      </section>
+       
 
       {/* Pricing Section */}
       <section id="pricing" className={`py-20 transition-all duration-1000 delay-300 ${isVisible.pricing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
