@@ -8,6 +8,12 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
       name: 'Essential',
       price: 'SGD 199',
       duration: 'per package',
+      serviceLevel: {
+        icon: '🎨',
+        title: 'Design Only', 
+        effort: 'You handle posting',
+        timeRequired: '2-3 hours posting'
+      },
       features: [
         '5 asset transformations',
         '3 platform size variations each',
@@ -23,6 +29,12 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
       name: 'Professional',
       price: 'SGD 399',
       duration: 'per package',
+      serviceLevel: {
+        icon: '📋',
+        title: 'Design + Guidance',
+        effort: 'We guide you through posting', 
+        timeRequired: '30 mins with guidance'
+      },
       features: [
         '10 asset transformations',
         '5 platform size variations each',
@@ -39,6 +51,12 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
       name: 'Enterprise',
       price: 'SGD 699',
       duration: 'per package',
+      serviceLevel: {
+        icon: '🚀',
+        title: 'Complete Done-For-You',
+        effort: 'We handle everything',
+        timeRequired: '5 mins brief only'
+      },
       features: [
         '15 asset transformations',
         'Unlimited size variations',
@@ -50,6 +68,29 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
         'Priority support channel'
       ],
       popular: false
+    },
+    {
+      id: 'deployPlus',
+      name: 'Deploy Plus',
+      price: 'SGD 999',
+      duration: 'per package',
+      serviceLevel: {
+        icon: '⚡',
+        title: 'Design + Full Implementation',
+        effort: 'Zero effort required',
+        timeRequired: '0 minutes - we do everything'
+      },
+      features: [
+        '20 asset transformations',
+        'All platform formats',
+        '6-hour emergency delivery',
+        'Complete platform deployment',
+        'Campaign launch included',
+        'Performance monitoring',
+        'Priority support channel'
+      ],
+      popular: false,
+      isNew: true
     }
   ]
 
@@ -67,11 +108,11 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
           Step 1: Select Your Package
         </h3>
         <p className="text-gray-600">
-          Choose the perfect package for your asset transformation needs
+          Choose your preferred level of involvement
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-4 gap-6">
         {packages.map((pkg) => (
           <div 
             key={pkg.id}
@@ -80,7 +121,9 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
                 ? 'border-purple-500 ring-2 ring-purple-200 scale-105' 
                 : pkg.popular 
                   ? 'border-purple-300' 
-                  : 'border-gray-200 hover:border-purple-300'
+                  : pkg.isNew
+                    ? 'border-yellow-400'
+                    : 'border-gray-200 hover:border-purple-300'
             }`}
           >
             {/* Popular Badge */}
@@ -90,6 +133,13 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
                   <Star className="w-4 h-4" />
                   <span>Most Popular</span>
                 </div>
+              </div>
+            )}
+
+            {/* New Badge */}
+            {pkg.isNew && (
+              <div className="absolute top-0 right-0 bg-yellow-400 text-yellow-900 px-3 py-1 text-xs font-bold rounded-bl-lg rounded-tr-2xl z-10">
+                NEW!
               </div>
             )}
 
@@ -103,13 +153,22 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
             )}
 
             <div className="p-6">
-              {/* Header */}
+              {/* Service Level Header */}
               <div className="text-center mb-6">
+                <div className="text-3xl mb-2">{pkg.serviceLevel.icon}</div>
                 <h4 className="text-xl font-bold text-gray-900 mb-1">{pkg.name}</h4>
+                <div className="text-sm font-medium text-purple-600 mb-2">{pkg.serviceLevel.title}</div>
+                <div className="text-xs text-gray-500 mb-4">{pkg.serviceLevel.effort}</div>
                 <div className="mb-4">
                   <span className="text-3xl font-bold text-gray-900">{pkg.price}</span>
                   <span className="text-gray-500 ml-2">{pkg.duration}</span>
                 </div>
+              </div>
+
+              {/* Time Investment Indicator */}
+              <div className="bg-gray-50 rounded-lg p-3 mb-6 text-center">
+                <div className="text-xs text-gray-500 mb-1">Your time investment:</div>
+                <div className="font-medium text-gray-700 text-sm">{pkg.serviceLevel.timeRequired}</div>
               </div>
 
               {/* Features */}
@@ -136,7 +195,9 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
                     ? 'bg-green-600 text-white'
                     : pkg.popular
                       ? 'bg-purple-600 text-white hover:bg-purple-700'
-                      : 'border-2 border-gray-300 text-gray-700 hover:border-purple-400 hover:text-purple-600'
+                      : pkg.isNew
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-500 text-white hover:from-purple-700 hover:to-blue-600'
+                        : 'border-2 border-gray-300 text-gray-700 hover:border-purple-400 hover:text-purple-600'
                 }`}
               >
                 {selectedPackage?.id === pkg.id ? (
@@ -162,7 +223,7 @@ const PackageSelector = ({ onPackageSelect, selectedPackage }) => {
                 Selected: {selectedPackage.name} Package
               </h4>
               <p className="text-purple-700 text-sm">
-                {selectedPackage.features[0]} • {selectedPackage.features[3]}
+                {selectedPackage.serviceLevel?.title} • {selectedPackage.serviceLevel?.effort}
               </p>
             </div>
             <div className="text-right">
