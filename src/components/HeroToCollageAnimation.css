@@ -1,0 +1,507 @@
+/* CSS Custom Properties */
+:root {
+  --scroll-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-duration: 0.8s;
+  --grid-gap: clamp(0.5rem, 2vw, 1rem);
+  --border-radius: clamp(8px, 1.5vw, 16px);
+  --shadow-light: 0 4px 20px rgba(139, 92, 246, 0.1);
+  --shadow-medium: 0 8px 40px rgba(139, 92, 246, 0.15);
+  --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Scroll Timeline Definition - Commented out for browser compatibility */
+/* @scroll-timeline --scroll-runner {
+  source: nearest;
+  orientation: block;
+  scroll-offsets: 0%, 100%;
+} */
+
+/* Main Container */
+.hero-to-collage-container {
+  min-height: 300vh; /* Extended height for scroll animation */
+  position: relative;
+  overflow-x: hidden;
+}
+
+.scroll-container {
+  position: relative;
+  height: 100%;
+}
+
+/*===========================================
+  HERO SECTION
+===========================================*/
+.hero-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.hero-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--transition-duration) var(--scroll-easing);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: var(--text-shadow);
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 400;
+  opacity: 0.9;
+  max-width: 600px;
+  text-shadow: var(--text-shadow);
+}
+
+/*===========================================
+  GALLERY SECTION - CSS GRID & SUBGRID
+===========================================*/
+.gallery-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--grid-gap);
+  width: 100%;
+  max-width: 1400px;
+  height: 80vh;
+  min-height: 600px;
+}
+
+/* Gallery Items */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-medium);
+  z-index: 5;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Center item special styling */
+.center-item {
+  position: relative;
+}
+
+.center-item::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+  border-radius: calc(var(--border-radius) + 2px);
+  z-index: -1;
+}
+
+/*===========================================
+  FOOTER SECTION
+===========================================*/
+.footer-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #5b21b6 100%);
+  color: white;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.footer-gag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.gag-text {
+  font-weight: 600;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.flip-animation {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  perspective: 1000px;
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+.footer-description {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/*===========================================
+  SCROLL-DRIVEN ANIMATIONS
+===========================================*/
+@media (prefers-reduced-motion: no-preference) {
+  
+  /* Hero image scaling and fading - Using fallback animations */
+  .hero-image {
+    /* animation: hero-transform linear;
+    animation-timeline: --scroll-runner;
+    animation-range: 0% 50%; */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .hero-overlay {
+    /* animation: overlay-fade linear;
+    animation-timeline: --scroll-runner;
+    animation-range: 0% 30%; */
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Gallery items reveal animation - Using fallback animations */
+  .gallery-item {
+    /* animation: gallery-reveal linear;
+    animation-timeline: --scroll-runner;
+    animation-range: 20% 80%;
+    animation-delay: var(--delay, 0s); */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Footer flip animation - Using fallback animations */
+  .flip-front {
+    /* animation: flip-front-anim linear;
+    animation-timeline: --scroll-runner;
+    animation-range: 70% 90%; */
+    transition: transform 0.6s ease;
+  }
+  
+  .flip-back {
+    /* animation: flip-back-anim linear;
+    animation-timeline: --scroll-runner;
+    animation-range: 70% 90%; */
+    transition: transform 0.6s ease;
+  }
+  
+}
+
+/*===========================================
+  KEYFRAMES
+===========================================*/
+@keyframes hero-transform {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(0.6) translateY(-40px);
+    opacity: 0;
+  }
+}
+
+@keyframes overlay-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes gallery-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes flip-front-anim {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flip-back-anim {
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+  }
+}
+
+/*===========================================
+  FALLBACK FOR OLDER BROWSERS & JS FALLBACK
+===========================================*/
+@supports not (animation-timeline: scroll()) {
+  .hero-image-container {
+    position: relative;
+  }
+  
+  .gallery-item {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+  
+  .flip-front {
+    transform: rotateY(0deg);
+    transition: transform 0.2s ease-out;
+  }
+  
+  .flip-back {
+    transform: rotateY(180deg);
+    transition: transform 0.2s ease-out;
+  }
+  
+  .hero-image {
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  }
+  
+  .hero-overlay {
+    transition: opacity 0.1s ease-out;
+  }
+}
+
+/* JavaScript fallback indicator */
+.js-fallback-indicator {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/*===========================================
+  REDUCED MOTION FALLBACK
+===========================================*/
+@media (prefers-reduced-motion: reduce) {
+  .hero-image,
+  .hero-overlay,
+  .gallery-item,
+  .flip-front,
+  .flip-back {
+    animation: none !important;
+  }
+  
+  .hero-image {
+    transform: none;
+    opacity: 1;
+  }
+  
+  .gallery-item {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .footer-gag {
+    animation: none;
+  }
+  
+  .gag-text {
+    animation: none;
+    text-shadow: none;
+  }
+}
+
+/*===========================================
+  DARK/LIGHT MODE SUPPORT
+===========================================*/
+@media (prefers-color-scheme: dark) {
+  .gallery-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  }
+  
+  .gallery-item {
+    background: #1e293b;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .gallery-item:hover {
+    box-shadow: 0 8px 40px rgba(139, 92, 246, 0.2);
+  }
+  
+  .footer-section {
+    background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+  }
+}
+
+/* Manual dark mode class support */
+.dark .gallery-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark .gallery-item {
+  background: #1e293b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark .gallery-item:hover {
+  box-shadow: 0 8px 40px rgba(139, 92, 246, 0.2);
+}
+
+.dark .footer-section {
+  background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/*===========================================
+  RESPONSIVE DESIGN
+===========================================*/
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+  
+  .hero-title {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    height: 90vh;
+  }
+  
+  .hero-to-collage-container {
+    min-height: 250vh;
+  }
+  
+  .footer-gag {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(15, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .hero-overlay {
+    padding: 1rem;
+  }
+  
+  .footer-content {
+    padding: 1rem;
+  }
+}

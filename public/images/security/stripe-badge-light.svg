@@ -1,0 +1,7 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="60" rx="8" fill="white"/>
+  <text x="20" y="20" fill="#635bff" font-family="Arial, sans-serif" font-size="12" font-weight="bold">SECURED BY</text>
+  <text x="20" y="40" fill="#635bff" font-family="Arial, sans-serif" font-size="16" font-weight="bold">stripe</text>
+  <circle cx="170" cy="30" r="15" fill="#635bff" opacity="0.1"/>
+  <path d="M165 30 L170 35 L180 25" stroke="#635bff" stroke-width="2" fill="none"/>
+</svg>

@@ -1,0 +1,202 @@
+/* Horizontal Gallery Styles */
+.horizontal-gallery-section {
+  position: relative;
+  overflow: hidden;
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+}
+
+.section-header {
+  text-align: center;
+  padding: 1rem 2rem 0.5rem;
+  background: transparent;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #312e81;
+  margin: 0;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+
+
+/* Horizontal Gallery Core */
+.horizontal-gallery {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  padding: 0;
+}
+
+.horiz-gallery-wrapper,
+.horiz-gallery-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+  position: relative;
+}
+
+.project-wrap {
+  width: 25vw;
+  min-width: 300px;
+  padding: 0;
+  box-sizing: content-box;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 12px;
+  transform: scale(0.9);
+}
+
+.image-container img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(139, 92, 246, 0.7);
+  padding: 0.75rem 1rem 0.75rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0 0 12px 12px;
+}
+
+.title-text {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-wrap {
+    width: 70vw;
+    min-width: 280px;
+    padding: 0;
+  }
+  
+  .section-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .title-text {
+    font-size: 1.25rem;
+  }
+  
+  .title-overlay {
+    padding: 0.75rem 0.75rem 0.75rem;
+  }
+  
+  .horizontal-gallery {
+    padding: 0;
+  }
+  
+  .image-container {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-wrap {
+    width: 85vw;
+    min-width: 260px;
+    padding: 0;
+  }
+  
+  .section-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .title-text {
+    font-size: 1.125rem;
+  }
+  
+  .title-overlay {
+    padding: 0.75rem 0.5rem 0.75rem;
+  }
+  
+  .image-container {
+    transform: scale(0.9);
+    padding: 0;
+  }
+}
+
+/* Animation Enhancements */
+.project-wrap {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.project-wrap:nth-child(1) { animation-delay: 0.1s; }
+.project-wrap:nth-child(2) { animation-delay: 0.2s; }
+.project-wrap:nth-child(3) { animation-delay: 0.3s; }
+.project-wrap:nth-child(4) { animation-delay: 0.4s; }
+.project-wrap:nth-child(5) { animation-delay: 0.5s; }
+.project-wrap:nth-child(6) { animation-delay: 0.6s; }
+.project-wrap:nth-child(7) { animation-delay: 0.7s; }
+.project-wrap:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .image-container,
+  .image-container img,
+  .image-overlay,
+  .gallery-outro button {
+    transition: none;
+  }
+  
+  .project-wrap {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .image-container:hover {
+    transform: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.gallery-outro button:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.image-container:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+}

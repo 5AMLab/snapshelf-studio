@@ -19,8 +19,8 @@ const CalendlyBooking = ({ selectedPackage }) => {
 
   // Pre-fill Calendly with package information
   const calendlyUrl = selectedPackage 
-    ? `https://calendly.com/snapshelf/project-consultation?name=&email=&a1=${selectedPackage.name}&a2=${selectedPackage.price}`
-    : 'https://calendly.com/snapshelf/project-consultation'
+    ? `https://calendly.com/sprintix/project-consultation?name=&email=&a1=${selectedPackage.name}&a2=${selectedPackage.price}`
+    : 'https://calendly.com/sprintix/project-consultation'
 
   return (
     <div className="space-y-8">
@@ -83,13 +83,13 @@ const CalendlyBooking = ({ selectedPackage }) => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="mailto:hello@snapshelfstudio.com?subject=Consultation Request - SnapShelf Studio&body=Hi! I'd like to schedule a consultation for the package I selected on your website."
+            href="mailto:hello@sprintix.asia?subject=Consultation Request - Sprintix Studio Pte. Ltd.&body=Hi! I'd like to schedule a consultation for the package I selected on your website."
             className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors"
           >
             Email Us
           </a>
           <a 
-            href={`https://wa.me/6581234567?text=Hi! I'd like to schedule a consultation for ${selectedPackage?.name || 'a'} package with SnapShelf Studio.`}
+            href={`https://wa.me/6581234567?text=Hi! I'd like to schedule a consultation for ${selectedPackage?.name || 'a'} package with Sprintix Studio Pte. Ltd.`}
             className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors"
           >
             WhatsApp

@@ -1,0 +1,158 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-track {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.carousel-slides {
+  display: flex;
+  width: max-content;
+}
+
+.carousel-cell {
+  width: 300px;
+  height: 300px;
+  margin-right: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.carousel-cell:last-child {
+  margin-right: 0;
+}
+
+.carousel-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Match hero section sizing with increased container width */
+.carousel-container {
+  --slide-width: clamp(150px, 20vw, 300px);
+  --slide-gap: calc(var(--slide-width) * 0.06);
+  --slide-border-radius: calc(var(--slide-width) * 0.06);
+  
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile: centered single image - match hero section mobile sizing */
+@media (max-width: 767px) {
+  .carousel-container {
+    --slide-width: 80vw;
+    --slide-gap: 4vw;
+    padding: 0;
+  }
+  
+  .carousel-track {
+    width: var(--slide-width);
+    height: var(--slide-width);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel-slides {
+    height: var(--slide-width);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .carousel-cell {
+    width: var(--slide-width);
+    height: var(--slide-width);
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+}
+
+/* Tablet: 3 images - responsive sizing */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .carousel-container {
+    padding: 0 1rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carousel-track {
+    width: calc(100vw - 4rem); /* Full width minus padding */
+    max-width: 650px;
+    overflow: hidden;
+  }
+  
+  .carousel-cell {
+    width: calc((100% - 60px) / 3); /* 3 images with gaps */
+    height: calc((100vw - 4rem - 60px) / 3);
+    max-width: 200px;
+    max-height: 200px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    margin-right: 20px;
+  }
+  
+  .carousel-cell:nth-child(3n) {
+    margin-right: 40px; /* Extra 20px gap after every 3rd image */
+  }
+  
+  .carousel-cell:nth-child(6n) {
+    margin-right: 0; /* No margin after the last image in each group */
+  }
+  
+  .carousel-cell h3 {
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Desktop: 3 images - fixed sizing */
+@media (min-width: 1024px) {
+  .carousel-container {
+    padding: 0 2rem;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .carousel-track {
+    width: 900px; /* 3 × 280px + 2 × 20px gaps + 1 extra 20px = 900px */
+    overflow: hidden;
+  }
+  
+  .carousel-cell {
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    margin-right: 20px;
+  }
+  
+  .carousel-cell:nth-child(3n) {
+    margin-right: 40px; /* Extra 20px gap after every 3rd image */
+  }
+  
+  .carousel-cell:nth-child(6n) {
+    margin-right: 0; /* No margin after the last image in each group */
+  }
+}

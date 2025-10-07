@@ -1,0 +1,349 @@
+.hero-test-page {
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Top Section */
+.top-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.top-content {
+  text-align: center;
+  color: white;
+  max-width: 1200px;
+}
+
+.top-content h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.top-content > p {
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.feature-item p {
+  opacity: 0.8;
+}
+
+/* Hero Container - Fixed 1920x1080 dimensions */
+.hero-container {
+  width: 1920px;
+  height: 1080px;
+  max-width: 100vw;
+  max-height: 100vh;
+  background:  #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 0;
+}
+
+.hero-container > .hero-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-cards {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.service-card {
+  position: absolute;
+  width: 200px;
+  height: 130px;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  opacity: 0;
+  transition: filter 0.3s ease;
+}
+
+/* Default starting position for most cards */
+.service-card:not(.card-1) {
+  transform: translateY(-100px) scale(0.8);
+}
+
+/* Card 1 (BG Remove) starts from top */
+.card-1 {
+  transform: translateY(-200px) scale(0.8) rotate(-15deg);
+}
+
+/* Individual animations for each card maintain their tilts */
+
+@keyframes slideInCard1 {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(0.6) rotate(-15deg);
+  }
+}
+
+@keyframes slideInCard2 {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(0.6) rotate(8deg);
+  }
+}
+
+@keyframes slideInCard3 {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(0.6) rotate(-10deg);
+  }
+}
+
+@keyframes slideInCard4 {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(0.6) rotate(12deg);
+  }
+}
+
+@keyframes slideInCard5 {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(0.6) rotate(-18deg);
+  }
+}
+
+.service-card:hover {
+  filter: brightness(1.1) drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+}
+
+/* Positioning for each card with individual tilts */
+.card-1 {
+  top: 15%;
+  left: 8%;
+  width: 280px;
+  height: 182px;
+  transform: translateY(-200px) scale(0.8) rotate(-15deg);
+}
+
+.card-1.animate-in {
+  animation: slideInCard1 0.8s ease-out forwards;
+}
+
+.card-2 {
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg);
+  width: 200px;
+  height: 130px;
+}
+
+.card-2.animate-in {
+  animation: slideInCard2 0.8s ease-out forwards;
+}
+
+.card-3 {
+  top: 15%;
+  right: 8%;
+  width: 280px;
+  height: 182px;
+}
+
+.card-3.animate-in {
+  animation: slideInCard3 0.8s ease-out forwards;
+}
+
+.card-4 {
+  bottom: 15%;
+  left: 15%;
+  width: 280px;
+  height: 182px;
+}
+
+.card-4.animate-in {
+  animation: slideInCard4 0.8s ease-out forwards;
+}
+
+.card-5 {
+  bottom: 8%;
+  right: 15%;
+  width: 280px;
+  height: 182px;
+}
+
+.card-5.animate-in {
+  animation: slideInCard5 0.8s ease-out forwards;
+}
+
+/* Optimized for smooth dropping animation */
+.floating-cards {
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+}
+
+
+.highlight {
+  color: #2e1065;
+}
+
+/* Responsive design */
+@media (max-width: 1920px) {
+  .hero-container {
+    width: 100vw;
+    height: calc(100vw * 9 / 16); /* Maintain 16:9 aspect ratio */
+    max-height: 1080px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    height: 60vh;
+    min-height: 600px;
+  }
+  
+  .service-card {
+    width: 160px;
+    height: 110px;
+  }
+  
+  .card-text {
+    font-size: 0.65rem;
+  }
+  
+  .card-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-container {
+    height: 50vh;
+    min-height: 500px;
+  }
+  
+  .service-card {
+    width: 140px;
+    height: 95px;
+  }
+  
+  .top-content h2 {
+    font-size: 2rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Bottom Section */
+.bottom-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.bottom-content {
+  text-align: center;
+  color: white;
+  max-width: 800px;
+}
+
+.bottom-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bottom-content p {
+  font-size: 1.125rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scroll-arrow {
+  font-size: 3rem;
+  animation: bounce 2s infinite;
+  color: #8B5CF6;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
