@@ -35,7 +35,7 @@ const ServicesPage = () => {
           }}
         ></div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-16 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-violet-950 text-white mb-8">
             <span className="text-sm font-semibold">our services</span>
           </div>
@@ -52,7 +52,7 @@ const ServicesPage = () => {
 
       {/* Services Grid + Platform Logos */}
       <section className="pt-8 pb-16 bg-gradient-to-b from-white via-violet-100 to-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-8 mb-20">
             {/* Service 1: Photo Editing */}
@@ -170,7 +170,7 @@ const ServicesPage = () => {
 
       {/* Simple Process Section */}
       <section className="py-16 bg-gradient-to-b from-white to-violet-100">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-bold text-violet-950 mb-4">How It Works</h2>
             <p className="text-xl text-violet-950">Simple, fast, and professional</p>

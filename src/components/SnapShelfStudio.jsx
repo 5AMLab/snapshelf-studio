@@ -31,6 +31,8 @@ const SprintixStudio = () => {
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
   const [desktopScrollPosition, setDesktopScrollPosition] = useState(0)
+  const [showSwipeIndicator, setShowSwipeIndicator] = useState(true)
+  const [isTabletLandscape, setIsTabletLandscape] = useState(false)
   const heroRef = useRef(null)
   const desktopScrollerRef = useRef(null)
 
@@ -45,13 +47,21 @@ const SprintixStudio = () => {
   // Preload critical images with timeout to prevent blocking
   const { imagesLoaded } = useImagePreloader(criticalImages)
 
-  // Mobile detection and slide width calculation
+  // Mobile and tablet detection and slide width calculation
   useEffect(() => {
     const updateCarouselSettings = () => {
       const width = window.innerWidth
-      setIsMobile(width <= 767)
-      if (width <= 767) {
-        setSlideWidth(width * 0.8) // 80vw
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+      // Only use mobile carousel for devices up to 1023px (portrait tablets and phones)
+      // Landscape tablets (1024-1279px) will use desktop layout with touch support
+      const shouldUseMobileView = width <= 1023
+      const isTabletLandscapeView = width >= 1024 && width <= 1279 && isTouchDevice
+
+      setIsMobile(shouldUseMobileView)
+      setIsTabletLandscape(isTabletLandscapeView)
+      if (shouldUseMobileView) {
+        setSlideWidth(width - 32) // Full width minus 2rem (32px) padding for alignment
       }
     }
 
@@ -85,8 +95,12 @@ const SprintixStudio = () => {
         const gap = parseInt(getComputedStyle(desktopScrollerRef.current).gap) || 0
         const scrollAmount = (slideWidth + gap) * 4 // Move 4 slides
         const newPosition = Math.max(0, desktopScrollPosition - scrollAmount)
-        setDesktopScrollPosition(newPosition)
-        desktopScrollerRef.current.style.transform = `translateX(-${newPosition}px)`
+
+        // Only update if we're not already at the beginning
+        if (desktopScrollPosition > 0) {
+          setDesktopScrollPosition(newPosition)
+          desktopScrollerRef.current.style.transform = `translateX(-${newPosition}px)`
+        }
       }
     }
   }
@@ -103,10 +117,11 @@ const SprintixStudio = () => {
         const maxScroll = (slideWidth + gap) * 6 // 6 original slides
         const newPosition = desktopScrollPosition + scrollAmount
 
-        // Reset to beginning if we've scrolled past the first set
+        // Don't allow scrolling past the last set of images
         if (newPosition >= maxScroll) {
-          setDesktopScrollPosition(0)
-          desktopScrollerRef.current.style.transform = `translateX(0)`
+          // Stay at the maximum position instead of resetting
+          setDesktopScrollPosition(maxScroll)
+          desktopScrollerRef.current.style.transform = `translateX(-${maxScroll}px)`
         } else {
           setDesktopScrollPosition(newPosition)
           desktopScrollerRef.current.style.transform = `translateX(-${newPosition}px)`
@@ -132,10 +147,24 @@ const SprintixStudio = () => {
     const isLeftSwipe = distance > 50
     const isRightSwipe = distance < -50
 
-    if (isLeftSwipe && currentSlide < 5) {
-      setCurrentSlide(prev => prev + 1)
-    } else if (isRightSwipe && currentSlide > 0) {
-      setCurrentSlide(prev => prev - 1)
+    if (isMobile) {
+      // Mobile carousel navigation
+      if (isLeftSwipe && currentSlide < 5) {
+        setCurrentSlide(prev => prev + 1)
+        setShowSwipeIndicator(false) // Hide indicator after first swipe
+      } else if (isRightSwipe && currentSlide > 0) {
+        setCurrentSlide(prev => prev - 1)
+        setShowSwipeIndicator(false) // Hide indicator after first swipe
+      }
+    } else if (isTabletLandscape) {
+      // Tablet landscape: use desktop carousel navigation
+      if (isLeftSwipe) {
+        handleNextSlide()
+        setShowSwipeIndicator(false)
+      } else if (isRightSwipe) {
+        handlePrevSlide()
+        setShowSwipeIndicator(false)
+      }
     }
   }
 
@@ -346,6 +375,29 @@ const SprintixStudio = () => {
                     </div>
                   </div>
 
+                  {/* Swipe indicator for mobile */}
+                  {showSwipeIndicator && (
+                    <div className="swipe-indicator">
+                      <svg
+                        className="swipe-indicator-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16.5 8.5C16.5 6.29086 14.7091 4.5 12.5 4.5C10.2909 4.5 8.5 6.29086 8.5 8.5V14.5L6.5 12.5C5.67157 11.6716 4.32843 11.6716 3.5 12.5C2.67157 13.3284 2.67157 14.6716 3.5 15.5L8.5 20.5H16.5C18.7091 20.5 20.5 18.7091 20.5 16.5V12.5C20.5 10.2909 18.7091 8.5 16.5 8.5Z"
+                          stroke="rgb(139, 92, 246)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="rgb(139, 92, 246)"
+                          fillOpacity="0.2"
+                        />
+                      </svg>
+                      <span className="swipe-indicator-text">Swipe to explore</span>
+                    </div>
+                  )}
+
                   {/* Mobile carousel dots */}
                   <div className="carousel-dots">
                     {[...Array(6)].map((_, index) => (
@@ -358,7 +410,35 @@ const SprintixStudio = () => {
                   </div>
                 </>
               ) : (
-                <div className="desktop-carousel-container">
+                <div
+                  className="desktop-carousel-container"
+                  onTouchStart={isTabletLandscape ? handleTouchStart : undefined}
+                  onTouchMove={isTabletLandscape ? handleTouchMove : undefined}
+                  onTouchEnd={isTabletLandscape ? handleTouchEnd : undefined}
+                >
+                  {/* Swipe indicator for tablet landscape */}
+                  {isTabletLandscape && showSwipeIndicator && (
+                    <div className="swipe-indicator">
+                      <svg
+                        className="swipe-indicator-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16.5 8.5C16.5 6.29086 14.7091 4.5 12.5 4.5C10.2909 4.5 8.5 6.29086 8.5 8.5V14.5L6.5 12.5C5.67157 11.6716 4.32843 11.6716 3.5 12.5C2.67157 13.3284 2.67157 14.6716 3.5 15.5L8.5 20.5H16.5C18.7091 20.5 20.5 18.7091 20.5 16.5V12.5C20.5 10.2909 18.7091 8.5 16.5 8.5Z"
+                          stroke="rgb(139, 92, 246)"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          fill="rgb(139, 92, 246)"
+                          fillOpacity="0.2"
+                        />
+                      </svg>
+                      <span className="swipe-indicator-text">Swipe to explore</span>
+                    </div>
+                  )}
+
                   {/* Previous button */}
                   <button
                     onClick={handlePrevSlide}

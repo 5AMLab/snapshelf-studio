@@ -116,9 +116,9 @@ const CTASection = () => {
 
 
         {/* Main Heading */}
-        <div className="relative">
-          <h2 
-            className={`text-5xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight transition-all duration-700 delay-100 px-4 sm:px-0 ${
+        <div className="relative w-full px-4 sm:px-6 lg:px-8">
+          <h2
+            className={`text-5xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight transition-all duration-700 delay-100 ${
               showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -146,12 +146,12 @@ const CTASection = () => {
         </div>
 
         {/* Subheading */}
-        <p 
-          className={`text-xl text-gray-900 mb-8 max-w-2xl mx-auto px-4 sm:px-0 transition-all duration-700 delay-200 ${
+        <p
+          className={`text-xl text-gray-900 mb-8 w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-700 delay-200 ${
             showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          Professional edits from <span className="font-bold text-violet-950">$11.9</span> per asset
+          Professional edits from <span className="font-bold text-violet-950">$18.90</span> per asset
         </p>
 
         {/* Trust Indicators */}
@@ -173,8 +173,8 @@ const CTASection = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div 
-          className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0 transition-all duration-700 delay-400 ${
+        <div
+          className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full px-4 sm:px-6 lg:px-8 transition-all duration-700 delay-400 ${
             showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >

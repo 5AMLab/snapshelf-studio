@@ -66,7 +66,7 @@ const AboutUs = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-violet-100 to-white pt-8 pb-24 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-violet-100 to-white pt-8 pb-8 overflow-hidden">
         {/* Background Image - Hidden on mobile */}
         <div
           className="absolute inset-0 hidden md:block"

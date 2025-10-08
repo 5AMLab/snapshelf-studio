@@ -1,6 +1,6 @@
 /* Dual-Scrolling Gallery */
 .scroller-container {
-  --slide-width: clamp(150px, 20vw, 300px);
+  --slide-width: clamp(200px, 25vw, 400px);
   --slide-gap: calc(var(--slide-width) * 0.06);
   --slide-border-radius: calc(var(--slide-width) * 0.06);
 
@@ -18,6 +18,20 @@
   }
 }
 
+/* Tablet landscape: larger images */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .scroller-container {
+    --slide-width: clamp(280px, 30vw, 450px);
+  }
+}
+
+/* Larger tablets and small desktops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .scroller-container {
+    --slide-width: clamp(320px, 32vw, 480px);
+  }
+}
+
 /* Desktop carousel container */
 .desktop-carousel-container {
   position: relative;
@@ -25,13 +39,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: pan-y; /* Allow vertical scrolling but enable horizontal touch gestures */
 }
 
-/* Mobile: simplified carousel */
-@media (max-width: 767px) {
+/* Mobile and Tablet: simplified carousel */
+@media (max-width: 1023px) {
   .scroller-container {
-    --slide-width: 80vw;
+    --slide-width: calc(100vw - 2rem);
     --slide-gap: 0;
+    padding: 0 1rem;
   }
 
   .scroller-container.mobile-carousel {
@@ -56,6 +72,7 @@
 }
 
 
+
 .scroller-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -67,8 +84,8 @@
   transition: transform 0.5s ease-in-out;
 }
 
-/* Mobile carousel wrapper - simplified */
-@media (max-width: 767px) {
+/* Mobile and Tablet carousel wrapper - simplified */
+@media (max-width: 1023px) {
   .mobile-carousel-wrapper {
     display: flex;
     width: calc(var(--slide-width) * 6);
@@ -87,6 +104,7 @@
     overflow: hidden;
   }
 }
+
 
 .scroller-wrapper-reverse {
   animation: moveRight 52s linear infinite;
@@ -141,7 +159,8 @@
   display: none;
 }
 
-@media (min-width: 768px) {
+/* Only show nav buttons on desktop (non-touch devices or large screens) */
+@media (min-width: 1280px), (min-width: 1024px) and (hover: hover) {
   .carousel-nav-btn {
     display: flex;
     align-items: center;
@@ -187,12 +206,12 @@
   }
 }
 
-/* Mobile carousel dots */
+/* Mobile and Tablet carousel dots */
 .carousel-dots {
   display: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .carousel-dots {
     display: flex;
     justify-content: center;
@@ -216,5 +235,69 @@
   .carousel-dot.active {
     background-color: rgb(139, 92, 246);
     transform: scale(1.2);
+  }
+}
+
+
+/* Swipe indicator for mobile and tablet */
+.swipe-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeInOut 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Hide on large desktops */
+@media (min-width: 1280px) {
+  .swipe-indicator {
+    display: none;
+  }
+}
+
+/* Position indicator for desktop carousel layout (tablets in landscape) */
+.desktop-carousel-container .swipe-indicator {
+  bottom: -60px;
+}
+
+.swipe-indicator-icon {
+  width: 24px;
+  height: 24px;
+  animation: swipeAnimation 2s ease-in-out infinite;
+}
+
+.swipe-indicator-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(76, 29, 149);
+  white-space: nowrap;
+}
+
+@keyframes swipeAnimation {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-10px);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
   }
 }

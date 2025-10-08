@@ -53,28 +53,28 @@
   justify-content: center;
 }
 
-/* Mobile: centered single image - match hero section mobile sizing */
+/* Mobile: centered single image - aligned with content padding */
 @media (max-width: 767px) {
   .carousel-container {
-    --slide-width: 80vw;
-    --slide-gap: 4vw;
-    padding: 0;
+    --slide-width: calc(100vw - 2rem);
+    --slide-gap: 0;
+    padding: 0 1rem;
   }
-  
+
   .carousel-track {
     width: var(--slide-width);
     height: var(--slide-width);
     overflow: hidden;
     position: relative;
   }
-  
+
   .carousel-slides {
     height: var(--slide-width);
     position: absolute;
     top: 0;
     left: 0;
   }
-  
+
   .carousel-cell {
     width: var(--slide-width);
     height: var(--slide-width);

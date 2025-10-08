@@ -47,11 +47,11 @@ const ServicesCarousel = () => {
       setSlideWidth(trackWidth);
       setSlideGap(0);
     } else {
-      // Mobile: 80vw
+      // Mobile: Full width minus padding for alignment with other content
       setSlidesToShow(1);
-      const calculatedWidth = width * 0.8;
+      const calculatedWidth = width - 32; // Full width minus 2rem (32px) padding
       setSlideWidth(calculatedWidth);
-      setSlideGap(width * 0.04);
+      setSlideGap(0);
     }
   };
 
