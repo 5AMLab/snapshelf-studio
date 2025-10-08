@@ -6,8 +6,8 @@ const Footer = ({
   showScrollButtons = false
 }) => {
   return (
-    <footer className="bg-violet-950 text-white py-16">
-      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-16">
+    <footer className="bg-violet-950 text-white py-4 sm:py-6 lg:py-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
@@ -100,25 +100,18 @@ const Footer = ({
 
         {/* Bottom Bar - Contact & Copyright */}
         <div className="border-t border-violet-800 pt-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-
-            {/* Contact Information */}
-            <div className="text-violet-300 text-sm">
-              <p>
-                <span className="font-semibold text-white">Sprintix Studio</span>
-                {' | '}
-                60 Paya Lebar Road, #02-31A Paya Lebar Square, Singapore 409051
-                {' | '}
-                <a href="mailto:hello@sprintix.sg" className="hover:text-white transition-colors">hello@sprintix.sg</a>
-                {' | '}
-                <a href="tel:+6581234567" className="hover:text-white transition-colors">+65 8123 4567</a>
-              </p>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-violet-300 text-sm">
-              <p>© 2025 Sprintix Studio. All Rights Reserved.</p>
-            </div>
+          <div className="text-violet-300 text-sm text-left">
+            <p>
+              <span className="font-semibold text-white">Sprintix Studio</span>
+              <br />
+              60 Paya Lebar Road, #02-31A Paya Lebar Square, Singapore 409051
+              {' | '}
+              <a href="mailto:hello@sprintix.sg" className="hover:text-white transition-colors">hello@sprintix.sg</a>
+              {' | '}
+              <a href="tel:+6581234567" className="hover:text-white transition-colors">+65 8123 4567</a>
+              <br />
+              © 2025 Sprintix Studio. All Rights Reserved.
+            </p>
           </div>
         </div>
 

@@ -272,7 +272,7 @@ const Header = ({
     <nav 
       className={headerClasses}
     >
-      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-16">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 transition-opacity">

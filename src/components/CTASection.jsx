@@ -129,17 +129,17 @@ const CTASection = () => {
           
           {/* Bottom Badge - positioned relative to heading */}
           {showBadges.commerceBadge && (
-            <div 
-              className="hidden sm:block absolute -bottom-16 -right-40 sm:-bottom-20 sm:-right-52 lg:-right-60 xl:-right-52 z-20 pointer-events-none"
+            <div
+              className="hidden sm:block absolute -bottom-16 right-0 sm:-bottom-20 sm:right-4 md:right-8 lg:right-12 xl:right-16 z-20 pointer-events-none"
               style={{
                 animation: 'fadeInBounce 0.6s ease-out both'
               }}
             >
-              <img 
-                src="/images/cta/badge-commerce.png" 
-                alt="" 
-                className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 object-contain"
-                
+              <img
+                src="/images/cta/badge-commerce.png"
+                alt=""
+                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain"
+
               />
             </div>
           )}
