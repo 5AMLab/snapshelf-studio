@@ -60,7 +60,8 @@ const PricingPage = () => {
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-transparent bg-clip-text bg-gradient-to-t from-violet-300 to-violet-700">Flexible Pricing</span>
+              <span className="text-violet-950">Flexible </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-violet-300">Pricing</span>
             </h1>
 
             <p className="text-xl text-violet-950 max-w-3xl mx-auto mb-12">

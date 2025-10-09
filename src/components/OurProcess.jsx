@@ -44,7 +44,7 @@ const OurProcess = () => {
       id: 'transform',
       number: '02',
       title: 'Transform',
-      description: 'Professional editing within 72 hours',
+      description: 'Pro editing within 72h',
       icon: CubeTransparentIcon,
       features: ['Professional editing', 'Quality assurance']
     },
@@ -92,32 +92,35 @@ const OurProcess = () => {
                 style={{ transitionDelay: `${(index + 1) * 300}ms` }}
               >
                 {/* Step Card */}
-                <div className="relative bg-white rounded-2xl p-8 border border-violet-100 transition-all duration-300 group h-full flex flex-col overflow-hidden">
-                  {/* Background Image Overlay */}
-                  <div 
-                    className="absolute inset-0 opacity-70"
-                    style={{
-                      backgroundImage: 'url("/images/hero/main-hero-bg-graphic.png")',
-                      backgroundPosition: 'center',
-                      backgroundSize: 'cover',
-                      backgroundRepeat: 'no-repeat'
-                    }}
-                  ></div>
-
+                <div className="relative bg-violet-950 rounded-2xl p-8 border border-violet-800 transition-all duration-300 group h-full flex flex-col overflow-hidden">
+                  {/* SVG Background Pattern */}
+                  <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id={`grid-${step.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgb(167, 139, 250)" strokeWidth="1" />
+                      </pattern>
+                      <linearGradient id={`gradient-${step.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="rgb(167, 139, 250)" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="rgb(124, 58, 237)" stopOpacity="0.05" />
+                      </linearGradient>
+                    </defs>
+                    <rect width="100%" height="100%" fill={`url(#grid-${step.id})`} />
+                    <rect width="100%" height="100%" fill={`url(#gradient-${step.id})`} />
+                  </svg>
 
                   {/* Icon */}
                   <div className="relative z-10 mb-12">
                     <div>
-                      <step.icon className="w-12 h-12 text-violet-600" />
+                      <step.icon className="w-12 h-12 text-violet-400" />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="relative z-10 mb-6">
-                    <h3 className="text-3xl font-bold text-violet-950 mb-4">
+                    <h3 className="text-3xl font-bold text-white mb-4">
                       {step.title}
                     </h3>
-                    <p className="text-xl text-violet-950">
+                    <p className="text-xl text-violet-100">
                       {step.description}
                     </p>
                   </div>
@@ -126,8 +129,8 @@ const OurProcess = () => {
                   <div className="relative z-10 space-y-3 flex-grow">
                     {step.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex items-center space-x-3">
-                        <CheckCircleIcon className="w-6 h-6 text-emerald-500 flex-shrink-0" />
-                        <span className="text-violet-900 text-lg">{feature}</span>
+                        <CheckCircleIcon className="w-6 h-6 text-emerald-400 flex-shrink-0" />
+                        <span className="text-violet-100 text-lg">{feature}</span>
                       </div>
                     ))}
                   </div>

@@ -8,6 +8,7 @@ import { ArrowRightIcon, CheckCircleIcon, ClockIcon, UsersIcon, ChevronLeftIcon,
 import BeforeAfterSlider from './BeforeAfterSlider'
 import Footer from './shared/Footer'
 import FAQ from './shared/FAQ'
+import Logos from './shared/Logos'
 import { PRICING_CONFIG } from '../config/pricing'
 import { useModal } from '../context/ModalContext'
 const HeroTestPage = lazy(() => import('./HeroTestPage'))
@@ -268,9 +269,9 @@ const SprintixStudio = () => {
       <div className="h-[80px]"></div>
     
       {/* Hero Section */}
-      <section ref={heroRef} id="hero" className="bg-gradient-to-b from-violet-100 to-white py-8 sm:px-6 lg:px-6 pb-16 relative overflow-hidden" style={{
-        minHeight: '600px', 
-        display: 'block', 
+      <section ref={heroRef} id="hero" className="bg-gradient-to-b from-violet-100 to-white py-8 pb-16 relative overflow-hidden" style={{
+        minHeight: '600px',
+        display: 'block',
         visibility: 'visible'
       }}>
         {/* Background Image Overlay */}
@@ -502,79 +503,20 @@ const SprintixStudio = () => {
             </div>
           </div>
 
-          {/* Platforms Logos Section */}  
-          <div className={`mx-auto max-w-7xl px-8 lg:px-8 mb-8 transition-all duration-700 delay-400 ${
-            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-          
-          <div className="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-7">
-            <img
-              alt="Zalora"
-              src="/images/logos/zalora-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-10 lg:max-h-16 pt-4 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Shopee"
-              src="/images/logos/Shopee-horizontal-logo.svg"
-              width={59}
-              height={19}
-              className="col-span-2 max-h-9 lg:max-h-14 pb-1 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Amazon"
-              src="/images/logos/amazon-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-10 lg:max-h-16 pt-4 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Lazada"
-              src="/images/logos/lazada-logo.svg"
-              width={74}
-              height={19}
-              className="col-span-2 max-h-9 lg:max-h-14 pt-2 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Shopify"
-              src="/images/logos/shopify-logo.svg"
-              width={57}
-              height={17}
-              className="col-span-2 col-start-2 max-h-8 lg:max-h-12 w-full object-contain sm:col-start-auto md:col-span-1 md:col-start-auto lg:col-span-1"
-            />
-            <img
-              alt="Meta/Instagram"
-              src="/images/logos/meta-logo-2.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-8 lg:max-h-12 w-full object-contain sm:col-start-2 md:col-span-1 md:col-start-auto lg:col-span-1"
-            />
-            <img
-              alt="WooCommerce"
-              src="/images/logos/woocommerce-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-8 lg:max-h-12 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-           </div>
-
-          </div>
-
-          {/* Hero CTA Button - After Platform Logos */}
-          <div className={`flex justify-center mt-12 mb-2 transition-all duration-700 delay-500 ${
-            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
-            <Link
-              to="/pricing"
-              className="px-8 sm:px-10 py-4 sm:py-5 bg-violet-950 text-white font-semibold rounded-[3rem] hover:bg-violet-900 transition-all duration-300 text-base sm:text-lg min-h-[48px] touch-manipulation"
-            >
-              get started
-            </Link>
-          </div>
-
         </div>
 
+        {/* Platforms Logos Section - Outside max-w-7xl container for full width */}
+        <div className="relative z-10">
+          <Logos
+            variant="hero"
+            animate={true}
+            animationSpeed={40}
+            pauseDuration={3}
+            className={`transition-all duration-700 delay-400 ${
+              heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          />
+        </div>
 
       </section>
 

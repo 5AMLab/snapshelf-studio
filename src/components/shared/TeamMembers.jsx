@@ -48,9 +48,9 @@ const TeamMembers = () => {
       image: "/images/team/diana.jpg"
     },
     {
-      name: "Michael Rodriguez",
-      role: "Operations Manager",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+      name: "Ollie",
+      role: "Lead Photo Editor",
+      image: "/images/team/Ollie.jpg"
     }
   ]
 
@@ -59,8 +59,8 @@ const TeamMembers = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Team Members Content - Ready for customization */}
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-6xl font-bold mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-t from-violet-300 to-violet-700">Our Team</span>
+          <h2 className="text-5xl md:text-6xl font-bold text-violet-950 mb-8">
+            Our Team
           </h2>
           <p className="text-xl text-violet-950 mb-12 max-w-3xl mx-auto leading-normal">
             Our team brings <span className="text-violet-600 font-semibold">15+ years of design experience</span> across Southeast Asia's premium retail landscape.

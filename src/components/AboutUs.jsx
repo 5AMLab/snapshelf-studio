@@ -85,7 +85,8 @@ const AboutUs = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-bold mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-t from-violet-300 to-violet-700">Our Vision</span>
+            <span className="text-violet-950">Our </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-violet-300">Vision</span>
           </h1>
 
           <p className="text-xl text-violet-950 mb-12 max-w-3xl mx-auto leading-normal">

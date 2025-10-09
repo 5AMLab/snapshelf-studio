@@ -4,6 +4,7 @@ import Header from '../components/shared/Header'
 import Footer from '../components/shared/Footer'
 import CTASection from '../components/CTASection'
 import BeforeAfterSlider from '../components/BeforeAfterSlider'
+import Logos from '../components/shared/Logos'
 import { BoltIcon, CheckCircleIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
 
 const ServicesPage = () => {
@@ -41,7 +42,8 @@ const ServicesPage = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-t from-violet-300 to-violet-700">Made for Commerce</span>
+            <span className="text-violet-950">Made for </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-700 to-violet-300">Commerce</span>
           </h1>
           <p className="text-xl text-violet-950 max-w-3xl mx-auto">
             Professional photo editing services designed specifically for e-commerce businesses.
@@ -54,7 +56,7 @@ const ServicesPage = () => {
       <section className="pt-8 pb-16 bg-gradient-to-b from-white via-violet-100 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Services Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             {/* Service 1: Photo Editing */}
             <div className="bg-white rounded-2xl overflow-hidden flex flex-col h-[600px]">
               <div className="relative overflow-hidden rounded-t-2xl flex-[3] flex items-center justify-center">
@@ -110,61 +112,11 @@ const ServicesPage = () => {
           </div>
 
           {/* Platform Logos */}
-          <div className="text-center mb-8">
-            <p className="text-lg font-semibold text-violet-950">Optimized for every marketplace</p>
-          </div>
-
-          <div className="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-7">
-            <img
-              alt="Zalora"
-              src="/images/logos/zalora-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-12 lg:max-h-20 pt-4 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Shopee"
-              src="/images/logos/Shopee-horizontal-logo.svg"
-              width={59}
-              height={19}
-              className="col-span-2 max-h-11 lg:max-h-17 pb-1 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Amazon"
-              src="/images/logos/amazon-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-12 lg:max-h-20 pt-4 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Lazada"
-              src="/images/logos/lazada-logo.svg"
-              width={74}
-              height={19}
-              className="col-span-2 max-h-11 lg:max-h-17 pt-2 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-            <img
-              alt="Shopify"
-              src="/images/logos/shopify-logo.svg"
-              width={57}
-              height={17}
-              className="col-span-2 col-start-2 max-h-10 lg:max-h-14 w-full object-contain sm:col-start-auto md:col-span-1 md:col-start-auto lg:col-span-1"
-            />
-            <img
-              alt="Meta/Instagram"
-              src="/images/logos/meta-logo-2.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-10 lg:max-h-14 w-full object-contain sm:col-start-2 md:col-span-1 md:col-start-auto lg:col-span-1"
-            />
-            <img
-              alt="WooCommerce"
-              src="/images/logos/woocommerce-logo.svg"
-              width={60}
-              height={20}
-              className="col-span-2 max-h-10 lg:max-h-14 w-full object-contain md:col-span-1 lg:col-span-1"
-            />
-          </div>
+          <Logos
+            variant="default"
+            showTitle={true}
+            title="Optimized for every marketplace"
+          />
         </div>
       </section>
 
