@@ -14,7 +14,9 @@ import {
   TagIcon,
   ClockIcon as Clock,
   ArrowRightIcon as ArrowRight,
-  ExclamationTriangleIcon as AlertTriangle
+  ExclamationTriangleIcon as AlertTriangle,
+  ShieldCheckIcon as ShieldCheck,
+  GlobeAltIcon as GlobeAlt
 } from '@heroicons/react/24/outline'
 import orderQueueService from '../services/orderQueueService'
 
@@ -429,6 +431,22 @@ const NewPricingCalculator = () => {
                   <span>Submit & Review</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
+              </div>
+
+              {/* Trust anchors */}
+              <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mt-5 pt-4 border-t border-green-200">
+                <div className="flex items-center space-x-1.5 text-xs text-green-800">
+                  <GlobeAlt className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>SEA marketplace spec experts</span>
+                </div>
+                <div className="flex items-center space-x-1.5 text-xs text-green-800">
+                  <ShieldCheck className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Human-edited, not AI</span>
+                </div>
+                <div className="flex items-center space-x-1.5 text-xs text-green-800">
+                  <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>48-hr SLA or it's free</span>
+                </div>
               </div>
             </div>
           </div>
