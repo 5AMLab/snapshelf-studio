@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Header from './shared/Header'
 import Footer from './shared/Footer'
 import SEOFooter from './shared/SEOFooter'
+import CustomerPersonas from './shared/CustomerPersonas'
+import Testimonials from './shared/Testimonials'
 import TeamMembers from './shared/TeamMembers'
 import Jobs from './shared/Jobs'
 import CTASection from './CTASection'
@@ -245,6 +247,12 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+
+      {/* Customer Personas */}
+      <CustomerPersonas />
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Our Team */}
       <TeamMembers />
