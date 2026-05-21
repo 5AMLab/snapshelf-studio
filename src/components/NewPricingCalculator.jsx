@@ -445,7 +445,7 @@ const NewPricingCalculator = () => {
                 </div>
                 <div className="flex items-center space-x-1.5 text-xs text-green-800">
                   <Clock className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span>48-hr SLA or it's free</span>
+                  <span>72-hr SLA or it's free</span>
                 </div>
               </div>
             </div>

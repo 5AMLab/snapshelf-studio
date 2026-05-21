@@ -6,18 +6,18 @@ export const PRICING_CONFIG = {
   
   // Base pricing structure
   basePricing: {
-    basePrice: 18.90,
-    basePriceDisplay: '$18.90',
+    basePrice: 14.90,
+    basePriceDisplay: '$14.90',
     description: 'Standard edit includes: Background removal, basic color correction, crop and resize to one marketplace',
     minimumOrder: 5,
     
     // Volume discount tiers
     volumeDiscounts: [
-      { minQuantity: 5, maxQuantity: 9, discount: 0.00, label: '5-9 edits', price: 18.90 },
-      { minQuantity: 10, maxQuantity: 24, discount: 0.09, label: '10-24 edits', price: 17.20 },
-      { minQuantity: 25, maxQuantity: 49, discount: 0.18, label: '25-49 edits', price: 15.50 },
-      { minQuantity: 50, maxQuantity: 99, discount: 0.27, label: '50-99 edits', price: 13.80 },
-      { minQuantity: 100, maxQuantity: 9999, discount: 0.36, label: '100+ edits', price: 12.10 }
+      { minQuantity: 5, maxQuantity: 9, discount: 0.00, label: '5-9 edits', price: 14.90 },
+      { minQuantity: 10, maxQuantity: 24, discount: 0.09, label: '10-24 edits', price: 13.50 },
+      { minQuantity: 25, maxQuantity: 49, discount: 0.19, label: '25-49 edits', price: 12.00 },
+      { minQuantity: 50, maxQuantity: 99, discount: 0.30, label: '50-99 edits', price: 10.50 },
+      { minQuantity: 100, maxQuantity: 9999, discount: 0.40, label: '100+ edits', price: 9.00 }
     ],
     
     // Add-on services
@@ -38,13 +38,13 @@ export const PRICING_CONFIG = {
         ]
       },
       complexBackgroundRemoval: {
-        price: 24.90,
-        priceDisplay: '+$24.90',
+        price: 10.00,
+        priceDisplay: '+$10.00',
         description: 'Complex background removal for intricate hair, fur, jewelry, or detailed edges'
       },
       advancedRetouching: {
-        price: 10.00,
-        priceDisplay: '+$10.00',
+        price: 6.00,
+        priceDisplay: '+$6.00',
         description: 'Advanced retouching, color enhancement, and touch-ups'
       },
       creativeGraphics: {
@@ -66,12 +66,12 @@ export const PRICING_CONFIG = {
       id: 'enterprise-monthly',
       name: 'Enterprise Monthly',
       type: 'monthly',
-      basePrice: 10.90, // 10% better than 100+ volume pricing
+      basePrice: 8.50, // 6% better than 100+ volume pricing
       minimumEdits: 100,
-      priceDisplay: '$1,090/month',
+      priceDisplay: '$850/month',
       description: 'Monthly subscription for 100+ edits',
       features: [
-        '100+ edits at $10.90 each',
+        '100+ edits at $8.50 each',
         'Priority queue processing',
         'Dedicated account manager',
         '24-hour delivery standard',
@@ -85,15 +85,15 @@ export const PRICING_CONFIG = {
       id: 'enterprise-annual',
       name: 'Enterprise Annual', 
       type: 'annual',
-      basePrice: 9.59, // 12% additional discount vs monthly
+      basePrice: 7.50, // 12% additional discount vs monthly
       minimumEdits: 100,
-      priceDisplay: '$959/month',
-      yearlyPrice: 11508,
-      yearlyPriceDisplay: '$11,508/year',
-      savings: 'Save $1,572/year',
+      priceDisplay: '$750/month',
+      yearlyPrice: 9000,
+      yearlyPriceDisplay: '$9,000/year',
+      savings: 'Save $1,200/year',
       description: 'Annual subscription for 100+ edits with maximum savings',
       features: [
-        '100+ edits at $9.59 each',
+        '100+ edits at $7.50 each',
         'Priority queue processing',
         'Dedicated account manager',
         '12-hour delivery standard',
