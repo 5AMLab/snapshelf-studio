@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import SprintixStudio from './components/SnapShelfStudio'
+import SprintixHome from './components/SprintixHome'
 import ShopifyPage from './components/platforms/ShopifyPage'
 import AboutUs from './components/AboutUs'
 import PhotoEditing from './components/services/PhotoEditing'
@@ -21,6 +21,7 @@ import ProjectDetailsPage from './pages/ProjectDetailsPage'
 import PaymentPage from './pages/PaymentPage'
 import StreamlinedBookingPage from './pages/StreamlinedBookingPage'
 import OrderSuccessPage from './pages/OrderSuccessPage'
+import EnterpriseThankYouPage from './pages/EnterpriseThankYouPage'
 import OrderTrackingPage from './pages/OrderTrackingPage'
 import OrderSummaryPage from './pages/OrderSummaryPage'
 import PrivacyPolicy from './components/PrivacyPolicy'
@@ -42,6 +43,7 @@ import TeamMembersTestPage from './components/TeamMembersTestPage'
 import AdminDashboard from './components/AdminDashboard'
 import AdminLogin from './components/AdminLogin'
 import ProtectedRoute from './components/ProtectedRoute'
+import SprintixPage from './pages/SprintixPage'
 import { ModalProvider } from './context/ModalContext'
 import ModalManager from './components/ModalManager'
 
@@ -62,7 +64,7 @@ function App() {
       <ScrollToTop />
       <ModalProvider>
         <Routes>
-          <Route path="/" element={<SprintixStudio />} />
+          <Route path="/" element={<SprintixHome />} />
           <Route path="/shopify" element={<ShopifyPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/photo-editing" element={<PhotoEditing />} />
@@ -81,6 +83,7 @@ function App() {
           <Route path="/book" element={<StreamlinedBookingPage />} />
           <Route path="/checkout/summary" element={<OrderSummaryPage />} />
           <Route path="/checkout/success" element={<OrderSuccessPage />} />
+          <Route path="/inquiry/success" element={<EnterpriseThankYouPage />} />
           <Route path="/track" element={<OrderTrackingPage />} />
           <Route path="/track/:orderId" element={<OrderTrackingPage />} />
           <Route path="/careers" element={<CareersPage />} />
@@ -102,6 +105,8 @@ function App() {
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
+
+          <Route path="/sprintix" element={<SprintixPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
