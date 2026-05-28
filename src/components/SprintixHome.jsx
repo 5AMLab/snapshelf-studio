@@ -283,8 +283,8 @@ const SERVICES = [
   },
   {
     num: '06',
-    title: 'Search Engine Optimisation',
-    body: 'On-page SEO for product listings and store discoverability.',
+    title: 'Image SEO & Metadata',
+    body: 'Alt tags, image file naming, metadata optimisation, and compression — so your visuals work for both platform search and page speed.',
   },
   {
     num: '07',
@@ -361,7 +361,7 @@ const VISUAL_ITEMS = [
   'E-commerce Visual Design',
   'Performance Creative',
   'Store Setup & Brand Development',
-  'SEO',
+  'Image SEO & Metadata',
 ]
 
 const CAMPAIGN_ITEMS = [
