@@ -496,6 +496,8 @@
       transition: color .2s; line-height: 1;
     }
     #nav button:hover { color: var(--text); }
+    #nav .divider { width: 1px; height: 14px; background: var(--border); margin: 0 2px; }
+    #btn-fs { font-size: 13px; }
     .dots { display: flex; gap: 6px; align-items: center; }
     .d {
       width: 6px; height: 6px; border-radius: 50%;
@@ -830,6 +832,8 @@
     <div class="dots" id="dots"></div>
     <button id="next">→</button>
     <span id="counter">1/8</span>
+    <div class="divider"></div>
+    <button id="btn-fs" title="Toggle fullscreen (F)">⛶</button>
   </div>
 
 </div><!-- /deck -->
@@ -935,6 +939,28 @@
   });
 
   slides[0].classList.add('active');
+
+  // ── Fullscreen ──
+  const fsBtn = document.getElementById('btn-fs');
+  function updateFsIcon() {
+    fsBtn.textContent = document.fullscreenElement ? '✕' : '⛶';
+    fsBtn.title = document.fullscreenElement ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
+  }
+  fsBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+  document.addEventListener('fullscreenchange', updateFsIcon);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'f' || e.key === 'F') {
+      if (!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+        fsBtn.click();
+      }
+    }
+  });
 </script>
 </body>
 </html>
