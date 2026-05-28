@@ -257,35 +257,42 @@ const SERVICES = [
   {
     num: '01',
     title: 'Brand Identity Design',
-    body: 'Logos, colour systems, typography, and usage guidelines built for e-commerce.',
+    tag: 'For new businesses',
+    body: 'Logos, colour systems, typography, and usage guidelines built for e-commerce from the ground up.',
   },
   {
     num: '02',
+    title: 'Brand Consistency & Adaptation',
+    tag: 'For existing sellers',
+    body: 'Bring an existing brand up to standard — consistent assets, updated guidelines, and platform-ready application.',
+  },
+  {
+    num: '03',
     title: 'E-commerce Visual Design',
     body: 'Product listing images, store frontpage design, and platform-ready visuals.',
   },
   {
-    num: '03',
+    num: '04',
     title: 'Performance Creative',
     body: 'Ad creatives built to convert — banners, stories, and square formats for sponsored ads.',
   },
   {
-    num: '04',
-    title: 'Store Setup & Brand Development',
+    num: '05',
+    title: 'E-commerce Store Setup & Brand Development',
     body: 'Full store setup and brand application across Shopify, Lazada, or Shopee storefronts.',
   },
   {
-    num: '05',
+    num: '06',
     title: 'Search Engine Optimisation',
     body: 'On-page SEO for product listings and store discoverability.',
   },
   {
-    num: '06',
+    num: '07',
     title: 'Marketplace Campaign Management',
     body: 'Lazada and Shopee campaign strategy, sponsored ads, and promotional calendar management.',
   },
   {
-    num: '07',
+    num: '08',
     title: 'Campaign Performance Reporting',
     body: 'Monthly sales and campaign reports with actionable insights.',
   },
@@ -303,7 +310,7 @@ function Services() {
             className="text-4xl md:text-5xl font-black text-zinc-950 mt-3 mb-14"
             style={{ fontFamily: "'Syne', sans-serif" }}
           >
-            Seven ways we grow<br className="hidden md:block" /> your store.
+            Eight ways we grow<br className="hidden md:block" /> your store.
           </h2>
         </div>
 
@@ -313,7 +320,14 @@ function Services() {
               key={s.num}
               className={`group border border-zinc-100 rounded-2xl p-8 hover:border-zinc-300 hover:shadow-md transition-all duration-300 ${fadeUp(inView, i * 60)}`}
             >
-              <span className="text-zinc-300 text-xs font-mono font-bold">{s.num}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-zinc-300 text-xs font-mono font-bold">{s.num}</span>
+                {s.tag && (
+                  <span className="text-[11px] font-semibold text-zinc-400 bg-zinc-100 px-2.5 py-1 rounded-full">
+                    {s.tag}
+                  </span>
+                )}
+              </div>
               <h3 className="text-zinc-950 font-bold text-lg mt-3 mb-2 group-hover:text-zinc-800 transition-colors">
                 {s.title}
               </h3>
