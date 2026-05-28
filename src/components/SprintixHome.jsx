@@ -154,6 +154,11 @@ function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-center bg-zinc-950 overflow-hidden"
     >
+      <style>{`
+        @keyframes heroCol1 { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+        @keyframes heroCol2 { from { transform: translateY(-25%); } to { transform: translateY(-75%); } }
+      `}</style>
+
       {/* Subtle dot-grid texture */}
       <div
         className="absolute inset-0 opacity-[0.04]"
@@ -171,7 +176,10 @@ function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 lg:flex lg:items-center lg:gap-8">
+        {/* Text content */}
+        <div className="flex-1 min-w-0">
+
         {/* Studio badge */}
         <div
           className={`inline-flex items-center gap-2 bg-zinc-800/80 border border-zinc-700 rounded-full px-4 py-1.5 mb-10 transition-all duration-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -200,7 +208,7 @@ function Hero() {
           className={`mt-8 text-zinc-400 text-lg md:text-xl leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
           Sprintix is a boutique e-commerce growth studio combining visual production
-          and Lazada/Shopee campaign management — from one team.
+          and marketplace campaign management — from one team.
         </p>
 
         {/* CTAs */}
@@ -242,6 +250,49 @@ function Hero() {
             ))}
           </div>
         </div>
+
+        </div> {/* end text content */}
+
+        {/* Scrolling product image wall — desktop only */}
+        <div className="hidden lg:flex gap-3 flex-shrink-0 w-80 xl:w-96 h-[600px] overflow-hidden relative rounded-2xl">
+          {/* Fade masks */}
+          <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-zinc-950 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-zinc-950 to-transparent z-10 pointer-events-none" />
+
+          {/* Column 1 */}
+          <div
+            className="flex flex-col gap-3 w-1/2 flex-shrink-0"
+            style={{ animation: 'heroCol1 22s linear infinite' }}
+          >
+            {['serum', 'lipstick', 'smartwatch', 'serum', 'lipstick', 'smartwatch'].map((name, i) => (
+              <img
+                key={i}
+                src={`/images/hero/${name}.webp`}
+                alt=""
+                className="w-full aspect-square object-cover rounded-xl"
+                loading="lazy"
+              />
+            ))}
+          </div>
+
+          {/* Column 2 */}
+          <div
+            className="flex flex-col gap-3 w-1/2 flex-shrink-0"
+            style={{ animation: 'heroCol2 28s linear infinite' }}
+          >
+            {['necklace', 'gadget', 'headphone', 'necklace', 'gadget', 'headphone'].map((name, i) => (
+              <img
+                key={i}
+                src={`/images/hero/${name}.webp`}
+                alt=""
+                className="w-full aspect-square object-cover rounded-xl"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
 
       {/* Bottom fade */}
@@ -506,27 +557,6 @@ function WhySprintix() {
 // ─────────────────────────────────────────────────────────────────────────────
 // 6. Packages
 // ─────────────────────────────────────────────────────────────────────────────
-function PricingRow({ label, includes, price }) {
-  return (
-    <div className="grid grid-cols-3 gap-4 py-4 border-b border-zinc-100 last:border-0 items-start">
-      <p className="font-semibold text-zinc-900 text-base">{label}</p>
-      <p className="text-zinc-500 text-base leading-relaxed">{includes}</p>
-      <p className="text-zinc-900 font-bold text-base text-right">{price}</p>
-    </div>
-  )
-}
-
-const STANDALONE_VISUAL = [
-  { label: 'Listing Visual Pack', includes: '6 optimised listing images per product', price: 'SGD 400–600' },
-  { label: 'Ad Creative Set', includes: '10 static creatives (banner, story, square)', price: 'SGD 500–800' },
-  { label: 'Store Frontpage Design', includes: 'Full Lazada/Shopee store front layout', price: 'SGD 800–1,200' },
-  { label: 'Brand Identity', includes: 'Logo, colour, typography, usage guide', price: 'SGD 1,500–2,500' },
-]
-
-const STANDALONE_CAMPAIGN = [
-  { label: 'Campaign Setup', includes: 'Full campaign architecture, ad setup, promo calendar', price: 'SGD 800 one-time' },
-  { label: 'Monthly Management', includes: 'Campaigns, sponsored ads, optimisation, reporting', price: '10% of revenue' },
-]
 
 function Packages() {
   const [ref, inView] = useInView()
@@ -561,17 +591,20 @@ function Packages() {
               </h4>
               <p className="text-zinc-900 font-bold text-xl mt-2">SGD 3,500 flat</p>
               <p className="text-zinc-500 text-base mb-7">+ 10% revenue from month 2</p>
-              <ul className="space-y-2.5 flex-1">
+              <ul className="space-y-3 flex-1">
                 {[
-                  'Store frontpage design',
-                  'Listing visuals (3 products)',
-                  'Ad creative set',
-                  'Campaign setup',
-                  'First month management',
+                  { label: 'Store frontpage design' },
+                  { label: 'Listing image set — 3 products' },
+                  { label: 'Ad creative set' },
+                  { label: 'Campaign setup' },
+                  { label: 'First month management' },
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-base text-zinc-600">
-                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-1.5 flex-shrink-0" />
-                    {item}
+                  <li key={item.label} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-2 flex-shrink-0" />
+                    <div>
+                      <p className="text-base text-zinc-600">{item.label}</p>
+                      {item.sub && <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">{item.sub}</p>}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -594,17 +627,20 @@ function Packages() {
               </h4>
               <p className="text-zinc-900 font-bold text-xl mt-2">SGD 5,000 flat</p>
               <p className="text-zinc-500 text-base mb-7">+ 10% revenue ongoing</p>
-              <ul className="space-y-2.5 flex-1">
+              <ul className="space-y-3 flex-1">
                 {[
-                  'Full store visual refresh',
-                  'Listing visuals (5 products)',
-                  'Ad creative set',
-                  'Campaign audit',
-                  'Ongoing campaign management',
+                  { label: 'Full store visual refresh' },
+                  { label: 'Listing image set — 5 products' },
+                  { label: 'Ad creative set' },
+                  { label: 'Campaign audit' },
+                  { label: 'Ongoing campaign management' },
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-base text-zinc-600">
-                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-1.5 flex-shrink-0" />
-                    {item}
+                  <li key={item.label} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-2 flex-shrink-0" />
+                    <div>
+                      <p className="text-base text-zinc-600">{item.label}</p>
+                      {item.sub && <p className="text-xs text-zinc-400 mt-0.5 leading-relaxed">{item.sub}</p>}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -655,29 +691,6 @@ function Packages() {
                 Get This Pack
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* ── Standalone tables ── */}
-        <div className={`space-y-5 mb-8 ${fadeUp(inView, 160)}`}>
-          <div className="bg-white border border-zinc-200 rounded-2xl p-8">
-            <h3 className="text-zinc-950 font-bold text-lg mb-6">Standalone — Visual Production</h3>
-            <div className="grid grid-cols-3 gap-4 pb-3">
-              {['Service', 'Includes', 'Price'].map((h) => (
-                <p key={h} className={`text-xs font-bold text-zinc-400 uppercase tracking-wide ${h === 'Price' ? 'text-right' : ''}`}>{h}</p>
-              ))}
-            </div>
-            {STANDALONE_VISUAL.map((row) => <PricingRow key={row.label} {...row} />)}
-          </div>
-
-          <div className="bg-white border border-zinc-200 rounded-2xl p-8">
-            <h3 className="text-zinc-950 font-bold text-lg mb-6">Standalone — Campaign Management</h3>
-            <div className="grid grid-cols-3 gap-4 pb-3">
-              {['Service', 'Includes', 'Price'].map((h) => (
-                <p key={h} className={`text-xs font-bold text-zinc-400 uppercase tracking-wide ${h === 'Price' ? 'text-right' : ''}`}>{h}</p>
-              ))}
-            </div>
-            {STANDALONE_CAMPAIGN.map((row) => <PricingRow key={row.label} {...row} />)}
           </div>
         </div>
 
