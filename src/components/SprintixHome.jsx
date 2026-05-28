@@ -317,18 +317,18 @@ function Services() {
               <h3 className="text-zinc-950 font-bold text-lg mt-3 mb-2 group-hover:text-zinc-800 transition-colors">
                 {s.title}
               </h3>
-              <p className="text-zinc-500 text-sm leading-relaxed">{s.body}</p>
+              <p className="text-zinc-500 text-base leading-relaxed">{s.body}</p>
             </div>
           ))}
 
           {/* Eighth slot — CTA card */}
           <div className="bg-zinc-950 rounded-2xl p-8 flex flex-col justify-between">
-            <p className="text-zinc-400 text-sm leading-relaxed">
+            <p className="text-zinc-400 text-base leading-relaxed">
               Not sure which service fits? Let's talk — we'll tell you exactly what you need.
             </p>
             <button
               onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="mt-8 self-start bg-lime-400 text-zinc-950 font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-lime-300 transition-colors"
+              className="mt-8 self-start bg-lime-400 text-zinc-950 font-bold text-base px-5 py-2.5 rounded-lg hover:bg-lime-300 transition-colors"
             >
               Get in Touch
             </button>
@@ -385,7 +385,7 @@ function TwoLane() {
             <h3 className="text-white font-bold text-xl mb-6">Visual Production</h3>
             <ul className="space-y-3">
               {VISUAL_ITEMS.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-zinc-400 text-sm">
+                <li key={item} className="flex items-center gap-3 text-zinc-400 text-base">
                   <span className="w-1.5 h-1.5 rounded-full bg-lime-400 flex-shrink-0" />
                   {item}
                 </li>
@@ -404,7 +404,7 @@ function TwoLane() {
             <h3 className="text-zinc-950 font-bold text-xl mb-6">Campaign Management</h3>
             <ul className="space-y-3">
               {CAMPAIGN_ITEMS.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-zinc-600 text-sm">
+                <li key={item} className="flex items-center gap-3 text-zinc-600 text-base">
                   <span className="w-1.5 h-1.5 rounded-full bg-zinc-950 flex-shrink-0" />
                   {item}
                 </li>
@@ -479,8 +479,8 @@ function WhySprintix() {
               >
                 {w.stat}
               </p>
-              <p className="text-zinc-700 font-semibold text-sm mb-2">{w.label}</p>
-              <p className="text-zinc-400 text-xs leading-relaxed">{w.sub}</p>
+              <p className="text-zinc-700 font-semibold text-base mb-2">{w.label}</p>
+              <p className="text-zinc-400 text-sm leading-relaxed">{w.sub}</p>
             </div>
           ))}
         </div>
@@ -495,9 +495,9 @@ function WhySprintix() {
 function PricingRow({ label, includes, price }) {
   return (
     <div className="grid grid-cols-3 gap-4 py-4 border-b border-zinc-100 last:border-0 items-start">
-      <p className="font-semibold text-zinc-900 text-sm">{label}</p>
-      <p className="text-zinc-500 text-sm leading-relaxed">{includes}</p>
-      <p className="text-zinc-900 font-bold text-sm text-right">{price}</p>
+      <p className="font-semibold text-zinc-900 text-base">{label}</p>
+      <p className="text-zinc-500 text-base leading-relaxed">{includes}</p>
+      <p className="text-zinc-900 font-bold text-base text-right">{price}</p>
     </div>
   )
 }
@@ -546,7 +546,7 @@ function Packages() {
                 Launch Pack
               </h4>
               <p className="text-zinc-900 font-bold text-xl mt-2">SGD 3,500 flat</p>
-              <p className="text-zinc-500 text-sm mb-7">+ 10% revenue from month 2</p>
+              <p className="text-zinc-500 text-base mb-7">+ 10% revenue from month 2</p>
               <ul className="space-y-2.5 flex-1">
                 {[
                   'Store frontpage design',
@@ -555,7 +555,7 @@ function Packages() {
                   'Campaign setup',
                   'First month management',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-zinc-600">
+                  <li key={item} className="flex items-start gap-2.5 text-base text-zinc-600">
                     <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-1.5 flex-shrink-0" />
                     {item}
                   </li>
@@ -563,7 +563,7 @@ function Packages() {
               </ul>
               <button
                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="mt-8 w-full text-center bg-zinc-100 text-zinc-900 font-semibold px-6 py-3 rounded-xl text-sm hover:bg-zinc-200 transition-colors"
+                className="mt-8 w-full text-center bg-zinc-100 text-zinc-900 font-semibold px-6 py-3 rounded-xl text-base hover:bg-zinc-200 transition-colors"
               >
                 Enquire Now
               </button>
@@ -579,7 +579,7 @@ function Packages() {
                 Scale Pack
               </h4>
               <p className="text-zinc-900 font-bold text-xl mt-2">SGD 5,000 flat</p>
-              <p className="text-zinc-500 text-sm mb-7">+ 10% revenue ongoing</p>
+              <p className="text-zinc-500 text-base mb-7">+ 10% revenue ongoing</p>
               <ul className="space-y-2.5 flex-1">
                 {[
                   'Full store visual refresh',
@@ -588,7 +588,7 @@ function Packages() {
                   'Campaign audit',
                   'Ongoing campaign management',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-zinc-600">
+                  <li key={item} className="flex items-start gap-2.5 text-base text-zinc-600">
                     <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-1.5 flex-shrink-0" />
                     {item}
                   </li>
@@ -596,7 +596,7 @@ function Packages() {
               </ul>
               <button
                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="mt-8 w-full text-center bg-zinc-100 text-zinc-900 font-semibold px-6 py-3 rounded-xl text-sm hover:bg-zinc-200 transition-colors"
+                className="mt-8 w-full text-center bg-zinc-100 text-zinc-900 font-semibold px-6 py-3 rounded-xl text-base hover:bg-zinc-200 transition-colors"
               >
                 Enquire Now
               </button>
@@ -620,7 +620,7 @@ function Packages() {
                 Sprint Pack
               </h4>
               <p className="text-lime-400 font-bold text-xl mt-2">SGD 1,200/month</p>
-              <p className="text-zinc-500 text-sm mb-7">+ 10% revenue</p>
+              <p className="text-zinc-500 text-base mb-7">+ 10% revenue</p>
               <ul className="space-y-2.5 flex-1">
                 {[
                   'Monthly ad creative refresh (8 creatives)',
@@ -628,7 +628,7 @@ function Packages() {
                   'Monthly strategy call',
                   'Priority turnaround',
                 ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-zinc-300">
+                  <li key={item} className="flex items-start gap-2.5 text-base text-zinc-300">
                     <span className="w-1.5 h-1.5 bg-lime-400 rounded-full mt-1.5 flex-shrink-0" />
                     {item}
                   </li>
@@ -636,7 +636,7 @@ function Packages() {
               </ul>
               <button
                 onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="mt-8 w-full text-center bg-lime-400 text-zinc-950 font-bold px-6 py-3 rounded-xl text-sm hover:bg-lime-300 transition-colors"
+                className="mt-8 w-full text-center bg-lime-400 text-zinc-950 font-bold px-6 py-3 rounded-xl text-base hover:bg-lime-300 transition-colors"
               >
                 Get This Pack
               </button>
@@ -670,7 +670,7 @@ function Packages() {
         {/* Note */}
         <div className={`flex items-start gap-3 bg-zinc-100 rounded-xl px-6 py-4 ${fadeUp(inView, 200)}`}>
           <span className="text-zinc-400 text-sm mt-0.5">ⓘ</span>
-          <p className="text-zinc-600 text-sm">
+          <p className="text-zinc-600 text-base">
             Retainer slots are limited. We keep our client list small on purpose.
           </p>
         </div>
@@ -719,7 +719,7 @@ function WhoItsFor() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </span>
-                <p className="text-zinc-200 text-sm leading-relaxed">{q}</p>
+                <p className="text-zinc-200 text-base leading-relaxed">{q}</p>
               </div>
             ))}
           </div>
@@ -746,7 +746,7 @@ function Contact() {
   }
 
   const inputClass =
-    'w-full bg-zinc-800 border border-zinc-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-lime-400 transition-colors placeholder:text-zinc-600'
+    'w-full bg-zinc-800 border border-zinc-700 text-white rounded-xl px-4 py-3 text-base focus:outline-none focus:border-lime-400 transition-colors placeholder:text-zinc-600'
 
   return (
     <section id="contact" className="bg-white py-24 px-6">
@@ -773,7 +773,7 @@ function Contact() {
                 </svg>
               </div>
               <h3 className="text-white font-bold text-xl mb-2">We got your message.</h3>
-              <p className="text-zinc-400 text-sm">Expect a reply within 24 hours.</p>
+              <p className="text-zinc-400 text-base">Expect a reply within 24 hours.</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="space-y-4">
@@ -845,7 +845,7 @@ function Contact() {
         </div>
 
         <div className={`mt-6 space-y-2 ${fadeUp(inView, 200)}`}>
-          <p className="text-zinc-500 text-sm">
+          <p className="text-zinc-500 text-base">
             Or email us directly at{' '}
             <a
               href="mailto:hello@sprintix.co"
@@ -887,7 +887,7 @@ function Footer() {
             >
               Sprintix<span className="text-lime-400">.</span>
             </span>
-            <p className="text-zinc-500 text-sm mt-2 max-w-xs leading-relaxed">
+            <p className="text-zinc-500 text-base mt-2 max-w-xs leading-relaxed">
               Your products. Looking right. Selling right.
             </p>
           </div>
