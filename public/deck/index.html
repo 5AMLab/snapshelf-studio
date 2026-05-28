@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sprintix — Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime:   #a3e635;
+      --lime-d: #84cc16;
+      --bg:     #09090b;
+      --bg2:    #18181b;
+      --bg3:    #27272a;
+      --border: #3f3f46;
+      --muted:  #71717a;
+      --text:   #fafafa;
+      --sub:    #a1a1aa;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      color: var(--text);
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCALE WRAPPER — always 16:9, scales to fit viewport ── */
+    #stage {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform-origin: center center;
+      /* actual size set by JS */
+      width: 1280px;
+      height: 720px;
+    }
+
+    #deck {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    /* ── SLIDE ── */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 80px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(20px);
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .slide.exit {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+    .inner {
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    /* ── TYPE ── */
+    .syne { font-family: 'Syne', sans-serif; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 22px;
+    }
+    .eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--lime);
+    }
+    .lime-tag {
+      display: inline-block;
+      background: var(--lime);
+      color: #09090b;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    /* ── GRID ── */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+    /* ── BASE CARD ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    /* ── SLIDE 1 COVER ── */
+    #s1 { align-items: flex-end; justify-content: flex-start; }
+    #s1 .inner { display: flex; flex-direction: column; align-items: flex-start; }
+    #s1 .bg-grid {
+      position: absolute;
+      top: 0; right: 0;
+      width: 520px; height: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px; padding: 24px;
+    }
+    #s1 .bg-grid div {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+    #s1 .bg-grid div img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .6s ease;
+    }
+    #s1 .bg-grid div:hover img { transform: scale(1.05); }
+    #s1 h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: 96px;
+      line-height: .9;
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+    #s1 h1 .lime { color: var(--lime); }
+    #s1 .sub {
+      font-size: 18px;
+      color: var(--sub);
+      line-height: 1.6;
+      max-width: 560px;
+      margin-top: 20px;
+    }
+    #s1 .sub strong { color: var(--text); }
+    #s1 .plat-row {
+      display: flex; align-items: center; gap: 24px;
+      margin-top: 30px; padding-top: 24px;
+      border-top: 1px solid var(--bg3);
+    }
+    #s1 .plat-row .label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .04em; }
+    #s1 .plat-row .tags { display: flex; gap: 8px; }
+    #s1 .plat-row .tags span {
+      font-size: 11px; font-weight: 700;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 3px 10px; color: var(--sub);
+    }
+
+    /* ── SLIDE 2 PROBLEM ── */
+    #s2 .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    #s2 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+    #s2 h2 .lime { color: var(--lime); }
+    .pain {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .pain:last-child { margin-bottom: 0; }
+    .pain .icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; padding-top: 1px; }
+    .pain h4 { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--text); }
+    .pain p { font-size: 12px; color: var(--sub); line-height: 1.6; }
+
+    /* ── SLIDE 3 SOLUTION ── */
+    #s3 .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    #s3 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 52px;
+      line-height: 1; letter-spacing: -.025em;
+      margin-bottom: 16px;
+    }
+    #s3 h2 .lime { color: var(--lime); }
+    #s3 .lead { font-size: 15px; color: var(--sub); line-height: 1.7; }
+    #s3 .lead strong { color: var(--text); }
+    #s3 .sol-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 26px;
+    }
+    #s3 .sol-card + .sol-card { margin-top: 16px; }
+    #s3 .sol-card .sc-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: var(--text); margin-bottom: 8px; }
+    #s3 .sol-card .sc-body { font-size: 13px; color: var(--sub); line-height: 1.65; }
+
+    /* ── SLIDE 4 SERVICES ── */
+    #s4 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 42px;
+      letter-spacing: -.025em; margin-bottom: 4px;
+    }
+    #s4 h2 .lime { color: var(--lime); }
+    #s4 .sub-lead { font-size: 14px; color: var(--sub); margin-bottom: 22px; }
+    .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; }
+    .svc-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 16px;
+    }
+    .svc-card .num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; margin-bottom: 8px; }
+    .svc-card .name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; line-height: 1.3; color: var(--text); }
+
+    /* ── SLIDE 5 PRICING ── */
+    #s5 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 42px;
+      letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    #s5 h2 .lime { color: var(--lime); }
+    .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pc {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px 24px;
+      display: flex; flex-direction: column;
+    }
+    .pc.hot { background: #1c1c1f; border-color: var(--lime); }
+    .pc .tier { font-size: 9px; font-weight: 600; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .pc .pname { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 900; color: var(--text); }
+    .pc .pprice { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 900; color: var(--lime); margin: 8px 0 2px; line-height: 1; }
+    .pc .psub { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+    .pc ul { list-style: none; flex: 1; }
+    .pc ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: var(--sub); margin-bottom: 10px; }
+    .pc ul li .b { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); flex-shrink: 0; margin-top: 5px; }
+    .pc .btn {
+      display: block; text-align: center; font-weight: 700; font-size: 13px;
+      padding: 11px; border-radius: 10px; margin-top: 18px;
+      cursor: pointer; text-decoration: none; transition: all .2s;
+    }
+    .pc .btn-out { border: 1px solid var(--border); color: var(--sub); }
+    .pc .btn-out:hover { border-color: var(--sub); color: var(--text); }
+    .pc .btn-lime { background: var(--lime); color: #09090b; }
+    .pc .btn-lime:hover { background: var(--lime-d); }
+    #s5 .note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 14px; }
+
+    /* ── SLIDE 6 BREAKDOWN ── */
+    #s6bd h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 38px;
+      letter-spacing: -.025em; margin-bottom: 18px;
+    }
+    #s6bd h2 .lime { color: var(--lime); }
+    .bt {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    /* column header row */
+    .bt .bt-hdr th {
+      padding: 0 0 14px 0;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .bt .bt-hdr th.bt-feat { width: 220px; }
+    .bt .bt-hdr .pkg-wrap {
+      display: flex; flex-direction: column;
+    }
+    .bt .bt-hdr .pkg-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 900; color: var(--text);
+    }
+    .bt .bt-hdr .pkg-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px; font-weight: 900; color: var(--lime);
+      margin: 3px 0 1px;
+    }
+    .bt .bt-hdr .pkg-sub {
+      font-size: 10px; color: var(--muted); font-weight: 500;
+    }
+    .bt .bt-hdr .hot-hdr .pkg-name { color: var(--lime); }
+    /* section separator rows */
+    .bt .bt-sec td {
+      font-size: 9px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 12px 0 5px;
+      border-bottom: 1px solid var(--bg3);
+    }
+    /* data rows */
+    .bt .bt-row td {
+      padding: 9px 0;
+      font-size: 12px;
+      border-bottom: 1px solid var(--bg3);
+      vertical-align: middle;
+    }
+    .bt .bt-row:last-child td { border-bottom: none; }
+    .bt .bt-row .bt-feat {
+      color: var(--sub); font-weight: 500;
+    }
+    .bt .bt-row .bt-val {
+      color: var(--text); font-weight: 500;
+      padding-right: 20px;
+    }
+    .bt .bt-row .bt-val.ck { color: var(--lime); font-weight: 700; }
+    .bt .bt-row .bt-val.dm { color: var(--bg3); }
+    .bt .bt-row .bt-val.mu { color: var(--muted); font-style: italic; }
+    .bt .bt-row .bt-val.hot-val { color: var(--lime); font-weight: 700; }
+
+    /* ── SLIDE 7 WHY ── */
+    #s6 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 44px;
+      letter-spacing: -.025em; margin-bottom: 22px;
+    }
+    #s6 h2 .lime { color: var(--lime); }
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .sc {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 20px;
+    }
+    .sc .val { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 900; color: var(--lime); line-height: 1; margin-bottom: 8px; }
+    .sc .lbl { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .sc .sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+    /* ── SLIDE 7 WHO ── */
+    #s7 .inner { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: center; }
+    #s7 h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 50px;
+      line-height: 1.05; letter-spacing: -.025em;
+      margin-bottom: 14px;
+    }
+    #s7 h2 .lime { color: var(--lime); }
+    #s7 .lead { font-size: 14px; color: var(--sub); line-height: 1.7; }
+    .who-list { }
+    .wi {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--bg3);
+    }
+    .wi:last-child { border-bottom: none; }
+    .wi .chk {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--lime); color: #09090b;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 900; flex-shrink: 0;
+    }
+    .wi span { font-size: 13px; color: var(--sub); line-height: 1.5; }
+    .wi span strong { color: var(--text); }
+
+    /* ── SLIDE 8 CTA ── */
+    #s8 { text-align: center; flex-direction: column; gap: 0; }
+    #s8 .glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 45%, rgba(163,230,53,.07), transparent);
+      pointer-events: none;
+    }
+    #s8 .inner { display: flex; flex-direction: column; align-items: center; }
+    #s8 h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 88px;
+      line-height: .92; letter-spacing: -.03em;
+      margin-bottom: 18px;
+    }
+    #s8 h1 .lime { color: var(--lime); }
+    #s8 .sub { font-size: 16px; color: var(--sub); max-width: 540px; line-height: 1.65; }
+    #s8 .btns { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; justify-content: center; }
+    #s8 .btns a {
+      font-weight: 700; font-size: 15px; padding: 14px 36px;
+      border-radius: 12px; text-decoration: none; transition: all .2s;
+    }
+    #s8 .btns .p { background: var(--lime); color: #09090b; }
+    #s8 .btns .p:hover { background: var(--lime-d); }
+    #s8 .btns .s { border: 1px solid var(--border); color: var(--text); }
+    #s8 .btns .s:hover { border-color: var(--sub); }
+    #s8 .contact { font-size: 12px; color: var(--muted); margin-top: 28px; }
+    #s8 .contact a { color: var(--sub); text-decoration: none; }
+
+    /* ── PASSWORD GATE ── */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .5s ease;
+    }
+    #gate.unlocked { opacity: 0; pointer-events: none; }
+    #gate .g-card {
+      width: 380px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+    #gate .g-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 32px;
+      letter-spacing: -.02em; color: var(--text);
+      margin-bottom: 8px;
+    }
+    #gate .g-logo span { color: var(--lime); }
+    #gate .g-sub {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 36px; line-height: 1.5;
+    }
+    #gate .g-field {
+      width: 100%; position: relative; margin-bottom: 12px;
+    }
+    #gate .g-field input {
+      width: 100%; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 48px 14px 18px;
+      font-size: 15px; font-family: 'DM Sans', sans-serif;
+      color: var(--text); outline: none;
+      transition: border-color .2s;
+    }
+    #gate .g-field input:focus { border-color: var(--lime); }
+    #gate .g-field input.err { border-color: #ef4444; animation: shake .3s ease; }
+    #gate .g-field .g-eye {
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 16px; padding: 4px;
+      transition: color .2s;
+    }
+    #gate .g-field .g-eye:hover { color: var(--sub); }
+    #gate .g-err {
+      font-size: 12px; color: #ef4444;
+      min-height: 18px; margin-bottom: 16px;
+    }
+    #gate .g-btn {
+      width: 100%; background: var(--lime); color: #09090b;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700; font-size: 15px;
+      padding: 14px; border: none; border-radius: 12px;
+      cursor: pointer; transition: background .2s;
+    }
+    #gate .g-btn:hover { background: var(--lime-d); }
+    #gate .g-btn:disabled { opacity: .5; cursor: not-allowed; }
+    #gate .g-divider {
+      width: 100%; height: 1px; background: var(--bg3);
+      margin: 28px 0 20px;
+    }
+    #gate .g-note {
+      font-size: 11px; color: var(--muted); line-height: 1.6;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-5px); }
+      80%      { transform: translateX(5px); }
+    }
+
+    /* ── BRAND WATERMARK ── */
+    #brand {
+      position: absolute;
+      top: 24px; left: 40px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 18px;
+      color: var(--text);
+      letter-spacing: -.01em;
+    }
+    #brand span { color: var(--lime); }
+
+    /* ── NAV ── */
+    #nav {
+      position: absolute;
+      bottom: 22px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(24,24,27,.9);
+      border: 1px solid var(--border);
+      border-radius: 999px; padding: 8px 18px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+    #nav button {
+      background: none; border: none; color: var(--sub);
+      cursor: pointer; font-size: 14px; padding: 2px 5px;
+      transition: color .2s; line-height: 1;
+    }
+    #nav button:hover { color: var(--text); }
+    .dots { display: flex; gap: 6px; align-items: center; }
+    .d {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--bg3); border: 1px solid var(--border);
+      cursor: pointer; transition: all .2s;
+    }
+    .d.on { background: var(--lime); border-color: var(--lime); width: 18px; border-radius: 3px; }
+    #counter { font-size: 10px; color: var(--muted); font-weight: 600; min-width: 28px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- ── PASSWORD GATE ── -->
+<div id="gate">
+  <div class="g-card">
+    <div class="g-logo">Sprintix<span>.</span></div>
+    <p class="g-sub">This presentation is private.<br>Enter the access code to continue.</p>
+    <div class="g-field">
+      <input type="password" id="g-input" placeholder="Access code" autocomplete="off" autofocus />
+      <button class="g-eye" id="g-eye" tabindex="-1" aria-label="Toggle visibility">👁</button>
+    </div>
+    <div class="g-err" id="g-err"></div>
+    <button class="g-btn" id="g-submit">View Deck →</button>
+    <div class="g-divider"></div>
+    <p class="g-note">Don't have the code? Reach out at<br><a href="mailto:hello@sprintix.co" style="color:var(--sub);text-decoration:none;">hello@sprintix.co</a></p>
+  </div>
+</div>
+
+<div id="stage">
+<div id="deck">
+
+  <!-- brand -->
+  <div id="brand">Sprintix<span>.</span></div>
+
+  <!-- ── S1: COVER ── -->
+  <section class="slide" id="s1">
+    <div class="bg-grid" aria-hidden="true">
+      <div><img src="/images/hero/perfume.webp" alt="" /></div>
+      <div><img src="/images/hero/lipstick.webp" alt="" /></div>
+      <div><img src="/images/hero/necklace.webp" alt="" /></div>
+      <div><img src="/images/hero/handbag-2.webp" alt="" /></div>
+      <div><img src="/images/hero/shoe-2.webp" alt="" /></div>
+      <div><img src="/images/hero/smartwatch.webp" alt="" /></div>
+    </div>
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Boutique E-commerce Growth Studio · Singapore</div>
+      <h1>Look right.<br><span class="lime">Sell right.</span></h1>
+      <p class="sub">Sprintix combines <strong>visual production</strong> and <strong>marketplace campaign management</strong> — from one team.</p>
+      <div class="plat-row">
+        <span class="label">We work across</span>
+        <div class="tags">
+          <span>Lazada</span><span>Shopee</span><span>Shopify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S2: PROBLEM ── -->
+  <section class="slide" id="s2">
+    <div class="inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>The Problem</div>
+        <h2>E-commerce brands are <span class="lime">losing money</span> on bad visuals and fragmented campaigns.</h2>
+      </div>
+      <div>
+        <div class="pain">
+          <div class="icon">🎨</div>
+          <div>
+            <h4>Design and campaigns never talk to each other</h4>
+            <p>Most brands use a separate designer and a separate ads manager. Messaging is inconsistent, creatives are stale, and no one owns the full funnel.</p>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="icon">⏱</div>
+          <div>
+            <h4>Platform mega-sales are missed</h4>
+            <p>11.11, 12.12, and Lazada Birthday Campaigns require weeks of prep. Brands scramble last-minute — and leave revenue on the table.</p>
+          </div>
+        </div>
+        <div class="pain">
+          <div class="icon">📦</div>
+          <div>
+            <h4>Product images don't convert</h4>
+            <p>Generic white-background photos aren't enough. Platform algorithms and buyer psychology both reward rich, consistent, on-brand visuals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S3: SOLUTION ── -->
+  <section class="slide" id="s3">
+    <div class="inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Our Solution</div>
+        <h2>One team.<br><span class="lime">Both sides<br>of growth.</span></h2>
+        <p class="lead">Sprintix is the only boutique studio that handles your <strong>brand visuals</strong> and your <strong>marketplace campaigns</strong> under a single roof.</p>
+      </div>
+      <div>
+        <div class="sol-card">
+          <div class="lime-tag">Visual Production</div>
+          <div class="sc-title">Brand-to-shelf visuals</div>
+          <div class="sc-body">Logos, product listings, ad creatives, store design, and everything in between — built to platform spec from day one.</div>
+        </div>
+        <div class="sol-card">
+          <div class="lime-tag">Campaign Management</div>
+          <div class="sc-title">Marketplace growth engine</div>
+          <div class="sc-body">Lazada and Shopee sponsored ads, mega-sale strategy, and monthly performance reporting — managed by people who live in the platforms.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S4: SERVICES ── -->
+  <section class="slide" id="s4">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Services</div>
+      <h2>8 services. <span class="lime">One team.</span></h2>
+      <p class="sub-lead">Everything your e-commerce brand needs to look right and sell right — from first pixel to campaign close.</p>
+      <div class="svc-grid">
+        <div class="svc-card"><div class="num">01</div><div class="name">Brand Identity Design</div></div>
+        <div class="svc-card"><div class="num">02</div><div class="name">Brand Consistency &amp; Adaptation</div></div>
+        <div class="svc-card"><div class="num">03</div><div class="name">E-commerce Visual Design</div></div>
+        <div class="svc-card"><div class="num">04</div><div class="name">Performance Creative</div></div>
+        <div class="svc-card"><div class="num">05</div><div class="name">Store Setup &amp; Brand Development</div></div>
+        <div class="svc-card"><div class="num">06</div><div class="name">Image SEO &amp; Metadata</div></div>
+        <div class="svc-card"><div class="num">07</div><div class="name">Marketplace Campaign Management</div></div>
+        <div class="svc-card"><div class="num">08</div><div class="name">Campaign Performance Reporting</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S5: PRICING ── -->
+  <section class="slide" id="s5">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Packages</div>
+      <h2>Simple, transparent <span class="lime">pricing.</span></h2>
+      <div class="price-grid">
+        <div class="pc">
+          <div class="tier">One-time</div>
+          <div class="pname">Launch Pack</div>
+          <div class="pprice">SGD 3,500</div>
+          <div class="psub">Flat fee</div>
+          <ul>
+            <li><span class="b"></span>Store frontpage design</li>
+            <li><span class="b"></span>Listing image set — 3 products</li>
+            <li><span class="b"></span>Ad creative set</li>
+            <li><span class="b"></span>Campaign setup</li>
+            <li><span class="b"></span>First month management</li>
+          </ul>
+          <a href="#" class="btn btn-out">Get Started</a>
+        </div>
+        <div class="pc">
+          <div class="tier">One-time</div>
+          <div class="pname">Scale Pack</div>
+          <div class="pprice">SGD 5,000</div>
+          <div class="psub">Flat fee</div>
+          <ul>
+            <li><span class="b"></span>Full store visual refresh</li>
+            <li><span class="b"></span>Listing image set — 5 products</li>
+            <li><span class="b"></span>Ad creative set</li>
+            <li><span class="b"></span>Campaign audit</li>
+            <li><span class="b"></span>Ongoing campaign management</li>
+          </ul>
+          <a href="#" class="btn btn-out">Get Started</a>
+        </div>
+        <div class="pc hot">
+          <span class="lime-tag">Most Popular</span>
+          <div class="pname">Sprint Pack</div>
+          <div class="pprice">SGD 1,200<span style="font-size:16px;color:var(--sub)">/mo</span></div>
+          <div class="psub">+ 10% revenue share</div>
+          <ul>
+            <li><span class="b"></span>Monthly ad creative refresh (8 creatives)</li>
+            <li><span class="b"></span>Full campaign management</li>
+            <li><span class="b"></span>Monthly strategy call</li>
+            <li><span class="b"></span>Priority turnaround</li>
+          </ul>
+          <a href="#" class="btn btn-lime">Book a Call</a>
+        </div>
+      </div>
+      <p class="note">ⓘ Retainer slots are limited. We keep our client list small on purpose.</p>
+    </div>
+  </section>
+
+  <!-- ── S6: PACKAGE BREAKDOWN ── -->
+  <section class="slide" id="s6bd">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Detailed Breakdown</div>
+      <h2>What's in <span class="lime">each pack?</span></h2>
+      <table class="bt">
+        <!-- Column headers -->
+        <thead>
+          <tr class="bt-hdr">
+            <th class="bt-feat"></th>
+            <th><div class="pkg-wrap"><div class="pkg-name">Launch Pack</div><div class="pkg-price">SGD 3,500</div><div class="pkg-sub">One-time · +10% from month 2</div></div></th>
+            <th><div class="pkg-wrap"><div class="pkg-name">Scale Pack</div><div class="pkg-price">SGD 5,000</div><div class="pkg-sub">One-time · +10% ongoing</div></div></th>
+            <th class="hot-hdr"><div class="pkg-wrap"><div class="pkg-name">Sprint Pack ★</div><div class="pkg-price">SGD 1,200/mo</div><div class="pkg-sub">Retainer · +10% revenue</div></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- VISUALS -->
+          <tr class="bt-sec"><td colspan="4">Visuals</td></tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Store design</td>
+            <td class="bt-val">New frontpage build</td>
+            <td class="bt-val">Full visual refresh</td>
+            <td class="bt-val dm">—</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Product listing images</td>
+            <td class="bt-val">3 products</td>
+            <td class="bt-val">5 products</td>
+            <td class="bt-val dm">—</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Ad creatives</td>
+            <td class="bt-val">Starter set</td>
+            <td class="bt-val">Full set</td>
+            <td class="bt-val hot-val">8 new creatives / month</td>
+          </tr>
+          <!-- CAMPAIGNS -->
+          <tr class="bt-sec"><td colspan="4">Campaigns</td></tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Campaign setup</td>
+            <td class="bt-val ck">✓ Included</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val dm">—</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Campaign audit</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val ck">✓ Included</td>
+            <td class="bt-val dm">—</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Campaign management</td>
+            <td class="bt-val mu">Month 1 only</td>
+            <td class="bt-val ck">✓ Ongoing</td>
+            <td class="bt-val hot-val">✓ Full ongoing</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Monthly strategy call</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val hot-val">✓ Every month</td>
+          </tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Priority turnaround</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val dm">—</td>
+            <td class="bt-val hot-val">✓ Always</td>
+          </tr>
+          <!-- BEST FOR -->
+          <tr class="bt-sec"><td colspan="4">Best For</td></tr>
+          <tr class="bt-row">
+            <td class="bt-feat">Ideal client</td>
+            <td class="bt-val">SMEs going online</td>
+            <td class="bt-val">Existing sellers scaling up</td>
+            <td class="bt-val hot-val">Growing brands · SGD 20k–100k/mo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── S7: WHY ── -->
+  <section class="slide" id="s6">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Why Sprintix</div>
+      <h2><span class="lime">Proof,</span> not promises.</h2>
+      <div class="stat-grid">
+        <div class="sc">
+          <div class="val">SGD 1M+</div>
+          <div class="lbl">In managed Lazada campaign sales</div>
+          <div class="sub">Real results, real revenue.</div>
+        </div>
+        <div class="sc">
+          <div class="val">Platform Native</div>
+          <div class="lbl">Lazada &amp; Shopee inside out</div>
+          <div class="sub">Algorithms, mega sales, buyer behaviour — we live in it.</div>
+        </div>
+        <div class="sc">
+          <div class="val">Integrated</div>
+          <div class="lbl">Visuals + campaigns, one team</div>
+          <div class="sub">Built to work together from day one.</div>
+        </div>
+        <div class="sc">
+          <div class="val">Boutique &amp; Capped</div>
+          <div class="lbl">Limited client roster</div>
+          <div class="sub">You get real attention, not a ticket number.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S7: WHO ── -->
+  <section class="slide" id="s7">
+    <div class="inner">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Who This Is For</div>
+        <h2>This was built<br>for <span class="lime">you</span> if…</h2>
+        <p class="lead">You're serious about growing on Southeast Asia's biggest platforms — and you're ready for a partner, not just a vendor.</p>
+      </div>
+      <div class="who-list">
+        <div class="wi"><div class="chk">✓</div><span>You're selling on <strong>Lazada or Shopee</strong> doing SGD 20k–100k/month</span></div>
+        <div class="wi"><div class="chk">✓</div><span>Your product photos and ad creatives are <strong>inconsistent or outdated</strong></span></div>
+        <div class="wi"><div class="chk">✓</div><span>You're tired of <strong>managing multiple agencies</strong> with no single accountability</span></div>
+        <div class="wi"><div class="chk">✓</div><span>You want a team that <strong>knows the platforms</strong> — not generalist marketers</span></div>
+        <div class="wi"><div class="chk">✓</div><span>You value <strong>quality over volume</strong> and want a studio that says no to bad fits</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── S8: CTA ── -->
+  <section class="slide" id="s8">
+    <div class="glow"></div>
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Let's Talk</div>
+      <h1>Ready to<br><span class="lime">look right</span><br>&amp; sell right?</h1>
+      <p class="sub">Book a free 30-minute call. We'll audit your current visuals and campaigns — and show you exactly where you're leaving money on the table.</p>
+      <div class="btns">
+        <a href="#" class="p">Book a Free Call</a>
+        <a href="#" class="s">See Our Packages</a>
+      </div>
+      <div class="contact">Singapore-based · Working across SEA · <a href="mailto:hello@sprintix.co">hello@sprintix.co</a></div>
+    </div>
+  </section>
+
+  <!-- ── NAV ── -->
+  <div id="nav">
+    <button id="prev">←</button>
+    <div class="dots" id="dots"></div>
+    <button id="next">→</button>
+    <span id="counter">1/8</span>
+  </div>
+
+</div><!-- /deck -->
+</div><!-- /stage -->
+
+<script>
+  // ── Password gate ──
+  const HASH = '5224054a264ceea1df4f79d30643e3f1b4ce3e319d146bd3a99c26c333b68b01';
+  const gate = document.getElementById('gate');
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  function unlock() {
+    gate.classList.add('unlocked');
+    setTimeout(() => gate.remove(), 520);
+  }
+
+  // already authenticated this session?
+  if (sessionStorage.getItem('deck_auth') === '1') { unlock(); }
+
+  document.getElementById('g-submit').addEventListener('click', async () => {
+    const input = document.getElementById('g-input');
+    const errEl = document.getElementById('g-err');
+    const btn   = document.getElementById('g-submit');
+    btn.disabled = true;
+    const h = await sha256(input.value.trim());
+    if (h === HASH) {
+      sessionStorage.setItem('deck_auth', '1');
+      errEl.textContent = '';
+      unlock();
+    } else {
+      errEl.textContent = 'Incorrect access code. Try again.';
+      input.classList.add('err');
+      setTimeout(() => input.classList.remove('err'), 400);
+      input.value = '';
+      input.focus();
+    }
+    btn.disabled = false;
+  });
+
+  document.getElementById('g-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('g-submit').click();
+  });
+
+  document.getElementById('g-eye').addEventListener('click', () => {
+    const input = document.getElementById('g-input');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  });
+
+  // ── Scale stage to fill viewport ──
+  const stage = document.getElementById('stage');
+  function scale() {
+    const W = window.innerWidth, H = window.innerHeight;
+    const s = Math.min(W / 1280, H / 720);
+    stage.style.transform = `translate(-50%, -50%) scale(${s})`;
+  }
+  scale();
+  window.addEventListener('resize', scale);
+
+  // ── Deck logic ──
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total  = slides.length;
+  let cur = 0;
+
+  const dotsEl   = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot d' + (i === 0 ? ' on' : '');
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  });
+
+  function go(idx) {
+    if (idx === cur) return;
+    const prev = cur;
+    slides[prev].classList.remove('active');
+    slides[prev].classList.add('exit');
+    setTimeout(() => slides[prev].classList.remove('exit'), 320);
+    cur = ((idx % total) + total) % total;
+    slides[cur].classList.add('active');
+    dotsEl.querySelectorAll('.d').forEach((d, i) => d.classList.toggle('on', i === cur));
+    counterEl.textContent = `${cur + 1}/${total}`;
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(cur - 1));
+  document.getElementById('next').addEventListener('click', () => go(cur + 1));
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key))        { e.preventDefault(); go(cur - 1); }
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+  });
+
+  slides[0].classList.add('active');
+</script>
+</body>
+</html>

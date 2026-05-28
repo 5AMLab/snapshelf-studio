@@ -1,9 +1,27 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import fs from 'fs'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'serve-deck',
+      configureServer(server) {
+        server.middlewares.use('/deck', (req, res, next) => {
+          const file = path.resolve(__dirname, 'public/deck/index.html')
+          if (fs.existsSync(file)) {
+            res.setHeader('Content-Type', 'text/html')
+            res.end(fs.readFileSync(file))
+          } else {
+            next()
+          }
+        })
+      }
+    }
+  ],
   build: {
     rollupOptions: {
       output: {

@@ -949,6 +949,14 @@ function Footer() {
               </button>
             ))}
             <a
+              href="/deck"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors"
+            >
+              Pitch Deck
+            </a>
+            <a
               href="mailto:hello@sprintix.co"
               className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors"
             >
