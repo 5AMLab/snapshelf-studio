@@ -154,11 +154,6 @@ function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-center bg-zinc-950 overflow-hidden"
     >
-      <style>{`
-        @keyframes heroCol1 { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-        @keyframes heroCol2 { from { transform: translateY(-25%); } to { transform: translateY(-75%); } }
-      `}</style>
-
       {/* Subtle dot-grid texture */}
       <div
         className="absolute inset-0 opacity-[0.04]"
@@ -176,10 +171,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 lg:flex lg:items-center lg:gap-8">
-        {/* Text content */}
-        <div className="flex-1 min-w-0">
-
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20">
         {/* Studio badge */}
         <div
           className={`inline-flex items-center gap-2 bg-zinc-800/80 border border-zinc-700 rounded-full px-4 py-1.5 mb-10 transition-all duration-700 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -250,49 +242,6 @@ function Hero() {
             ))}
           </div>
         </div>
-
-        </div> {/* end text content */}
-
-        {/* Scrolling product image wall — desktop only */}
-        <div className="hidden lg:flex gap-3 flex-shrink-0 w-80 xl:w-96 h-[600px] overflow-hidden relative rounded-2xl">
-          {/* Fade masks */}
-          <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-zinc-950 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-zinc-950 to-transparent z-10 pointer-events-none" />
-
-          {/* Column 1 */}
-          <div
-            className="flex flex-col gap-3 w-1/2 flex-shrink-0"
-            style={{ animation: 'heroCol1 22s linear infinite' }}
-          >
-            {['serum', 'lipstick', 'smartwatch', 'serum', 'lipstick', 'smartwatch'].map((name, i) => (
-              <img
-                key={i}
-                src={`/images/hero/${name}.webp`}
-                alt=""
-                className="w-full aspect-square object-cover rounded-xl"
-                loading="lazy"
-              />
-            ))}
-          </div>
-
-          {/* Column 2 */}
-          <div
-            className="flex flex-col gap-3 w-1/2 flex-shrink-0"
-            style={{ animation: 'heroCol2 28s linear infinite' }}
-          >
-            {['necklace', 'gadget', 'headphone', 'necklace', 'gadget', 'headphone'].map((name, i) => (
-              <img
-                key={i}
-                src={`/images/hero/${name}.webp`}
-                alt=""
-                className="w-full aspect-square object-cover rounded-xl"
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-
       </div>
 
       {/* Bottom fade */}
@@ -301,8 +250,9 @@ function Hero() {
   )
 }
 
+
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. Services
+// 4. Services
 // ─────────────────────────────────────────────────────────────────────────────
 const SERVICES = [
   {
@@ -405,7 +355,75 @@ function Services() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 4. Two-Lane Model
+// 4. Portfolio Bento
+// ─────────────────────────────────────────────────────────────────────────────
+function PortfolioBento() {
+  const [ref, inView] = useInView()
+
+  return (
+    <section className="bg-zinc-950 py-24 px-6">
+      <div className="max-w-6xl mx-auto" ref={ref}>
+
+        {/* Header */}
+        <div className={`mb-12 ${fadeUp(inView)}`}>
+          <span className="text-lime-400 text-xs font-bold uppercase tracking-widest">Our Work</span>
+          <h2
+            className="text-4xl md:text-5xl font-black text-white mt-3"
+            style={{ fontFamily: "'Syne', sans-serif" }}
+          >
+            Products that stop the scroll.
+          </h2>
+        </div>
+
+        {/* Mobile: simple 2-col grid */}
+        <div className="grid grid-cols-2 gap-3 md:hidden">
+          {['perfume', 'lipstick', 'necklace', 'handbag-2', 'shoe-2', 'smartwatch'].map((src) => (
+            <div key={src} className="overflow-hidden rounded-xl aspect-square">
+              <img src={`/images/hero/${src}.webp`} alt="" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: bento grid */}
+        <div
+          className="hidden md:grid md:grid-cols-4 gap-3"
+          style={{ gridTemplateRows: 'repeat(3, 220px)' }}
+        >
+          {/* Large anchor — top-left 2×2 */}
+          <div className={`col-span-2 row-span-2 overflow-hidden rounded-2xl ${fadeUp(inView)}`}>
+            <img src="/images/hero/perfume.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          {/* Top-right small pair */}
+          <div className={`overflow-hidden rounded-2xl ${fadeUp(inView, 80)}`}>
+            <img src="/images/hero/lipstick.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          <div className={`overflow-hidden rounded-2xl ${fadeUp(inView, 140)}`}>
+            <img src="/images/hero/necklace.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          {/* Mid-right wide */}
+          <div className={`col-span-2 overflow-hidden rounded-2xl ${fadeUp(inView, 200)}`}>
+            <img src="/images/hero/handbag-2.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          {/* Bottom-left wide */}
+          <div className={`col-span-2 overflow-hidden rounded-2xl ${fadeUp(inView, 260)}`}>
+            <img src="/images/hero/shoe-2.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          {/* Bottom-right small pair */}
+          <div className={`overflow-hidden rounded-2xl ${fadeUp(inView, 320)}`}>
+            <img src="/images/hero/smartwatch.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+          <div className={`overflow-hidden rounded-2xl ${fadeUp(inView, 380)}`}>
+            <img src="/images/hero/headphone.webp" alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 5. Two-Lane Model
 // ─────────────────────────────────────────────────────────────────────────────
 const VISUAL_ITEMS = [
   'Brand Identity Design',
@@ -965,6 +983,7 @@ export default function SprintixHome() {
       <main>
         <Hero />
         <Services />
+        <PortfolioBento />
         <TwoLane />
         <WhySprintix />
         <Packages />

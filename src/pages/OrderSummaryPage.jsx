@@ -17,6 +17,8 @@ import {
   ExternalLink
 } from 'lucide-react'
 import StripePayment from '../components/StripePayment'
+import Header from '../components/shared/Header'
+import Footer from '../components/shared/Footer'
 
 const OrderSummaryPage = () => {
   const location = useLocation()
@@ -41,6 +43,14 @@ const OrderSummaryPage = () => {
         navigate('/pricing', { replace: true })
         return
       }
+      // Advance cart to summary step so the header link returns here
+      sessionStorage.setItem('sprintix_cart', JSON.stringify({
+        packageName: orderData.name,
+        priceDisplay: orderData.priceDisplay,
+        step: 'summary',
+        route: '/checkout/summary',
+        locationState: location.state
+      }))
       setIsLoading(false)
     }, 100)
 
@@ -123,7 +133,7 @@ const OrderSummaryPage = () => {
   if (!orderData || !customerData) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center bg-white rounded-2xl p-8 border border-gray-200 max-w-md mx-4">
+        <div className="text-center bg-white rounded-xl p-8 border border-gray-200 max-w-md mx-4">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-gray-900 mb-4">Order Data Missing</h2>
           <p className="text-gray-600 mb-6">
@@ -142,68 +152,22 @@ const OrderSummaryPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <nav className="flex" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <button
-                  onClick={() => navigate('/')}
-                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors"
-                >
-                  Home
-                </button>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                  <button
-                    onClick={() => navigate('/pricing')}
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors md:ml-2"
-                  >
-                    Pricing
-                  </button>
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                  <button
-                    onClick={handleEditOrder}
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors md:ml-2"
-                  >
-                    Booking
-                  </button>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                  <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
-                    Review Order
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
+      {/* Site Header */}
+      <div className="fixed top-0 left-0 right-0 z-[1000]">
+        <Header showScrollButtons={false} />
       </div>
 
-      {/* Header */}
+      {/* Content Spacer */}
+      <div className="h-[80px]"></div>
+
+      {/* Page Sub-header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleEditOrder}
-                className="flex items-center text-violet-600 hover:text-violet-700 font-medium"
+                className="flex items-center text-violet-950 hover:text-violet-700 font-medium"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Edit Order
@@ -213,7 +177,7 @@ const OrderSummaryPage = () => {
             </div>
 
             <div className="text-right">
-              <div className="text-2xl font-bold text-violet-600">{orderData.priceDisplay}</div>
+              <div className="text-2xl font-bold text-violet-950">{orderData.priceDisplay}</div>
               <div className="text-sm text-gray-600">{orderData.quantity} photos</div>
             </div>
           </div>
@@ -225,7 +189,7 @@ const OrderSummaryPage = () => {
           {/* Left Column - Order Details */}
           <div className="space-y-6">
             {/* Package Summary */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-gray-900">Package Details</h3>
                 <button
@@ -332,7 +296,7 @@ const OrderSummaryPage = () => {
             </div>
 
             {/* Customer Information */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-gray-900">Customer Information</h3>
                 <button
@@ -385,7 +349,7 @@ const OrderSummaryPage = () => {
             </div>
 
             {/* Service Timeline */}
-            <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-6 border border-violet-200">
+            <div className="bg-gradient-to-b from-violet-100 to-violet-50 rounded-xl p-6 border border-violet-100">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
                 <Clock className="w-5 h-5 text-violet-600 mr-2" />
                 Expected Timeline
@@ -425,7 +389,7 @@ const OrderSummaryPage = () => {
           {/* Right Column - Payment */}
           <div className="space-y-6">
             {/* Payment Section */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                   <CreditCard className="w-5 h-5 text-green-600" />
@@ -458,7 +422,7 @@ const OrderSummaryPage = () => {
             </div>
 
             {/* Security & Trust */}
-            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+            <div className="bg-violet-50 rounded-xl p-6 border border-violet-100">
               <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
                 <Shield className="w-5 h-5 text-green-600 mr-2" />
                 Your Security & Privacy
@@ -485,42 +449,42 @@ const OrderSummaryPage = () => {
             </div>
 
             {/* Guarantee */}
-            <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-200">
+            <div className="bg-gradient-to-b from-violet-100 to-violet-50 rounded-xl p-6 border border-violet-100">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
-                <Package className="w-5 h-5 text-emerald-600 mr-2" />
+                <Package className="w-5 h-5 text-violet-600 mr-2" />
                 Our Quality Guarantee
               </h4>
               
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start">
-                  <ChevronRight className="w-4 h-4 text-emerald-600 mr-1 mt-0.5 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-violet-600 mr-1 mt-0.5 flex-shrink-0" />
                   <span>100% satisfaction guarantee</span>
                 </li>
                 <li className="flex items-start">
-                  <ChevronRight className="w-4 h-4 text-emerald-600 mr-1 mt-0.5 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-violet-600 mr-1 mt-0.5 flex-shrink-0" />
                   <span>Unlimited revisions included</span>
                 </li>
                 <li className="flex items-start">
-                  <ChevronRight className="w-4 h-4 text-emerald-600 mr-1 mt-0.5 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-violet-600 mr-1 mt-0.5 flex-shrink-0" />
                   <span>Professional quality editing</span>
                 </li>
                 <li className="flex items-start">
-                  <ChevronRight className="w-4 h-4 text-emerald-600 mr-1 mt-0.5 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-violet-600 mr-1 mt-0.5 flex-shrink-0" />
                   <span>On-time delivery promise</span>
                 </li>
               </ul>
             </div>
 
             {/* Support Info */}
-            <div className="bg-blue-50 rounded-2xl p-4 border border-blue-200">
+            <div className="bg-violet-50 rounded-xl p-4 border border-violet-100">
               <div className="flex items-start space-x-3">
-                <Info className="w-5 h-5 text-blue-600 mt-0.5" />
+                <Info className="w-5 h-5 text-violet-600 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-blue-900 mb-1">Need Help?</h4>
-                  <p className="text-sm text-blue-800 mb-2">
+                  <h4 className="font-medium text-violet-950 mb-1">Need Help?</h4>
+                  <p className="text-sm text-violet-800 mb-2">
                     Our support team is here to help with any questions.
                   </p>
-                  <p className="text-sm text-blue-700">
+                  <p className="text-sm text-violet-700">
                     <strong>Email:</strong> support@sprintix.asia<br />
                     <strong>Response:</strong> Within 2 hours
                   </p>
@@ -530,6 +494,7 @@ const OrderSummaryPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -9,15 +9,13 @@ export const PRICING_CONFIG = {
     basePrice: 14.90,
     basePriceDisplay: '$14.90',
     description: 'Standard edit includes: Background removal, basic color correction, crop and resize to one marketplace',
-    minimumOrder: 5,
-    
+    minimumOrder: 10,
+
     // Volume discount tiers
     volumeDiscounts: [
-      { minQuantity: 5, maxQuantity: 9, discount: 0.00, label: '5-9 edits', price: 14.90 },
-      { minQuantity: 10, maxQuantity: 24, discount: 0.09, label: '10-24 edits', price: 13.50 },
-      { minQuantity: 25, maxQuantity: 49, discount: 0.19, label: '25-49 edits', price: 12.00 },
-      { minQuantity: 50, maxQuantity: 99, discount: 0.30, label: '50-99 edits', price: 10.50 },
-      { minQuantity: 100, maxQuantity: 9999, discount: 0.40, label: '100+ edits', price: 9.00 }
+      { minQuantity: 10, maxQuantity: 24, discount: 0.09, label: 'Starter', price: 13.50 },
+      { minQuantity: 25, maxQuantity: 99, discount: 0.26, label: 'Growth', price: 11.00 },
+      { minQuantity: 100, maxQuantity: 9999, discount: 0.40, label: 'Scale', price: 9.00 },
     ],
     
     // Add-on services
@@ -238,9 +236,9 @@ export const PRICING_CONFIG = {
   
   // À la carte pricing from PricingPopup.jsx
   alacarte: {
-    perEdit: 21,
+    perEdit: 16.90,
     minimum: 0,
-    priceDisplay: '$21 per edit',
+    priceDisplay: '$16.90 per edit',
     description: 'No minimum order'
   },
   

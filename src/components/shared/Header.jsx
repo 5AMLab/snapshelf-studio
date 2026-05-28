@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Bars3Icon as Menu, XMarkIcon as X, ChevronDownIcon } from '@heroicons/react/24/outline'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Bars3Icon as Menu, XMarkIcon as X, ChevronDownIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 const Header = ({
   scrollToSection,
   onGetStarted
 }) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [cart, setCart] = useState(null)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [mobileDropdowns, setMobileDropdowns] = useState({})
   const [isHeaderVisible, setIsHeaderVisible] = useState(true)
@@ -85,6 +87,16 @@ const Header = ({
       return () => document.removeEventListener('click', handleClickOutside)
     }
   }, [activeDropdown])
+
+  // Read cart from sessionStorage on every route change
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem('sprintix_cart')
+      setCart(stored ? JSON.parse(stored) : null)
+    } catch {
+      setCart(null)
+    }
+  }, [location.pathname])
 
   // Auto-hide header on scroll
   useEffect(() => {
@@ -328,6 +340,18 @@ const Header = ({
                 location.pathname === '/support' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
               }`} />
             </Link>
+            {cart && (
+              <button
+                onClick={() => navigate(cart.route, { state: cart.locationState })}
+                className="flex items-center space-x-2 bg-violet-950 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-violet-800 transition-colors"
+              >
+                <ShoppingBagIcon className="w-4 h-4 flex-shrink-0" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold leading-tight truncate max-w-[120px]">{cart.packageName}</div>
+                  <div className="text-violet-300 text-xs leading-tight">{cart.priceDisplay}</div>
+                </div>
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -344,6 +368,19 @@ const Header = ({
       {isMenuOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-100 absolute top-full left-0 right-0 z-[1010] shadow-lg">
           <div className="px-4 py-4 space-y-3">
+            {/* Mobile cart indicator */}
+            {cart && (
+              <button
+                onClick={() => { navigate(cart.route, { state: cart.locationState }); setIsMenuOpen(false) }}
+                className="flex items-center w-full space-x-3 bg-violet-950 text-white px-4 py-3 rounded-lg font-medium hover:bg-violet-800 transition-colors"
+              >
+                <ShoppingBagIcon className="w-5 h-5 flex-shrink-0" />
+                <div className="text-left">
+                  <div className="text-sm font-semibold">{cart.packageName}</div>
+                  <div className="text-violet-300 text-xs">{cart.step === 'summary' ? 'Review & pay' : 'Continue booking'} · {cart.priceDisplay}</div>
+                </div>
+              </button>
+            )}
             {/* Mobile navigation links */}
             <Link
               to="/services"

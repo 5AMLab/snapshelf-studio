@@ -19,6 +19,10 @@ const OrderSuccessPage = () => {
       return
     }
 
+    // Clear cart and saved form data — order is complete
+    sessionStorage.removeItem('sprintix_cart')
+    sessionStorage.removeItem('sprintix_form')
+
     // Generate order ID and set up order data
     const orderId = paymentIntent?.id ? paymentIntent.id.slice(-8).toUpperCase() : `SS${Date.now().toString().slice(-6)}`
     

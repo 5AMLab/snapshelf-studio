@@ -22,7 +22,7 @@ import orderQueueService from '../services/orderQueueService'
 
 const NewPricingCalculator = () => {
   const navigate = useNavigate()
-  const [quantity, setQuantity] = useState(5)
+  const [quantity, setQuantity] = useState(10)
   const [addOns, setAddOns] = useState({
     additionalMarketplace: 0,
     complexBackgroundRemoval: 0,
@@ -81,7 +81,7 @@ const NewPricingCalculator = () => {
     // Create order data in the format expected by the checkout flow
     const orderData = {
       id: 'new-pricing-structure',
-      name: 'Custom Order',
+      name: `${calculation.label} – ${quantity} Edit${quantity !== 1 ? 's' : ''}`,
       quantity: quantity,
       price: calculation.grandTotal,
       priceDisplay: `$${calculation.grandTotal.toFixed(2)}`,
@@ -117,7 +117,7 @@ const NewPricingCalculator = () => {
     })
   }
 
-  const quickQuantityButtons = [5, 25, 50, 100]
+  const quickQuantityButtons = [10, 25, 50, 100]
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -461,33 +461,48 @@ const NewPricingCalculator = () => {
               Volume Discount Tiers
             </h3>
             <div className="space-y-3">
-              {PRICING_CONFIG.basePricing.volumeDiscounts.map((tier, index) => (
-                <div 
-                  key={index}
-                  className={`p-4 rounded-lg border transition-colors ${
-                    quantity >= tier.minQuantity && quantity <= tier.maxQuantity
-                      ? 'border-violet-300 bg-violet-50'
-                      : 'border-gray-200 bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium text-gray-900">{tier.label}</div>
-                      {tier.discount > 0 && (
-                        <div className="text-sm text-violet-600">
-                          {(tier.discount * 100).toFixed(0)}% discount
+              {PRICING_CONFIG.basePricing.volumeDiscounts.map((tier, index) => {
+                const isBestValue = tier.label === 'Growth'
+                const isActive = quantity >= tier.minQuantity && quantity <= tier.maxQuantity
+                return (
+                  <div
+                    key={index}
+                    className={`p-4 rounded-lg border transition-colors ${
+                      isBestValue
+                        ? isActive
+                          ? 'border-violet-400 bg-violet-50 ring-2 ring-violet-300'
+                          : 'border-violet-300 bg-violet-50'
+                        : isActive
+                          ? 'border-violet-300 bg-violet-50'
+                          : 'border-gray-200 bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-gray-900">{tier.label}</span>
+                          {isBestValue && (
+                            <span className="bg-violet-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                              Best Value
+                            </span>
+                          )}
                         </div>
-                      )}
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-gray-900">
-                        ${tier.price.toFixed(2)}
+                        {tier.discount > 0 && (
+                          <div className="text-sm text-violet-600">
+                            {(tier.discount * 100).toFixed(0)}% discount
+                          </div>
+                        )}
                       </div>
-                      <div className="text-sm text-gray-500">per edit</div>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
+                          ${tier.price.toFixed(2)}
+                        </div>
+                        <div className="text-sm text-gray-500">per edit</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
 

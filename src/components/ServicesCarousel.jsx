@@ -16,7 +16,7 @@ const ServicesCarousel = () => {
     { image: "/images/hero/headphone.webp", title: "Image Optimization", alt: "Headphone" },
     { image: "/images/hero/sale-info-sq.jpg", title: "Sales Infographics", alt: "Sunscreen" },
     { image: "/images/hero/lipstick.webp", title: "Gif Banner", alt: "Lipstick" },
-    { image: "/images/hero/handcream.webp", title: "Ad Creatives", alt: "Hand Cream" }
+    { image: "/images/hero/creative-ad.webp", title: "Ad Creatives", alt: "Creative Ad" }
   ];
 
   const nextSlide = () => {
@@ -158,9 +158,9 @@ const ServicesCarousel = () => {
                     alt={service.alt} 
                     className="w-full h-full object-cover rounded-2xl" 
                   />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-white mx-2 px-3 py-2 rounded-2xl">
-                      <h3 className="text-sm font-bold text-gray-900 text-center">{service.title}</h3>
+                  <div className="absolute top-4 left-4">
+                    <div className="bg-white px-3 py-2 rounded-2xl">
+                      <h3 className="text-sm font-bold text-gray-900">{service.title}</h3>
                     </div>
                   </div>
                 </div>

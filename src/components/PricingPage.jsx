@@ -5,7 +5,7 @@ import Footer from './shared/Footer'
 import FAQ from './shared/FAQ'
 import NewPricingCalculator from './NewPricingCalculator'
 import { PRICING_FAQ } from '../config/faq'
-import { BoltIcon, CurrencyDollarIcon, ChartBarIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { BoltIcon, CurrencyDollarIcon, ChartBarIcon, CheckCircleIcon, PercentBadgeIcon } from '@heroicons/react/24/outline'
 
 const PricingPage = () => {
   const scrollToSection = (sectionId) => {
@@ -70,44 +70,61 @@ const PricingPage = () => {
           </div>
 
           {/* Key Benefits Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
-            <div className="bg-white rounded-xl p-6 text-center border border-violet-100">
-              <div className="flex justify-center mb-2">
-                <BoltIcon className="w-8 h-8 text-lime-500" />
+          <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-5xl mx-auto">
+            {/* Left Column — single tall card */}
+            <div className="bg-white rounded-xl p-8 border border-violet-100 flex flex-col">
+              <div className="flex mb-3">
+                <CheckCircleIcon className="w-10 h-10 text-lime-500" />
               </div>
-              <h4 className="font-bold text-violet-950 mb-2">No Minimum Hassle</h4>
-              <p className="text-sm text-violet-950">
-                Start with just 5 photos or scale to 500+. Perfect for testing or growing.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center border border-violet-100">
-              <div className="flex justify-center mb-2">
-                <CheckCircleIcon className="w-8 h-8 text-lime-500" />
-              </div>
-              <h4 className="font-bold text-violet-950 mb-2">Every Order Includes</h4>
-              <ul className="space-y-1 text-sm text-violet-950">
-                <li className="flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 bg-lime-500 rounded-full mr-2"></span>
-                  Background removal
+              <h4 className="font-bold text-violet-950 text-lg mb-2">Every Order Includes</h4>
+              <ul className="space-y-4 text-sm text-violet-950">
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Background removal (simple)
                 </li>
-                <li className="flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 bg-lime-500 rounded-full mr-2"></span>
-                  Color correction
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Basic colour correction
                 </li>
-                <li className="flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 bg-lime-500 rounded-full mr-2"></span>
-                  Crop & resize for 1 marketplace
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Minor retouching (dust, blemishes, surface scratches)
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Drop shadow creation
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Crop & resize for 2 platforms (buyer chooses on order form)
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-violet-950 rounded-full mr-3 flex-shrink-0"></span>
+                  Web optimisation (compressed WebP/JPEG/PNG)
                 </li>
               </ul>
             </div>
-            <div className="bg-white rounded-xl p-6 text-center border border-violet-100">
-              <div className="flex justify-center mb-2">
-                <ChartBarIcon className="w-8 h-8 text-lime-500" />
+
+            {/* Right Column — two stacked cards */}
+            <div className="flex flex-col gap-6">
+              <div className="bg-white rounded-xl p-8 border border-violet-100 flex-1">
+                <div className="flex mb-3">
+                  <BoltIcon className="w-10 h-10 text-lime-500" />
+                </div>
+                <h4 className="font-bold text-violet-950 text-lg mb-2">No Minimum Hassle</h4>
+                <p className="text-sm text-violet-950">
+                  Start with just 5 photos or scale to 500+. Perfect for testing or growing.
+                </p>
               </div>
-              <h4 className="font-bold text-violet-950 mb-2">Automatic Savings</h4>
-              <p className="text-sm text-violet-950">
-                Save up to 37% with volume pricing. The more you order, the less you pay per edit.
-              </p>
+              <div className="bg-white rounded-xl p-8 border border-violet-100 flex-1">
+                <div className="flex mb-3">
+                  <PercentBadgeIcon className="w-10 h-10 text-lime-500" />
+                </div>
+                <h4 className="font-bold text-violet-950 text-lg mb-2">Automatic Savings</h4>
+                <p className="text-sm text-violet-950">
+                  Save up to 37% with volume pricing. The more you order, the less you pay per edit.
+                </p>
+              </div>
             </div>
           </div>
 

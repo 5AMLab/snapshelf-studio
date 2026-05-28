@@ -4,19 +4,31 @@ import { ArrowLeft, CheckCircle, Upload, ExternalLink, Plus, Minus, Clock, Tag, 
 import discountService from '../services/discountService'
 import pricingService from '../services/pricingService'
 import errorHandler from '../services/errorHandler'
+import Header from '../components/shared/Header'
+import Footer from '../components/shared/Footer'
 
 const StreamlinedBookingPage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   
   const [selectedPackage, setSelectedPackage] = useState(null)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    assetUrl: '',
-    projectDescription: '',
-    marketplace: '',
-    editingType: []
+  const [formData, setFormData] = useState(() => {
+    try {
+      const stored = sessionStorage.getItem('sprintix_form')
+      return stored ? JSON.parse(stored) : {
+        name: '',
+        email: '',
+        companyName: '',
+        monthlyVolume: '',
+        productCategory: '',
+        assetUrl: '',
+        projectDescription: '',
+        marketplace: '',
+        editingType: []
+      }
+    } catch {
+      return { name: '', email: '', companyName: '', monthlyVolume: '', productCategory: '', assetUrl: '', projectDescription: '', marketplace: '', editingType: [] }
+    }
   })
   const [addOns, setAddOns] = useState({
     extraAssets: 0,
@@ -56,14 +68,32 @@ const StreamlinedBookingPage = () => {
         ]
       }
       setSelectedPackage(enterprisePlan)
+      sessionStorage.setItem('sprintix_cart', JSON.stringify({
+        packageName: enterprisePlan.name,
+        priceDisplay: 'Custom Pricing',
+        step: 'booking',
+        route: '/book',
+        locationState: location.state
+      }))
     } else if (location.state?.selectedPackage) {
       setSelectedPackage(location.state.selectedPackage)
+      sessionStorage.setItem('sprintix_cart', JSON.stringify({
+        packageName: location.state.selectedPackage.name,
+        priceDisplay: location.state.selectedPackage.priceDisplay,
+        step: 'booking',
+        route: '/book',
+        locationState: location.state
+      }))
     } else {
       // Redirect back to pricing if no package selected
       navigate('/pricing')
       return
     }
   }, [location.state, navigate])
+
+  useEffect(() => {
+    sessionStorage.setItem('sprintix_form', JSON.stringify(formData))
+  }, [formData])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -120,15 +150,19 @@ const StreamlinedBookingPage = () => {
       errors.email = 'Please enter a valid email address'
     }
 
-    // Asset URL is optional for enterprise inquiries
-    if (!location.state?.isEnterprise && !formData.assetUrl.trim()) {
-      errors.assetUrl = 'Please provide asset URL or upload files'
-    }
-
-    // Platform selection is required for legacy packages
-    if (!location.state?.isNewPricingStructure && !location.state?.isEnterprise) {
-      if (!formData.marketplace.trim()) errors.marketplace = 'Please select a target platform'
-      if (formData.editingType.length === 0) errors.editingType = 'Please select at least one type of editing'
+    if (location.state?.isEnterprise) {
+      if (!formData.companyName.trim()) errors.companyName = 'Company name is required'
+      if (!formData.monthlyVolume) errors.monthlyVolume = 'Please select an estimated monthly volume'
+    } else {
+      // Asset URL required for non-enterprise
+      if (!formData.assetUrl.trim()) {
+        errors.assetUrl = 'Please provide asset URL or upload files'
+      }
+      // Platform selection is required for legacy packages
+      if (!isNewPricingFlow) {
+        if (!formData.marketplace.trim()) errors.marketplace = 'Please select a target platform'
+        if (formData.editingType.length === 0) errors.editingType = 'Please select at least one type of editing'
+      }
     }
 
     setValidationErrors(errors)
@@ -180,7 +214,7 @@ const StreamlinedBookingPage = () => {
     if (!selectedPackage) return 0
     
     // Check if this is using the new pricing structure
-    if (location.state?.isNewPricingStructure) {
+    if (isNewPricingFlow) {
       // For new pricing structure, the price is already calculated with add-ons
       // Just add any additional add-ons from the booking form
       let basePrice = selectedPackage.price
@@ -256,26 +290,31 @@ const StreamlinedBookingPage = () => {
 
       // Handle enterprise inquiries differently
       if (location.state?.isEnterprise) {
-        // Submit enterprise inquiry directly
+        const inquiryRef = `ENT-${Date.now().toString().slice(-6)}`
         const response = await fetch('https://formspree.io/f/myzjbenr', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            ...formData,
+            name: formData.name,
+            email: formData.email,
+            companyName: formData.companyName,
+            monthlyVolume: formData.monthlyVolume,
+            productCategory: formData.productCategory,
+            requirements: formData.projectDescription,
+            inquiryRef,
             inquiryType: 'Enterprise Sales Inquiry',
             selectedPlan: selectedPackage.name,
-            estimatedVolume: formData.projectDescription.includes('100+') ? '100+' : 'To be discussed',
             submissionType: 'Enterprise Inquiry',
             priority: 'HIGH - Enterprise Lead'
           })
         })
 
         if (response.ok) {
-          // Navigate to a thank you page or show success message
-          navigate('/checkout/success', {
+          navigate('/inquiry/success', {
             state: {
-              isEnterprise: true,
-              message: 'Thank you for your enterprise inquiry. Our sales team will contact you within 2 hours.'
+              name: formData.name,
+              email: formData.email,
+              inquiryRef
             }
           })
         } else {
@@ -288,7 +327,7 @@ const StreamlinedBookingPage = () => {
       // Create unified order data using pricing service
       let orderData
       try {
-        orderData = location.state?.isNewPricingStructure
+        orderData = isNewPricingFlow
           ? selectedPackage
           : pricingService.normalizeLegacyPackage(selectedPackage)
       } catch (pricingError) {
@@ -364,60 +403,31 @@ const StreamlinedBookingPage = () => {
 
   if (!selectedPackage) return null
 
+  // Derived from package id as well as the flag — works even when location.state
+  // is restored from sessionStorage and the flag is missing.
+  const isNewPricingFlow = !!(location.state?.isNewPricingStructure || selectedPackage.id === 'new-pricing-structure')
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-3">
-          <nav className="flex" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
-              <li className="inline-flex items-center">
-                <button
-                  onClick={() => navigate('/')}
-                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors"
-                >
-                  Home
-                </button>
-              </li>
-              <li>
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                  <button
-                    onClick={() => navigate('/pricing')}
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-violet-600 transition-colors md:ml-2"
-                  >
-                    Pricing
-                  </button>
-                </div>
-              </li>
-              <li aria-current="page">
-                <div className="flex items-center">
-                  <svg className="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                  </svg>
-                  <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
-                    {location.state?.isEnterprise ? 'Enterprise' : 'Booking'}
-                  </span>
-                </div>
-              </li>
-            </ol>
-          </nav>
-        </div>
+      {/* Site Header */}
+      <div className="fixed top-0 left-0 right-0 z-[1000]">
+        <Header showScrollButtons={false} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="bg-white border-b border-gray-200 -mx-4 px-4 -mt-8 pt-4 pb-4 mb-8">
+      {/* Content Spacer */}
+      <div className="h-[80px]"></div>
+
+      {/* Page Sub-header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigate('/pricing')}
-                className="flex items-center text-violet-600 hover:text-violet-700 font-medium"
+                className="flex items-center text-violet-950 hover:text-violet-700 font-medium"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Pricing
+                Back to Pricing
               </button>
               <div className="text-gray-300">|</div>
               <h1 className="text-2xl font-bold text-gray-900">
@@ -426,7 +436,7 @@ const StreamlinedBookingPage = () => {
             </div>
 
             <div className="text-right">
-              <div className="text-2xl font-bold text-violet-600">{selectedPackage.priceDisplay}</div>
+              <div className="text-2xl font-bold text-violet-950">{selectedPackage.priceDisplay}</div>
               <div className="text-sm text-gray-600">
                 {location.state?.isEnterprise
                   ? 'Custom pricing'
@@ -436,11 +446,14 @@ const StreamlinedBookingPage = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-8">
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column - Package Summary */}
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6  border border-violet-200/50">
+            <div className="bg-white rounded-xl p-6  border border-violet-200/50">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-gray-900">{selectedPackage.name}</h3>
                 <div className="text-right">
@@ -463,7 +476,7 @@ const StreamlinedBookingPage = () => {
 
               <div className="space-y-3 text-sm text-gray-600">
                 {/* Show dynamic features based on pricing structure */}
-                {location.state?.isNewPricingStructure && selectedPackage.features ? (
+                {isNewPricingFlow && selectedPackage.features ? (
                   selectedPackage.features.map((feature, index) => (
                     <div key={index} className="flex items-center">
                       <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
@@ -538,7 +551,7 @@ const StreamlinedBookingPage = () => {
             </div>
 
             {/* What Happens Next */}
-            <div className="bg-gradient-to-r from-violet-50 to-violet-300 rounded-2xl p-6 border border-violet-200">
+            <div className="bg-gradient-to-b from-violet-100 to-violet-50 rounded-xl p-6 border border-violet-100">
               <h4 className="font-semibold text-gray-900 mb-3">What happens next?</h4>
               <div className="space-y-2 text-sm text-gray-700">
                 {location.state?.isEnterprise ? (
@@ -580,9 +593,120 @@ const StreamlinedBookingPage = () => {
           <div className="space-y-6">
             {step === 'details' ? (
               <>
-                {/* Contact Details Section */}
-                <div className="bg-white rounded-2xl p-6  border border-gray-200">
-                  <h3 className="text-lg font-bold text-gray-900 mb-6">Contact Details</h3>
+                {location.state?.isEnterprise && (
+                  /* ── Enterprise Inquiry Form ─────────────────────────── */
+                  <div className="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">Business Details</h3>
+                    <p className="text-sm text-gray-500 mb-6">
+                      Tell us about your business so we can prepare a tailored proposal.
+                    </p>
+                    <div className="space-y-5">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-2">Full Name *</label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${
+                              validationErrors.name ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'
+                            }`}
+                            placeholder="Your name"
+                          />
+                          {validationErrors.name && <p className="mt-1 text-sm text-red-600">{validationErrors.name}</p>}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-2">Business Email *</label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${
+                              validationErrors.email ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'
+                            }`}
+                            placeholder="you@company.com"
+                          />
+                          {validationErrors.email && <p className="mt-1 text-sm text-red-600">{validationErrors.email}</p>}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">Company Name *</label>
+                        <input
+                          type="text"
+                          name="companyName"
+                          value={formData.companyName}
+                          onChange={handleChange}
+                          className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${
+                            validationErrors.companyName ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'
+                          }`}
+                          placeholder="Acme Pte. Ltd."
+                        />
+                        {validationErrors.companyName && <p className="mt-1 text-sm text-red-600">{validationErrors.companyName}</p>}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-2">Monthly Volume *</label>
+                          <select
+                            name="monthlyVolume"
+                            value={formData.monthlyVolume}
+                            onChange={handleChange}
+                            className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${
+                              validationErrors.monthlyVolume ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'
+                            }`}
+                          >
+                            <option value="">Photos per month…</option>
+                            <option value="100-300">100–300 photos</option>
+                            <option value="300-500">300–500 photos</option>
+                            <option value="500-1000">500–1,000 photos</option>
+                            <option value="1000+">1,000+ photos</option>
+                          </select>
+                          {validationErrors.monthlyVolume && <p className="mt-1 text-sm text-red-600">{validationErrors.monthlyVolume}</p>}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-900 mb-2">Product Category</label>
+                          <select
+                            name="productCategory"
+                            value={formData.productCategory}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
+                          >
+                            <option value="">Select category…</option>
+                            <option value="fashion">Fashion & Apparel</option>
+                            <option value="electronics">Electronics & Tech</option>
+                            <option value="health-beauty">Health & Beauty</option>
+                            <option value="food-beverage">Food & Beverage</option>
+                            <option value="home-living">Home & Living</option>
+                            <option value="sports">Sports & Lifestyle</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-900 mb-2">
+                          Requirements & Context
+                        </label>
+                        <textarea
+                          name="projectDescription"
+                          value={formData.projectDescription}
+                          onChange={handleChange}
+                          rows={4}
+                          className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
+                          placeholder="Describe your workflow, marketplaces you sell on, current pain points, or any specific editing style you need…"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {!location.state?.isEnterprise && (
+                  <>
+                  {/* Contact Details Section */}
+                  <div className="bg-white rounded-xl p-6  border border-gray-200">
+                    <h3 className="text-lg font-bold text-gray-900 mb-6">Contact Details</h3>
                   
                   <div className="space-y-6">
                     {/* Contact Info */}
@@ -644,10 +768,10 @@ const StreamlinedBookingPage = () => {
                         <p className="mt-1 text-sm text-red-600">{validationErrors.assetUrl}</p>
                       )}
                       
-                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="mt-3 p-3 bg-violet-50 border border-violet-200 rounded-lg">
                         <div className="flex items-start">
-                          <ExternalLink className="w-4 h-4 text-blue-600 mr-2 mt-0.5" />
-                          <div className="text-sm text-blue-800">
+                          <ExternalLink className="w-4 h-4 text-violet-600 mr-2 mt-0.5" />
+                          <div className="text-sm text-violet-800">
                             <p className="font-medium mb-1">Quick sharing tips:</p>
                             <p>• Google Drive: Right-click folder → Share → "Anyone with link"</p>
                             <p>• Dropbox: Click Share → Create link</p>
@@ -660,86 +784,48 @@ const StreamlinedBookingPage = () => {
                 </div>
 
                 {/* Project Details Section - For new pricing structure */}
-                {location.state?.isNewPricingStructure && (
-                  <div className="bg-white rounded-2xl p-6  border border-gray-200">
-                    <h3 className="text-lg font-bold text-gray-900 mb-6">Project Details</h3>
-                  
-                  <div className="space-y-6">
-                    {/* Platform/Marketplace Selection - Always show this */}
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Primary Target Platform <span className="text-xs text-gray-500">(Optional)</span>
-                      </label>
-                      <select
-                        value={formData.marketplace}
-                        onChange={(e) => handleMarketplaceChange(e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all ${
-                          validationErrors.marketplace ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'
-                        }`}
-                      >
-                        <option value="">Choose your primary platform...</option>
-                        <option value="shopee">Shopee</option>
-                        <option value="lazada">Lazada</option>
-                        <option value="amazon">Amazon</option>
-                        <option value="shopify">Shopify</option>
-                        <option value="meta">Meta/Facebook</option>
-                        <option value="tiktok">TikTok Shop</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="website">Website</option>
-                        <option value="other">Other</option>
-                      </select>
-                      {validationErrors.marketplace && (
-                        <p className="mt-1 text-sm text-red-600">{validationErrors.marketplace}</p>
+                {isNewPricingFlow && (
+                  <div className="bg-white rounded-xl p-6 border border-gray-200">
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">Special Instructions</h3>
+                    <p className="text-sm text-gray-500 mb-5">
+                      Your quantity, add-ons, and platform were set on the pricing page.
+                      Add any extra notes for our editors here.
+                    </p>
+
+                    {/* Read-only confirmation of what was selected on the pricing page */}
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {selectedPackage.quantity && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-xs font-medium text-violet-800">
+                          {selectedPackage.quantity} photos
+                        </span>
                       )}
-                      <p className="mt-2 text-xs text-gray-500">
-                        Select your main platform to optimize photo dimensions and quality. You can mention additional platforms in the project description.
-                      </p>
+                      {selectedPackage.selectedMarketplace && (
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-xs font-medium text-violet-800 capitalize">
+                          {selectedPackage.selectedMarketplace}
+                        </span>
+                      )}
+                      {selectedPackage.addOns?.map((addOn, i) => (
+                        <span key={i} className="inline-flex items-center px-3 py-1 rounded-full bg-violet-50 border border-violet-200 text-xs font-medium text-violet-800">
+                          {addOn.description}
+                        </span>
+                      ))}
                     </div>
 
-                    {/* Show configured services summary for new pricing */}
-                    {location.state?.isNewPricingStructure && selectedPackage.addOns && selectedPackage.addOns.length > 0 && (
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-3">
-                          Your Selected Add-on Services
-                        </label>
-                        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
-                          <div className="space-y-2 text-sm text-violet-800">
-                            {selectedPackage.addOns.map((addOn, index) => (
-                              <div key={index} className="flex items-center">
-                                <CheckCircle className="w-4 h-4 text-violet-600 mr-2" />
-                                <span>{addOn.description} ({addOn.quantity} × ${addOn.pricePerUnit})</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Special Instructions */}
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-2">
-                        Special Instructions (Optional)
-                      </label>
-                      <textarea
-                        name="projectDescription"
-                        value={formData.projectDescription}
-                        onChange={handleChange}
-                        rows={4}
-                        className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
-                        placeholder="Any specific requirements, style preferences, brand guidelines, or special notes..."
-                      />
-                      <p className="mt-2 text-xs text-gray-500">
-                        Describe any specific editing requirements, brand colors, style preferences, or other important details.
-                      </p>
-                    </div>
+                    <textarea
+                      name="projectDescription"
+                      value={formData.projectDescription}
+                      onChange={handleChange}
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-200 bg-gray-50 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all"
+                      placeholder="Brand colours, background style, reference images, specific crop ratios, anything our editors should know…"
+                    />
                   </div>
-                </div>
                 )}
 
                 {/* Legacy Project Details Section - Only for old packages */}
-                {!location.state?.isNewPricingStructure && (
+                {!isNewPricingFlow && (
                   /* Original Project Details for Legacy Packages */
-                  <div className="bg-white rounded-2xl p-6  border border-gray-200">
+                  <div className="bg-white rounded-xl p-6  border border-gray-200">
                     <h3 className="text-lg font-bold text-gray-900 mb-6">Project Details</h3>
                     
                     <div className="space-y-6">
@@ -820,7 +906,7 @@ const StreamlinedBookingPage = () => {
                 )}
 
                 {/* Discount Code Section - Available for all pricing structures */}
-                <div className="bg-white rounded-2xl p-6  border border-gray-200">
+                <div className="bg-white rounded-xl p-6  border border-gray-200">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-sm font-semibold text-gray-900 flex items-center">
                       <Tag className="w-4 h-4 mr-2" />
@@ -864,7 +950,7 @@ const StreamlinedBookingPage = () => {
                           type="button"
                           onClick={handleApplyDiscount}
                           disabled={discountLoading}
-                          className="px-6 py-3 bg-violet-600 text-white rounded-xl font-medium hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
+                          className="px-6 py-3 bg-violet-950 text-white rounded-xl font-medium hover:bg-violet-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
                         >
                           {discountLoading ? (
                             <>
@@ -887,6 +973,8 @@ const StreamlinedBookingPage = () => {
                     </div>
                   )}
                 </div>
+                  </>
+                )}
 
                 {/* Continue Button */}
                 {/* General Error Display */}
@@ -902,7 +990,7 @@ const StreamlinedBookingPage = () => {
                 <button
                   onClick={handleContinueToOrderSummary}
                   disabled={loading}
-                  className="w-full bg-violet-600 text-white py-4 rounded-xl font-semibold hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
+                  className="w-full bg-violet-950 text-white py-4 rounded-xl font-semibold hover:bg-violet-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
                 >
                   {loading ? (
                     <>
@@ -923,7 +1011,7 @@ const StreamlinedBookingPage = () => {
                 </button>
               </>
             ) : (
-              <div className="bg-white rounded-2xl p-6  border border-gray-200">
+              <div className="bg-white rounded-xl p-6  border border-gray-200">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-lg font-bold text-gray-900">Secure Payment</h3>
                   <button
@@ -943,6 +1031,7 @@ const StreamlinedBookingPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
