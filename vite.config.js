@@ -19,6 +19,15 @@ export default defineConfig({
             next()
           }
         })
+        server.middlewares.use('/founders', (req, res, next) => {
+          const file = path.resolve(__dirname, 'public/founders/index.html')
+          if (fs.existsSync(file)) {
+            res.setHeader('Content-Type', 'text/html')
+            res.end(fs.readFileSync(file))
+          } else {
+            next()
+          }
+        })
       }
     }
   ],

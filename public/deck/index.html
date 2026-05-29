@@ -182,20 +182,19 @@
     #s2 h2 {
       font-family: 'Syne', sans-serif;
       font-weight: 900;
-      font-size: 44px;
-      line-height: 1.05;
+      font-size: 52px;
+      line-height: 1;
       letter-spacing: -.025em;
     }
     #s2 h2 .lime { color: var(--lime); }
     .pain {
-      display: flex; align-items: flex-start; gap: 14px;
       background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
+      border-radius: 12px; padding: 20px 22px; margin-bottom: 12px;
     }
     .pain:last-child { margin-bottom: 0; }
-    .pain .icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; padding-top: 1px; }
-    .pain h4 { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--text); }
-    .pain p { font-size: 12px; color: var(--sub); line-height: 1.6; }
+    .pain .num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; margin-bottom: 8px; }
+    .pain h4 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; margin-bottom: 6px; color: var(--text); }
+    .pain p { font-size: 12px; color: var(--sub); line-height: 1.65; }
 
     /* ── SLIDE 3 SOLUTION ── */
     #s3 .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -231,6 +230,91 @@
     }
     .svc-card .num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; margin-bottom: 8px; }
     .svc-card .name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; line-height: 1.3; color: var(--text); }
+
+    /* ── HOW IT WORKS ── */
+    #shiw h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 40px;
+      line-height: 1; letter-spacing: -.025em;
+      margin-bottom: 20px;
+    }
+    #shiw h2 .lime { color: var(--lime); }
+    .hiw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .hiw-col-hdr {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 11px; color: var(--lime);
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 14px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hiw-col-hdr svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .hiw-step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+    .hiw-step:last-child { margin-bottom: 0; }
+    .hiw-num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; min-width: 18px; padding-top: 2px; }
+    .hiw-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 3px; }
+    .hiw-desc { font-size: 13.5px; color: var(--sub); line-height: 1.6; }
+    .hiw-footer {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+      text-align: center; font-size: 12px; color: var(--muted);
+    }
+    .hiw-footer strong { color: var(--lime); }
+
+    /* ── PRICING EXPANSION ── */
+    #s6ex h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 40px;
+      line-height: 1; letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    #s6ex h2 .lime { color: var(--lime); }
+    .flex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .flex-col { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 20px 16px; }
+    .flex-col-hdr { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .flex-col-sub { font-size: 11px; color: var(--muted); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .commit-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; }
+    .commit-row.hot-row { background: rgba(163,230,53,.08); border: 1px solid rgba(163,230,53,.2); }
+    .commit-label { font-size: 12px; color: var(--sub); font-weight: 600; min-width: 64px; }
+    .commit-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--text); }
+    .commit-price span { font-size: 11px; font-weight: 400; color: var(--muted); }
+    .commit-save { font-size: 10px; color: var(--muted); text-align: right; }
+    .commit-row.hot-row .commit-save { color: var(--lime); font-weight: 700; }
+    .cat-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+    .cat-row:last-child { border-bottom: none; }
+    .cat-tier { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px; color: var(--text); min-width: 72px; }
+    .cat-detail { font-size: 11px; color: var(--muted); flex: 1; }
+    .cat-price { font-size: 12px; font-weight: 700; color: var(--lime); text-align: right; }
+    .cat-price.muted-p { color: var(--sub); }
+    .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); }
+    .addon-row:last-child { border-bottom: none; }
+    .addon-name { font-size: 12px; color: var(--sub); }
+    .addon-price { font-size: 12px; font-weight: 700; color: var(--lime); white-space: nowrap; margin-left: 8px; }
+    .flex-note { font-size: 10px; color: var(--muted); margin-top: 12px; }
+    .flex-footer { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); text-align: center; font-size: 11px; color: var(--muted); }
+
+    /* ── CATALOGUE SCOPE ── */
+    #scatalog h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 40px;
+      line-height: 1; letter-spacing: -.025em; margin-bottom: 20px;
+    }
+    #scatalog h2 .lime { color: var(--lime); }
+    .cscope-grid { display: grid; grid-template-columns: 290px 1fr; gap: 24px; align-items: start; }
+    .cscope-panel { background: var(--bg2); border: 1px solid rgba(163,230,53,.25); border-radius: 14px; padding: 20px; }
+    .cscope-pkg { font-family: 'Syne', sans-serif; font-weight: 900; font-size: 18px; color: var(--text); }
+    .cscope-price { font-family: 'Syne', sans-serif; font-weight: 900; font-size: 28px; color: var(--lime); line-height: 1; margin: 4px 0 2px; }
+    .cscope-qty { font-size: 12px; color: var(--muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .cscope-meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .cscope-meta-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .cscope-meta-label { font-size: 11px; color: var(--muted); }
+    .cscope-meta-val { font-size: 12px; font-weight: 700; color: var(--text); }
+    .cscope-total { font-size: 11px; color: var(--muted); }
+    .cscope-total strong { color: var(--lime); font-size: 12px; }
+    .cscope-deliverables { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .csd { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+    .csd .csd-num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; margin-bottom: 6px; }
+    .csd .csd-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .csd .csd-desc { font-size: 11.5px; color: var(--sub); line-height: 1.55; }
 
     /* ── SLIDE 5 PRICING ── */
     #s5 h2 {
@@ -506,6 +590,47 @@
     }
     .d.on { background: var(--lime); border-color: var(--lime); width: 18px; border-radius: 3px; }
     #counter { font-size: 10px; color: var(--muted); font-weight: 600; min-width: 28px; text-align: center; }
+
+    /* ── BENTO DELIVERABLES SLIDE ── */
+    #sbento .inner { display: flex; flex-direction: column; height: 100%; }
+    #sbento h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 34px;
+      line-height: 1; letter-spacing: -.025em;
+      margin-bottom: 14px;
+    }
+    #sbento h2 .lime { color: var(--lime); }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      flex: 1;
+      min-height: 0;
+    }
+    .bc {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      min-height: 0;
+    }
+    .bc-wide { grid-column: span 2; }
+    .bc-vis {
+      flex: 1; min-height: 0;
+      position: relative; overflow: hidden;
+    }
+    .bc-vis svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .bc-foot {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      display: flex; align-items: center; gap: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .bc-num { font-size: 9px; font-weight: 700; color: var(--lime); letter-spacing: .1em; }
+    .bc-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 11px; color: var(--text); }
+    .bc-tag { margin-left: auto; font-size: 9px; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -560,29 +685,23 @@
     <div class="inner">
       <div>
         <div class="eyebrow"><span class="dot"></span>The Problem</div>
-        <h2>E-commerce brands are <span class="lime">losing money</span> on bad visuals and fragmented campaigns.</h2>
+        <h2>Your brand<br>is leaking<br><span class="lime">revenue.</span></h2>
       </div>
       <div>
         <div class="pain">
-          <div class="icon">🎨</div>
-          <div>
-            <h4>Design and campaigns never talk to each other</h4>
-            <p>Most brands use a separate designer and a separate ads manager. Messaging is inconsistent, creatives are stale, and no one owns the full funnel.</p>
-          </div>
+          <div class="num">01</div>
+          <h4>Design and campaigns never talk to each other</h4>
+          <p>Most brands use a separate designer and a separate ads manager. Messaging is inconsistent, creatives are stale, and no one owns the full funnel.</p>
         </div>
         <div class="pain">
-          <div class="icon">⏱</div>
-          <div>
-            <h4>Platform mega-sales are missed</h4>
-            <p>11.11, 12.12, and Lazada Birthday Campaigns require weeks of prep. Brands scramble last-minute — and leave revenue on the table.</p>
-          </div>
+          <div class="num">02</div>
+          <h4>Platform mega-sales are missed</h4>
+          <p>11.11, 12.12, and Lazada Birthday Campaigns require weeks of prep. Brands scramble last-minute — and leave revenue on the table.</p>
         </div>
         <div class="pain">
-          <div class="icon">📦</div>
-          <div>
-            <h4>Product images don't convert</h4>
-            <p>Generic white-background photos aren't enough. Platform algorithms and buyer psychology both reward rich, consistent, on-brand visuals.</p>
-          </div>
+          <div class="num">03</div>
+          <h4>Product images don't convert</h4>
+          <p>Generic white-background photos aren't enough. Platform algorithms and buyer psychology both reward rich, consistent, on-brand visuals.</p>
         </div>
       </div>
     </div>
@@ -627,6 +746,61 @@
         <div class="svc-card"><div class="num">07</div><div class="name">Marketplace Campaign Management</div></div>
         <div class="svc-card"><div class="num">08</div><div class="name">Campaign Performance Reporting</div></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── S4b: HOW IT WORKS ── -->
+  <section class="slide" id="shiw">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>How It Works</div>
+      <h2>What we actually <span class="lime">do for you.</span></h2>
+      <div class="hiw-grid">
+        <div class="hiw-col">
+          <div class="hiw-col-hdr">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="2"/><circle cx="8" cy="8" r="2.5"/></svg>
+            Your Images
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">01</div>
+            <div><div class="hiw-title">Clean &amp; retouch</div><div class="hiw-desc">We remove backgrounds, fix the lighting, and make your product look better than it does in real life.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">02</div>
+            <div><div class="hiw-title">Build the full listing set</div><div class="hiw-desc">Main image, lifestyle shot, feature callouts, size guide — each image has a specific job to do.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">03</div>
+            <div><div class="hiw-title">Apply your brand</div><div class="hiw-desc">Your colours, fonts, and messaging applied consistently across every single image.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">04</div>
+            <div><div class="hiw-title">Format for the platform</div><div class="hiw-desc">Lazada and Shopee have strict rules on image size and text. We make sure nothing gets rejected.</div></div>
+          </div>
+        </div>
+        <div class="hiw-col">
+          <div class="hiw-col-hdr">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M8 2v12"/><circle cx="8" cy="8" r="6"/></svg>
+            Your Campaigns
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">01</div>
+            <div><div class="hiw-title">Plan around sale events</div><div class="hiw-desc">We prep weeks ahead for 11.11, 12.12, and every major platform sale — so you're never scrambling last minute.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">02</div>
+            <div><div class="hiw-title">Launch &amp; target the right buyers</div><div class="hiw-desc">We run ads on Lazada, Shopee, Facebook, and Instagram — targeting people most likely to buy from you.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">03</div>
+            <div><div class="hiw-title">Optimise every week</div><div class="hiw-desc">We cut what isn't working and put more budget behind your best performers. Not set-and-forget.</div></div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num">04</div>
+            <div><div class="hiw-title">Report every month</div><div class="hiw-desc">A plain-English summary of your spend, revenue, and what we're doing next. No jargon, no fluff.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="hiw-footer">Images and campaigns always built around the same message — <strong>that's the Sprintix difference.</strong></div>
     </div>
   </section>
 
@@ -760,6 +934,399 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- ── S6ex: PRICING EXPANSION ── -->
+  <section class="slide" id="s6ex">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Flexible Options</div>
+      <h2>More ways to work <span class="lime">with us.</span></h2>
+      <div class="flex-grid">
+        <div class="flex-col">
+          <div class="flex-col-hdr">Commit &amp; Save</div>
+          <div class="flex-col-sub">Sprint Pack — longer commitment, lower monthly rate</div>
+          <div class="commit-row">
+            <div class="commit-label">Monthly</div>
+            <div class="commit-price">SGD 1,200<span>/mo</span></div>
+            <div class="commit-save">—</div>
+          </div>
+          <div class="commit-row">
+            <div class="commit-label">6-Month</div>
+            <div class="commit-price">SGD 1,050<span>/mo</span></div>
+            <div class="commit-save">Save SGD 900</div>
+          </div>
+          <div class="commit-row hot-row">
+            <div class="commit-label">Annual</div>
+            <div class="commit-price">SGD 950<span>/mo</span></div>
+            <div class="commit-save">Save SGD 3,000</div>
+          </div>
+          <div class="flex-note">Annual plan billed as SGD 11,400/yr · + 10% revenue share applies to all tiers</div>
+        </div>
+        <div class="flex-col">
+          <div class="flex-col-hdr">Large Catalogue</div>
+          <div class="flex-col-sub">50+ products? We have a tier for that.</div>
+          <div class="cat-row"><div class="cat-tier">Catalog S</div><div class="cat-detail">Up to 15 products</div><div class="cat-price">SGD 2,800</div></div>
+          <div class="cat-row"><div class="cat-tier">Catalog M</div><div class="cat-detail">Up to 30 products</div><div class="cat-price">SGD 4,500</div></div>
+          <div class="cat-row"><div class="cat-tier">Catalog L</div><div class="cat-detail">Up to 60 products</div><div class="cat-price">SGD 7,500</div></div>
+          <div class="cat-row"><div class="cat-tier">Catalog XL</div><div class="cat-detail">61+ products</div><div class="cat-price muted-p">Custom quote</div></div>
+          <div class="flex-note">~6 images per product · background removed · platform-ready</div>
+        </div>
+        <div class="flex-col">
+          <div class="flex-col-hdr">Add-ons</div>
+          <div class="flex-col-sub">Stack onto any package, anytime.</div>
+          <div class="addon-row"><div class="addon-name">Flash sale &amp; campaign banners</div><div class="addon-price">SGD 600–900</div></div>
+          <div class="addon-row"><div class="addon-name">Short-form video creatives</div><div class="addon-price">SGD 400–800</div></div>
+          <div class="addon-row"><div class="addon-name">TikTok Shop setup</div><div class="addon-price">SGD 1,500</div></div>
+          <div class="addon-row"><div class="addon-name">Email / WhatsApp blast design</div><div class="addon-price">SGD 300–500/mo</div></div>
+          <div class="addon-row"><div class="addon-name">Brand identity refresh</div><div class="addon-price">SGD 800–1,500</div></div>
+        </div>
+      </div>
+      <div class="flex-footer">All pricing in SGD · Enterprise &amp; multi-brand? Let's talk — custom quotes available.</div>
+    </div>
+  </section>
+
+  <!-- ── S6cat: CATALOGUE SCOPE ── -->
+  <section class="slide" id="scatalog">
+    <div class="inner">
+      <div class="eyebrow"><span class="dot"></span>Catalogue Pricing</div>
+      <h2>Here's exactly <span class="lime">what you get.</span></h2>
+      <div class="cscope-grid">
+        <div class="cscope-panel">
+          <div class="cscope-pkg">Catalog S</div>
+          <div class="cscope-price">SGD 2,800</div>
+          <div class="cscope-qty">Up to 15 products</div>
+          <div class="cscope-meta">
+            <div class="cscope-meta-row"><span class="cscope-meta-label">You send us</span><span class="cscope-meta-val">Raw product photos</span></div>
+            <div class="cscope-meta-row"><span class="cscope-meta-label">We deliver</span><span class="cscope-meta-val">90 finished images</span></div>
+            <div class="cscope-meta-row"><span class="cscope-meta-label">Per product</span><span class="cscope-meta-val">6 images</span></div>
+            <div class="cscope-meta-row"><span class="cscope-meta-label">Turnaround</span><span class="cscope-meta-val">7–10 business days</span></div>
+            <div class="cscope-meta-row"><span class="cscope-meta-label">Revisions</span><span class="cscope-meta-val">1 round per product</span></div>
+          </div>
+          <div class="cscope-total">That's <strong>SGD 31/image</strong> — fully designed, on-brand, and platform-ready.</div>
+        </div>
+        <div class="cscope-deliverables">
+          <div class="csd"><div class="csd-num">01</div><div class="csd-title">Main Hero</div><div class="csd-desc">White background, product centred and retouched. The image shoppers see first in search results.</div></div>
+          <div class="csd"><div class="csd-num">02</div><div class="csd-title">Lifestyle Shot</div><div class="csd-desc">Product placed into a real-life scene. Helps shoppers picture owning it — and converts browsers into buyers.</div></div>
+          <div class="csd"><div class="csd-num">03</div><div class="csd-title">Feature Callout</div><div class="csd-desc">Key selling points as clean infographics — waterproof, size range, materials, certifications.</div></div>
+          <div class="csd"><div class="csd-num">04</div><div class="csd-title">Detail Shot</div><div class="csd-desc">Close-up of texture, stitching, or finish. Builds trust in quality before a customer can touch the product.</div></div>
+          <div class="csd"><div class="csd-num">05</div><div class="csd-title">Size &amp; Dimension Guide</div><div class="csd-desc">Clearly laid-out measurements or sizing chart. Reduces returns and sets the right expectations upfront.</div></div>
+          <div class="csd"><div class="csd-num">06</div><div class="csd-title">Brand Closing Tile</div><div class="csd-desc">Your logo, tagline, and brand colours — a consistent closing image that makes your store look like a real brand.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BENTO: 6 DELIVERABLES ── -->
+  <section class="slide" id="sbento">
+    <div class="inner">
+      <div><div class="eyebrow"><span class="dot"></span>What's in every order</div>
+      <h2>6 images. <span class="lime">Every product.</span></h2></div>
+      <div class="bento-grid">
+
+        <!-- 01 Main Hero (wide) -->
+        <div class="bc bc-wide">
+          <div class="bc-vis">
+            <svg viewBox="0 0 550 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="bh-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+                  <circle cx="9" cy="9" r="0.7" fill="#27272a"/>
+                </pattern>
+              </defs>
+              <rect width="550" height="200" fill="#0c0c0f"/>
+              <rect width="550" height="200" fill="url(#bh-dots)"/>
+              <rect x="60" y="14" width="430" height="172" fill="#ffffff" rx="6"/>
+              <rect x="60" y="14" width="14" height="2" fill="#a3e635"/><rect x="60" y="14" width="2" height="14" fill="#a3e635"/>
+              <rect x="476" y="14" width="14" height="2" fill="#a3e635"/><rect x="488" y="14" width="2" height="14" fill="#a3e635"/>
+              <rect x="60" y="184" width="14" height="2" fill="#a3e635"/><rect x="60" y="172" width="2" height="14" fill="#a3e635"/>
+              <rect x="476" y="184" width="14" height="2" fill="#a3e635"/><rect x="488" y="172" width="2" height="14" fill="#a3e635"/>
+              <line x1="275" y1="14" x2="275" y2="186" stroke="#f0f0f0" stroke-width="0.7" stroke-dasharray="4,5"/>
+              <line x1="60" y1="100" x2="490" y2="100" stroke="#f0f0f0" stroke-width="0.7" stroke-dasharray="4,5"/>
+              <ellipse cx="275" cy="184" rx="42" ry="4" fill="#dcdce0" opacity="0.65"/>
+              <rect x="247" y="44" width="56" height="132" fill="#d4d4d8" rx="10"/>
+              <rect x="258" y="30" width="34" height="18" fill="#a1a1aa" rx="6"/>
+              <rect x="252" y="74" width="46" height="74" fill="white" rx="4"/>
+              <rect x="258" y="82" width="34" height="5" fill="#18181b" rx="2.5" opacity="0.65"/>
+              <rect x="262" y="94" width="26" height="2" fill="#d4d4d8" rx="1"/>
+              <rect x="265" y="100" width="20" height="2" fill="#e4e4e7" rx="1"/>
+              <rect x="256" y="108" width="38" height="24" fill="#f4f4f5" rx="3"/>
+              <rect x="263" y="115" width="24" height="2" fill="#a1a1aa" rx="1"/>
+              <rect x="266" y="121" width="18" height="2" fill="#d4d4d8" rx="1"/>
+              <rect x="260" y="138" width="30" height="5" fill="#e4e4e7" rx="1.5"/>
+              <rect x="68" y="22" width="126" height="19" fill="#09090b" rx="9.5"/>
+              <text x="131" y="31.5" text-anchor="middle" dominant-baseline="middle" fill="#a3e635" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.08em">PLATFORM READY</text>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">01</span><span class="bc-title">Main Hero</span>
+            <span class="bc-tag">White bg · Centred · Retouched</span>
+          </div>
+        </div>
+
+        <!-- 02 Lifestyle Shot -->
+        <div class="bc">
+          <div class="bc-vis">
+            <svg viewBox="0 0 270 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bls-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1a2744"/>
+                  <stop offset="60%" stop-color="#6d28d9"/>
+                  <stop offset="100%" stop-color="#c2410c"/>
+                </linearGradient>
+                <linearGradient id="bls-surf" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#b45309"/>
+                  <stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+                <radialGradient id="bls-glow" cx="50%" cy="72%" r="38%">
+                  <stop offset="0%" stop-color="rgba(251,191,36,0.32)"/>
+                  <stop offset="100%" stop-color="rgba(251,191,36,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="270" height="200" fill="url(#bls-sky)"/>
+              <circle cx="220" cy="28" r="34" fill="rgba(167,139,250,0.09)"/>
+              <circle cx="38" cy="78" r="22" fill="rgba(251,191,36,0.07)"/>
+              <circle cx="228" cy="115" r="18" fill="rgba(252,211,77,0.07)"/>
+              <rect width="270" height="200" fill="url(#bls-glow)"/>
+              <rect x="0" y="148" width="270" height="52" fill="url(#bls-surf)"/>
+              <rect x="0" y="148" width="270" height="2" fill="rgba(255,255,255,0.18)"/>
+              <line x1="0" y1="158" x2="270" y2="158" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+              <line x1="0" y1="170" x2="270" y2="170" stroke="rgba(0,0,0,0.06)" stroke-width="0.8"/>
+              <ellipse cx="135" cy="155" rx="28" ry="5" fill="rgba(0,0,0,0.42)"/>
+              <rect x="116" y="72" width="38" height="82" fill="#f0e8dc" rx="8"/>
+              <rect x="123" y="60" width="24" height="16" fill="#d4c0a0" rx="5"/>
+              <rect x="121" y="92" width="28" height="46" fill="rgba(255,255,255,0.92)" rx="3"/>
+              <rect x="125" y="99" width="20" height="4" fill="#6d28d9" rx="2"/>
+              <rect x="127" y="108" width="16" height="2" fill="#d4c0a0" rx="1"/>
+              <rect x="129" y="113" width="12" height="2" fill="#e8d8c0" rx="1"/>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">02</span><span class="bc-title">Lifestyle Shot</span>
+            <span class="bc-tag">Real-life scene</span>
+          </div>
+        </div>
+
+        <!-- 03 Feature Callout -->
+        <div class="bc">
+          <div class="bc-vis">
+            <svg viewBox="0 0 270 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="bfc-dots" width="16" height="16" patternUnits="userSpaceOnUse">
+                  <circle cx="8" cy="8" r="0.8" fill="#27272a"/>
+                </pattern>
+                <filter id="bfc-blur" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="5"/>
+                </filter>
+                <radialGradient id="bfc-glow" cx="50%" cy="50%" r="40%">
+                  <stop offset="0%" stop-color="rgba(163,230,53,0.13)"/>
+                  <stop offset="100%" stop-color="rgba(163,230,53,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="270" height="200" fill="#0a0a0c"/>
+              <rect width="270" height="200" fill="url(#bfc-dots)"/>
+              <rect x="100" y="20" width="70" height="160" fill="#2d2d38" rx="20" filter="url(#bfc-blur)"/>
+              <rect width="270" height="200" fill="url(#bfc-glow)"/>
+              <rect x="12" y="22" width="136" height="26" fill="#a3e635" rx="13"/>
+              <text x="80" y="35" text-anchor="middle" dominant-baseline="middle" fill="#09090b" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="700">✓ 100% Waterproof</text>
+              <line x1="148" y1="35" x2="176" y2="54" stroke="rgba(163,230,53,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+              <rect x="122" y="64" width="136" height="26" fill="#111114" rx="13" stroke="#a3e635" stroke-width="1.2"/>
+              <text x="190" y="77" text-anchor="middle" dominant-baseline="middle" fill="#a3e635" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="700">⚡ 48hr Battery</text>
+              <line x1="122" y1="77" x2="150" y2="91" stroke="rgba(163,230,53,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
+              <rect x="12" y="106" width="128" height="26" fill="#18181b" rx="13" stroke="#3f3f46" stroke-width="1"/>
+              <text x="76" y="119" text-anchor="middle" dominant-baseline="middle" fill="#fafafa" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="600">↔ Free Size S–L</text>
+              <rect x="12" y="148" width="114" height="26" fill="#18181b" rx="13" stroke="#3f3f46" stroke-width="1"/>
+              <text x="69" y="161" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="10.5" font-family="DM Sans,sans-serif" font-weight="500">★ SGS Certified</text>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">03</span><span class="bc-title">Feature Callout</span>
+            <span class="bc-tag">Infographic overlays</span>
+          </div>
+        </div>
+
+        <!-- 04 Detail Shot -->
+        <div class="bc">
+          <div class="bc-vis">
+            <svg viewBox="0 0 270 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="bds-fab" width="14" height="14" patternUnits="userSpaceOnUse">
+                  <rect width="14" height="14" fill="#1c1c22"/>
+                  <rect x="0" y="0" width="7" height="7" fill="#222228" rx="1.5"/>
+                  <rect x="7" y="7" width="7" height="7" fill="#222228" rx="1.5"/>
+                  <rect x="2.5" y="2.5" width="2" height="2" fill="#2a2a34"/>
+                  <rect x="9.5" y="9.5" width="2" height="2" fill="#2a2a34"/>
+                </pattern>
+                <pattern id="bds-fab2" width="7" height="7" patternUnits="userSpaceOnUse">
+                  <rect width="7" height="7" fill="#28283a"/>
+                  <rect x="0" y="0" width="3.5" height="3.5" fill="#30303e" rx="0.8"/>
+                  <rect x="3.5" y="3.5" width="3.5" height="3.5" fill="#30303e" rx="0.8"/>
+                  <rect x="1" y="1" width="1.5" height="1.5" fill="#38384a"/>
+                  <rect x="4.5" y="4.5" width="1.5" height="1.5" fill="#38384a"/>
+                </pattern>
+                <radialGradient id="bds-lg" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.1)"/>
+                  <stop offset="80%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+                <clipPath id="bds-lc"><circle cx="142" cy="96" r="60"/></clipPath>
+              </defs>
+              <rect width="270" height="200" fill="url(#bds-fab)"/>
+              <rect width="270" height="200" fill="url(#bds-fab2)" clip-path="url(#bds-lc)"/>
+              <g clip-path="url(#bds-lc)" opacity="0.22">
+                <line x1="82" y1="36" x2="202" y2="36" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="50" x2="202" y2="50" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="64" x2="202" y2="64" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="78" x2="202" y2="78" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="92" x2="202" y2="92" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="106" x2="202" y2="106" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="120" x2="202" y2="120" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="134" x2="202" y2="134" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="82" y1="148" x2="202" y2="148" stroke="#a1a1aa" stroke-width="0.7"/>
+                <line x1="96" y1="36" x2="96" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+                <line x1="114" y1="36" x2="114" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+                <line x1="132" y1="36" x2="132" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+                <line x1="150" y1="36" x2="150" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+                <line x1="168" y1="36" x2="168" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+                <line x1="186" y1="36" x2="186" y2="156" stroke="#a1a1aa" stroke-width="0.5"/>
+              </g>
+              <circle cx="142" cy="96" r="60" fill="url(#bds-lg)"/>
+              <circle cx="142" cy="96" r="60" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+              <ellipse cx="116" cy="68" rx="18" ry="10" fill="rgba(255,255,255,0.07)" transform="rotate(-35,116,68)"/>
+              <line x1="192" y1="148" x2="224" y2="180" stroke="rgba(255,255,255,0.22)" stroke-width="5" stroke-linecap="round"/>
+              <rect x="8" y="8" width="66" height="19" fill="rgba(0,0,0,0.65)" rx="5"/>
+              <text x="41" y="17.5" text-anchor="middle" dominant-baseline="middle" fill="#a3e635" font-size="8" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.08em">CLOSE-UP</text>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">04</span><span class="bc-title">Detail Shot</span>
+            <span class="bc-tag">Texture · Material · Finish</span>
+          </div>
+        </div>
+
+        <!-- 05 Size Guide (wide) -->
+        <div class="bc bc-wide">
+          <div class="bc-vis">
+            <svg viewBox="0 0 550 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="bsg-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e8e8ec" stroke-width="0.5"/>
+                </pattern>
+                <marker id="bsg-ae" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0,6 3,0 6" fill="#a3e635"/>
+                </marker>
+                <marker id="bsg-as" markerWidth="6" markerHeight="6" refX="2" refY="3" orient="auto-start-reverse">
+                  <polygon points="0 0,6 3,0 6" fill="#a3e635"/>
+                </marker>
+                <marker id="bsg-aem" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0,6 3,0 6" fill="#a1a1aa"/>
+                </marker>
+                <marker id="bsg-asm" markerWidth="6" markerHeight="6" refX="2" refY="3" orient="auto-start-reverse">
+                  <polygon points="0 0,6 3,0 6" fill="#a1a1aa"/>
+                </marker>
+              </defs>
+              <rect width="550" height="200" fill="#fafafa"/>
+              <rect width="550" height="200" fill="url(#bsg-grid)"/>
+              <path d="M 202 62 Q 196 30 213 24 Q 228 18 234 50" stroke="#a1a1aa" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M 268 50 Q 274 18 289 24 Q 306 30 300 62" stroke="#a1a1aa" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M 192 62 L 200 175 L 302 175 L 310 62 Z" fill="#d4d4d8" stroke="#a1a1aa" stroke-width="1.5"/>
+              <line x1="251" y1="62" x2="251" y2="175" stroke="#c0c0c8" stroke-width="0.8" stroke-dasharray="4,3"/>
+              <rect x="218" y="104" width="66" height="54" fill="white" stroke="#c0c0c8" stroke-width="1.2" rx="4"/>
+              <circle cx="251" cy="108" r="4" fill="#b0b0b8" stroke="white" stroke-width="1"/>
+              <rect x="228" y="120" width="46" height="2" fill="#e4e4e7" rx="1"/>
+              <rect x="232" y="127" width="38" height="2" fill="#ececf0" rx="1"/>
+              <rect x="236" y="134" width="30" height="2" fill="#f0f0f4" rx="1"/>
+              <line x1="192" y1="48" x2="310" y2="48" stroke="#a3e635" stroke-width="1.5" marker-start="url(#bsg-as)" marker-end="url(#bsg-ae)"/>
+              <rect x="227" y="39" width="48" height="17" fill="white" rx="4"/>
+              <text x="251" y="47.5" text-anchor="middle" dominant-baseline="middle" fill="#09090b" font-size="10" font-family="DM Sans,sans-serif" font-weight="700">38 cm</text>
+              <line x1="194" y1="62" x2="172" y2="62" stroke="#a1a1aa" stroke-width="0.7" stroke-dasharray="3,2"/>
+              <line x1="202" y1="175" x2="172" y2="175" stroke="#a1a1aa" stroke-width="0.7" stroke-dasharray="3,2"/>
+              <line x1="172" y1="62" x2="172" y2="175" stroke="#a3e635" stroke-width="1.5" marker-start="url(#bsg-as)" marker-end="url(#bsg-ae)"/>
+              <rect x="140" y="110" width="28" height="17" fill="white" rx="4"/>
+              <text x="154" y="118.5" text-anchor="middle" dominant-baseline="middle" fill="#09090b" font-size="10" font-family="DM Sans,sans-serif" font-weight="700">42 cm</text>
+              <line x1="300" y1="62" x2="322" y2="62" stroke="#a1a1aa" stroke-width="0.7" stroke-dasharray="3,2"/>
+              <line x1="306" y1="24" x2="322" y2="24" stroke="#a1a1aa" stroke-width="0.7" stroke-dasharray="3,2"/>
+              <line x1="322" y1="24" x2="322" y2="62" stroke="#a1a1aa" stroke-width="1.2" marker-start="url(#bsg-asm)" marker-end="url(#bsg-aem)"/>
+              <rect x="328" y="36" width="34" height="14" fill="white" rx="3"/>
+              <text x="345" y="43" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="9" font-family="DM Sans,sans-serif">18 cm</text>
+              <rect x="378" y="14" width="158" height="172" fill="white" rx="10" stroke="#e4e4e7" stroke-width="1"/>
+              <rect x="378" y="14" width="158" height="30" fill="#09090b" rx="10"/>
+              <rect x="378" y="32" width="158" height="12" fill="#09090b"/>
+              <text x="457" y="29" text-anchor="middle" dominant-baseline="middle" fill="#a3e635" font-size="9.5" font-family="DM Sans,sans-serif" font-weight="700" letter-spacing="0.06em">SIZE CHART</text>
+              <text x="400" y="55" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">SIZE</text>
+              <text x="432" y="55" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">WIDTH</text>
+              <text x="470" y="55" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">HEIGHT</text>
+              <text x="516" y="55" text-anchor="middle" dominant-baseline="middle" fill="#71717a" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">STRAP</text>
+              <line x1="378" y1="67" x2="536" y2="67" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="378" y1="93" x2="536" y2="93" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="378" y1="119" x2="536" y2="119" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="378" y1="145" x2="536" y2="145" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="414" y1="44" x2="414" y2="186" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="449" y1="44" x2="449" y2="186" stroke="#f0f0f4" stroke-width="1"/>
+              <line x1="492" y1="44" x2="492" y2="186" stroke="#f0f0f4" stroke-width="1"/>
+              <text x="396" y="80" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">S</text>
+              <text x="432" y="80" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">30</text>
+              <text x="470" y="80" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">36</text>
+              <text x="516" y="80" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">14</text>
+              <rect x="380" y="95" width="154" height="24" fill="#a3e635" opacity="0.08"/>
+              <text x="396" y="107" text-anchor="middle" dominant-baseline="middle" fill="#09090b" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">M</text>
+              <text x="432" y="107" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">34</text>
+              <text x="470" y="107" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">40</text>
+              <text x="516" y="107" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">16</text>
+              <text x="396" y="132" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">L</text>
+              <text x="432" y="132" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">38</text>
+              <text x="470" y="132" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">44</text>
+              <text x="516" y="132" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">18</text>
+              <text x="396" y="158" text-anchor="middle" dominant-baseline="middle" fill="#27272a" font-size="9" font-family="DM Sans,sans-serif" font-weight="600">XL</text>
+              <text x="432" y="158" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">42</text>
+              <text x="470" y="158" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">48</text>
+              <text x="516" y="158" text-anchor="middle" dominant-baseline="middle" fill="#52525b" font-size="9" font-family="DM Sans,sans-serif">20</text>
+              <text x="457" y="183" text-anchor="middle" dominant-baseline="middle" fill="#a1a1aa" font-size="7.5" font-family="DM Sans,sans-serif">measurements in cm</text>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">05</span><span class="bc-title">Size &amp; Dimension Guide</span>
+            <span class="bc-tag">Reduces returns · Sets expectations</span>
+          </div>
+        </div>
+
+        <!-- 06 Brand Closing Tile -->
+        <div class="bc">
+          <div class="bc-vis">
+            <svg viewBox="0 0 270 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bbr-bg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#0d1709"/>
+                  <stop offset="100%" stop-color="#0a1206"/>
+                </linearGradient>
+                <radialGradient id="bbr-glow" cx="35%" cy="50%" r="60%">
+                  <stop offset="0%" stop-color="rgba(163,230,53,0.2)"/>
+                  <stop offset="100%" stop-color="rgba(163,230,53,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="270" height="200" fill="url(#bbr-bg)"/>
+              <rect width="270" height="200" fill="url(#bbr-glow)"/>
+              <circle cx="226" cy="38" r="90" fill="none" stroke="rgba(163,230,53,0.08)" stroke-width="1.5"/>
+              <circle cx="226" cy="38" r="62" fill="none" stroke="rgba(163,230,53,0.06)" stroke-width="1"/>
+              <rect x="226" y="148" width="16" height="16" fill="rgba(163,230,53,0.14)" rx="3" transform="rotate(18,234,156)"/>
+              <rect x="20" y="162" width="10" height="10" fill="rgba(163,230,53,0.09)" rx="2" transform="rotate(-12,25,167)"/>
+              <rect x="28" y="34" width="40" height="40" fill="#a3e635" rx="10"/>
+              <text x="48" y="54" text-anchor="middle" dominant-baseline="middle" fill="#09090b" font-size="26" font-family="Syne,sans-serif" font-weight="900">S</text>
+              <text x="80" y="48" dominant-baseline="middle" fill="#fafafa" font-size="18" font-family="Syne,sans-serif" font-weight="900">SPRINT</text>
+              <text x="80" y="68" dominant-baseline="middle" fill="#a3e635" font-size="18" font-family="Syne,sans-serif" font-weight="900">IX.</text>
+              <line x1="28" y1="96" x2="242" y2="96" stroke="rgba(163,230,53,0.22)" stroke-width="1"/>
+              <text x="28" y="116" dominant-baseline="middle" fill="#a1a1aa" font-size="13" font-family="DM Sans,sans-serif" font-weight="300">Your products.</text>
+              <text x="28" y="136" dominant-baseline="middle" fill="#fafafa" font-size="13" font-family="DM Sans,sans-serif" font-weight="700">Platform-ready.</text>
+              <text x="28" y="162" dominant-baseline="middle" fill="#52525b" font-size="9.5" font-family="DM Sans,sans-serif" letter-spacing="0.04em">sprintix.co</text>
+              <text x="178" y="162" dominant-baseline="middle" fill="#a3e635" font-size="10" font-family="DM Sans,sans-serif" font-weight="700">★★★★★</text>
+              <rect x="0" y="194" width="270" height="6" fill="#a3e635"/>
+            </svg>
+          </div>
+          <div class="bc-foot">
+            <span class="bc-num">06</span><span class="bc-title">Brand Closing Tile</span>
+            <span class="bc-tag">Logo · Tagline · Brand colours</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
