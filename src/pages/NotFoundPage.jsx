@@ -12,7 +12,7 @@ const NotFoundPage = () => {
         className="absolute top-6 left-6 text-xl font-black text-white tracking-tight hover:text-lime-400 transition-colors"
         style={{ fontFamily: 'Syne, sans-serif' }}
       >
-        Sprintix
+        Sprintix<span className="text-lime-400">.</span>
       </Link>
 
       {/* 404 */}

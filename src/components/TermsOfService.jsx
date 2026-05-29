@@ -8,7 +8,7 @@ function LegalNav() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-sm border-b border-zinc-800">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/" className="font-black text-xl text-white tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
-          Sprintix
+          Sprintix<span className="text-lime-400">.</span>
         </Link>
         <Link
           to="/"
