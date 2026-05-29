@@ -406,6 +406,7 @@
     }
     .dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
     .sctr { font-size: 11px; color: var(--text-muted); font-weight: 500; min-width: 34px; text-align: center; }
+    .ndivider { width: 1px; height: 14px; background: var(--border); margin: 0 2px; }
 
     /* ═══════════════════════════════════════════════
        PASSWORD GATE
@@ -1103,6 +1104,12 @@
       <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
+  <div class="ndivider"></div>
+  <button class="nbtn" id="btn-fs" title="Toggle fullscreen (F)" onclick="toggleFs()">
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"/>
+    </svg>
+  </button>
 </div>
 
 <script>
@@ -1139,6 +1146,24 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
     if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    { e.preventDefault(); prevSlide(); }
+    if ((e.key === 'f' || e.key === 'F') && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) toggleFs();
+  });
+
+  function toggleFs() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    const btn = document.getElementById('btn-fs');
+    const isFs = !!document.fullscreenElement;
+    btn.title = isFs ? 'Exit fullscreen (F)' : 'Toggle fullscreen (F)';
+    btn.innerHTML = isFs
+      ? '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 1v3H1M11 4H8V1M1 8h3v3M8 11V8h3"/></svg>'
+      : '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"/></svg>';
   });
 
   function scale() {
