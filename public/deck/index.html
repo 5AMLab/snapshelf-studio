@@ -1470,6 +1470,7 @@
 
   const dotsEl   = document.getElementById('dots');
   const counterEl = document.getElementById('counter');
+  counterEl.textContent = `1/${total}`;
 
   slides.forEach((_, i) => {
     const d = document.createElement('div');

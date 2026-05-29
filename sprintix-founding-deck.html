@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sprintix Studio — Founding Terms & Growth Model</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Sprintix Brand ── */
+      --bg:          #09090b;   /* zinc-950 */
+      --surface:     #18181b;   /* zinc-900 */
+      --surface-2:   #1c1c1f;   /* zinc-900/mid */
+      --border:      #27272a;   /* zinc-800 */
+      --border-2:    #3f3f46;   /* zinc-700 */
+      --accent:      #a3e635;   /* lime-400 */
+      --accent-dim:  rgba(163,230,53,0.10);
+      --accent-glow: rgba(163,230,53,0.06);
+      --text:        #ffffff;
+      --text-sec:    #a1a1aa;   /* zinc-400 */
+      --text-muted:  #52525b;   /* zinc-600 */
+      /* ── Three-person colour system (stays in brand) ── */
+      --founder:     #a3e635;              /* lime-400   — brand hero  */
+      --founder-dim: rgba(163,230,53,0.10);
+      --pm:          #e4e4e7;              /* zinc-200   — clean white */
+      --pm-dim:      rgba(228,228,231,0.08);
+      --bdm:         #a1a1aa;              /* zinc-400   — neutral     */
+      --bdm-dim:     rgba(161,161,170,0.10);
+      /* ── Slide dims ── */
+      --slide-w: 1280px;
+      --slide-h: 720px;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Scale root ── */
+    #scale-root {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale, 1));
+      transform-origin: center center;
+      width: var(--slide-w);
+      height: var(--slide-h);
+    }
+
+    .deck {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    /* ── Dot-grid texture (matches website hero) ── */
+    .deck::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Slides ── */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(28px);
+      transition: opacity 0.36s ease, transform 0.36s ease;
+      z-index: 1;
+    }
+    .slide.active { opacity: 1; pointer-events: all; transform: translateX(0); z-index: 2; }
+    .slide.exit   { opacity: 0; transform: translateX(-28px); z-index: 1; }
+
+    /* ── Shared slide header ── */
+    .sh {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 17px 52px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+    }
+    .brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .brand-dot { color: var(--accent); }
+    .snum {
+      font-size: 11px; font-weight: 500;
+      color: var(--text-muted); letter-spacing: 0.06em;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Slide body ── */
+    .sb {
+      flex: 1; padding: 34px 52px;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      position: relative; z-index: 1;
+    }
+    /* Slide title — Syne */
+    .st {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px; font-weight: 900;
+      color: var(--text); margin-bottom: 4px;
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .st .acc { color: var(--accent); }
+    /* Slide sub */
+    .ss { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+
+    /* ═══════════════════════════════════════════════
+       SLIDE 1 — COVER
+    ═══════════════════════════════════════════════ */
+    .cover-bg { position: absolute; inset: 0; overflow: hidden; }
+    /* Lime glow — top right (matches website hero) */
+    .cgl {
+      position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,230,53,0.09) 0%, transparent 68%);
+      top: -220px; right: -180px;
+      pointer-events: none;
+    }
+    /* Secondary soft glow — bottom left */
+    .cgl2 {
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,230,53,0.04) 0%, transparent 68%);
+      bottom: -160px; left: -80px;
+      pointer-events: none;
+    }
+    .cover-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      justify-content: center; height: 100%;
+      padding: 72px 72px 56px;
+    }
+    .cbadge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-2);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-sec);
+      margin-bottom: 30px; width: fit-content;
+    }
+    .cbadge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-lime 2s ease-in-out infinite;
+    }
+    @keyframes pulse-lime {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .ctitle {
+      font-family: 'Syne', sans-serif;
+      font-size: 62px; font-weight: 900;
+      line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 18px;
+    }
+    .ctitle .l1 { color: var(--text); display: block; }
+    .ctitle .l2 { color: var(--accent); display: block; }
+    .csub { font-size: 16px; color: var(--text-sec); margin-bottom: 40px; max-width: 480px; line-height: 1.6; }
+    .cmeta { display: flex; align-items: center; gap: 20px; }
+    .cmeta-item { font-size: 12px; color: var(--text-muted); }
+    .cmeta-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--border-2); }
+
+    /* ═══════════════════════════════════════════════
+       ROLE CARDS
+    ═══════════════════════════════════════════════ */
+    .role-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .rc {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; position: relative; overflow: hidden;
+    }
+    .rc::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+    .rc.f::before { background: var(--founder); }
+    .rc.p::before { background: var(--pm); }
+    .rc.b::before { background: var(--bdm); }
+    .ri {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; margin-bottom: 13px; font-weight: 700;
+    }
+    .rc.f .ri { background: var(--founder-dim); color: var(--founder); }
+    .rc.p .ri { background: var(--pm-dim); color: var(--pm); }
+    .rc.b .ri { background: var(--bdm-dim); color: var(--bdm); }
+    .rl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .rc.f .rl { color: var(--founder); }
+    .rc.p .rl { color: var(--pm); }
+    .rc.b .rl { color: var(--bdm); }
+    .rn {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 9px;
+    }
+    .rd { font-size: 12px; color: var(--text-sec); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════
+       EQUITY
+    ═══════════════════════════════════════════════ */
+    .eq-layout { display: grid; grid-template-columns: 256px 1fr; gap: 52px; align-items: center; }
+    .leg-item { display: flex; align-items: center; gap: 13px; }
+    .leg-clr { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .leg-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .leg-nm {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 800; color: var(--text);
+    }
+    .leg-pct {
+      font-family: 'Syne', sans-serif;
+      font-size: 30px; font-weight: 900; margin-left: auto; line-height: 1;
+    }
+    .eq-note {
+      background: rgba(163,230,53,0.05);
+      border: 1px solid rgba(163,230,53,0.18);
+      border-radius: 10px; padding: 12px 14px; font-size: 12px;
+      color: var(--text-muted); margin-top: 18px;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .eq-note strong { color: var(--text-sec); }
+
+    /* ═══════════════════════════════════════════════
+       REVENUE FLOW
+    ═══════════════════════════════════════════════ */
+    .flow-grid {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      gap: 8px; margin-bottom: 18px;
+    }
+    .fb {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 14px; position: relative;
+    }
+    .fb.fa { border-color: rgba(163,230,53,0.35); background: rgba(163,230,53,0.04); }
+    .fb:not(:last-child)::after {
+      content: '→'; position: absolute;
+      right: -12px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 16px; z-index: 2;
+    }
+    .fstep { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 7px; color: var(--text-muted); }
+    .fa .fstep { color: var(--accent); }
+    .flbl {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 5px;
+    }
+    .famt { font-size: 22px; font-weight: 900; line-height: 1; margin-bottom: 5px; color: var(--accent); }
+    .fdesc { font-size: 11px; color: var(--text-sec); line-height: 1.45; }
+
+    /* ═══════════════════════════════════════════════
+       TABLES
+    ═══════════════════════════════════════════════ */
+    .dtbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .dtbl th {
+      text-align: left; padding: 9px 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); border-bottom: 1px solid var(--border);
+    }
+    .dtbl td { padding: 11px 14px; color: var(--text-sec); border-bottom: 1px solid rgba(39,39,42,0.7); }
+    .dtbl tbody tr:last-child td { border-bottom: none; }
+    .dtbl .lc { font-weight: 600; }
+    .dtbl .vc { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+
+    .panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px;
+    }
+    .ptitle {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 13px;
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+
+    /* ── Chips / badges ── */
+    .chip {
+      display: inline-block; padding: 2px 9px; border-radius: 5px;
+      font-size: 10px; font-weight: 700;
+    }
+    .chip-f { background: var(--founder-dim); color: var(--founder); }
+    .chip-p { background: var(--pm-dim); color: var(--pm); }
+    .chip-b { background: var(--bdm-dim); color: var(--bdm); }
+    .chip-a { background: var(--accent-dim); color: var(--accent); }
+
+    /* ── Divider ── */
+    hr.div { border: none; border-top: 1px solid var(--border); margin: 9px 0; }
+
+    /* ── Info bar ── */
+    .info-bar {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 11px 14px;
+      font-size: 12px; color: var(--text-sec);
+      display: flex; gap: 9px; align-items: flex-start; line-height: 1.5;
+    }
+    .info-bar strong { color: var(--text); }
+
+    /* ═══════════════════════════════════════════════
+       VESTING
+    ═══════════════════════════════════════════════ */
+    .vp { display: flex; flex-direction: column; gap: 10px; }
+    .vpi {
+      display: flex; gap: 13px; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 13px 16px;
+    }
+    .vpico {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+      background: var(--accent-dim);
+    }
+    .vpi strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 3px;
+    }
+    .vpi p { font-size: 12px; color: var(--text-sec); line-height: 1.5; }
+
+    /* ═══════════════════════════════════════════════
+       PHASE CARDS
+    ═══════════════════════════════════════════════ */
+    .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .phcard {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px; position: relative; overflow: hidden;
+    }
+    .phcard::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background: var(--accent); }
+    .phcard.ph2::before { opacity: 0.4; }
+    .phlbl { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 9px; color: var(--text-muted); }
+    .phrate {
+      font-family: 'Syne', sans-serif;
+      font-size: 52px; font-weight: 900; line-height: 1; margin-bottom: 5px; color: var(--accent);
+    }
+    .phcard.ph2 .phrate { opacity: 0.6; }
+    .phsub { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
+    .phcard.ph2 .phsub { opacity: 0.6; }
+    .phdesc { font-size: 12px; color: var(--text-sec); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════════════
+       NEXT STEPS
+    ═══════════════════════════════════════════════ */
+    .nsteps { display: flex; flex-direction: column; gap: 12px; }
+    .nsi {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 20px;
+    }
+    .nsnum {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 900; flex-shrink: 0;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(163,230,53,0.3);
+    }
+    .nsnum.n2 { opacity: 0.8; }
+    .nsnum.n3 { opacity: 0.6; }
+    .nsi strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 3px;
+    }
+    .nsi p { font-size: 12px; color: var(--text-sec); line-height: 1.5; }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════ */
+    #nav {
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(9,9,11,0.92); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 9px 18px; z-index: 100;
+    }
+    .nbtn {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text-sec); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s;
+    }
+    .nbtn:hover { background: var(--accent); border-color: var(--accent); color: #09090b; }
+    .nbtn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .dots { display: flex; gap: 5px; align-items: center; }
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--border-2); cursor: pointer; transition: all 0.28s;
+    }
+    .dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+    .sctr { font-size: 11px; color: var(--text-muted); font-weight: 500; min-width: 34px; text-align: center; }
+
+    /* ═══════════════════════════════════════════════
+       PASSWORD GATE
+    ═══════════════════════════════════════════════ */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #09090b;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Sans', system-ui, sans-serif;
+    }
+    #gate::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.03;
+      pointer-events: none;
+    }
+    .gate-glow {
+      position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,230,53,0.05) 0%, transparent 68%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }
+    .gate-card {
+      position: relative; z-index: 1;
+      width: 400px;
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      border-radius: 20px;
+      padding: 40px 36px 36px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+    .gate-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px; font-weight: 900;
+      color: #ffffff; letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+    .gate-logo span { color: #a3e635; }
+    .gate-lock {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 18px;
+    }
+    .gate-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px; font-weight: 900;
+      color: #ffffff; margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .gate-sub {
+      font-size: 13px; color: #a1a1aa;
+      margin-bottom: 28px; line-height: 1.6;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .gate-input-wrap { width: 100%; position: relative; margin-bottom: 10px; }
+    #pw-input {
+      width: 100%;
+      background: #09090b; border: 1px solid #3f3f46;
+      border-radius: 12px; padding: 13px 16px;
+      font-size: 14px; font-family: 'DM Sans', sans-serif;
+      color: #ffffff; outline: none;
+      transition: border-color 0.18s;
+      -webkit-appearance: none;
+    }
+    #pw-input::placeholder { color: #52525b; }
+    #pw-input:focus { border-color: #a3e635; }
+    #pw-input.shake {
+      animation: shake 0.45s ease;
+      border-color: #ef4444;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-8px); }
+      40%      { transform: translateX(8px); }
+      60%      { transform: translateX(-6px); }
+      80%      { transform: translateX(6px); }
+    }
+    #gate-btn {
+      width: 100%;
+      background: #a3e635; color: #09090b;
+      border: none; border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 14px; font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer; transition: background 0.18s, transform 0.1s;
+      letter-spacing: -0.01em;
+    }
+    #gate-btn:hover  { background: #b8f53e; }
+    #gate-btn:active { transform: scale(0.98); }
+    #gate-err {
+      font-size: 12px; color: #ef4444;
+      margin-top: 10px; height: 16px;
+      opacity: 0; transition: opacity 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    #gate-err.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ── Password gate ── -->
+<div id="gate">
+  <div class="gate-glow"></div>
+  <div class="gate-card">
+    <div class="gate-logo">Sprintix<span>.</span></div>
+    <div class="gate-lock">🔒</div>
+    <div class="gate-heading">Protected document</div>
+    <div class="gate-sub">This is an internal co-founder reference.<br>Enter the password to continue.</div>
+    <div class="gate-input-wrap">
+      <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password">
+    </div>
+    <button id="gate-btn" onclick="unlock()">Unlock</button>
+    <div id="gate-err">Incorrect password — try again.</div>
+  </div>
+</div>
+
+<div id="scale-root">
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 1 — COVER
+═══════════════════════════════════════════════════════ -->
+<div class="slide active" data-slide="1">
+  <div class="cover-bg">
+    <div class="cgl"></div>
+    <div class="cgl2"></div>
+  </div>
+  <div class="cover-inner">
+    <div class="cbadge">
+      <span class="cbadge-dot"></span>
+      Internal Co-Founder Reference
+    </div>
+    <div class="ctitle">
+      <span class="l1">Sprintix Studio</span>
+      <span class="l2">Founding Terms &<br>Growth Model</span>
+    </div>
+    <div class="csub">Internal Co-Founder Reference Document — Strictly Confidential</div>
+    <div class="cmeta">
+      <span class="cmeta-item">3 Co-Founders</span>
+      <span class="cmeta-sep"></span>
+      <span class="cmeta-item">E-Commerce Growth Studio</span>
+      <span class="cmeta-sep"></span>
+      <span class="cmeta-item">Equity · Revenue · Vesting</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 2 — WHAT IS SPRINTIX
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="2">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">02 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">What is <span class="acc">Sprintix</span></div>
+    <div class="ss">A digital growth studio built for e-commerce brands</div>
+
+    <div class="info-bar" style="margin-bottom:16px;">
+      <span style="color:var(--accent);font-size:14px;flex-shrink:0;margin-top:1px;">✦</span>
+      <span><strong>Sprintix Studio</strong> is a digital e-commerce growth studio delivering high-quality <strong>design and marketing services</strong> to e-commerce brands. We operate as a lean, founder-led team combining creative execution, project discipline, and business development to drive measurable growth for our clients.</span>
+    </div>
+
+    <div class="role-grid">
+      <div class="rc f">
+        <div class="ri">✦</div>
+        <div class="rl">Co-Founder</div>
+        <div class="rn">Founder & Lead Designer</div>
+        <div class="rd">Leads all creative output and design execution. Owns product quality and visual identity across client work. Holds the largest equity stake in recognition of creative leadership and primary production work.</div>
+      </div>
+      <div class="rc p">
+        <div class="ri">◈</div>
+        <div class="rl">Co-Founder</div>
+        <div class="rn">Project Manager</div>
+        <div class="rd">Manages project delivery, client communication, and internal operations. Ensures work is delivered on time, on brief, and to standard. Keeps the studio running smoothly day-to-day.</div>
+      </div>
+      <div class="rc b">
+        <div class="ri">◎</div>
+        <div class="rl">Co-Founder</div>
+        <div class="rn">Business Development Manager</div>
+        <div class="rd">Drives client acquisition and revenue growth. Manages the sales pipeline, closes new business, and builds partnerships. Earns a 5% closing bonus on deals in addition to equity profit share.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 3 — EQUITY SPLIT
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="3">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">03 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">Equity <span class="acc">Split</span></div>
+    <div class="ss">Company ownership — not monthly income</div>
+
+    <div class="eq-layout">
+      <!-- Donut chart — Sprintix brand palette -->
+      <div>
+        <svg viewBox="0 0 256 256" width="256" height="256">
+          <!-- Founder 50%: top → bottom (clockwise 180°) -->
+          <!-- lime-400 #a3e635 -->
+          <path d="M 128 128 L 128 22 A 106 106 0 1 1 128 234 Z" fill="#a3e635" opacity="0.95"/>
+          <!-- PM 20%: bottom → 252° (clockwise 72°) -->
+          <!-- zinc-200 #e4e4e7 -->
+          <path d="M 128 128 L 128 234 A 106 106 0 0 1 27 161 Z" fill="#e4e4e7" opacity="0.85"/>
+          <!-- BDM 30%: 252° → top (clockwise 108°) -->
+          <!-- zinc-400 #a1a1aa -->
+          <path d="M 128 128 L 27 161 A 106 106 0 0 1 128 22 Z" fill="#a1a1aa" opacity="0.80"/>
+          <!-- Donut hole -->
+          <circle cx="128" cy="128" r="56" fill="#09090b"/>
+          <text x="128" y="124" text-anchor="middle" fill="#52525b" font-size="10" font-family="Inter,sans-serif" font-weight="700" letter-spacing="2">EQUITY</text>
+          <text x="128" y="139" text-anchor="middle" fill="#52525b" font-size="10" font-family="Inter,sans-serif" font-weight="700" letter-spacing="2">SPLIT</text>
+        </svg>
+      </div>
+
+      <!-- Legend -->
+      <div>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:18px;">
+          <div class="leg-item">
+            <div class="leg-clr" style="background:var(--founder);"></div>
+            <div>
+              <div class="leg-lbl">Founder & Lead Designer</div>
+              <div class="leg-nm">Founder</div>
+            </div>
+            <div class="leg-pct" style="color:var(--founder);">50%</div>
+          </div>
+          <hr class="div">
+          <div class="leg-item">
+            <div class="leg-clr" style="background:var(--pm);"></div>
+            <div>
+              <div class="leg-lbl">Project Manager</div>
+              <div class="leg-nm">PM</div>
+            </div>
+            <div class="leg-pct" style="color:var(--pm);">20%</div>
+          </div>
+          <hr class="div">
+          <div class="leg-item">
+            <div class="leg-clr" style="background:var(--bdm);"></div>
+            <div>
+              <div class="leg-lbl">Business Development Manager</div>
+              <div class="leg-nm">BDM</div>
+            </div>
+            <div class="leg-pct" style="color:var(--bdm);">30%</div>
+          </div>
+        </div>
+
+        <div class="eq-note">
+          <span style="flex-shrink:0;margin-top:1px;">⚠</span>
+          <span>Equity represents <strong>company ownership</strong> — not monthly income. Monthly income is determined separately by the designer fee and each person's share of distributable profit.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 4 — HOW REVENUE WORKS
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="4">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">04 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">How <span class="acc">Revenue</span> Works</div>
+    <div class="ss">Every payment received follows this allocation waterfall</div>
+
+    <div class="flow-grid">
+      <div class="fb">
+        <div class="fstep">Step 1</div>
+        <div class="flbl">Gross Revenue</div>
+        <div class="fdesc">Total client payment enters the pool</div>
+      </div>
+      <div class="fb fa">
+        <div class="fstep">Step 2</div>
+        <div class="flbl">Company Reserve</div>
+        <div class="famt">20%</div>
+        <div class="fdesc">Held for runway, reinvestment & safety net</div>
+      </div>
+      <div class="fb">
+        <div class="fstep">Step 3</div>
+        <div class="flbl">Operating Costs</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:5px;">Variable</div>
+        <div class="fdesc">Tools, software, freelancers, platform fees</div>
+      </div>
+      <div class="fb">
+        <div class="fstep">Step 4</div>
+        <div class="flbl">Designer Fee</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text-sec);margin-bottom:5px;">Fixed Rate</div>
+        <div class="fdesc">Paid to Founder for creative execution — separate from profit share</div>
+      </div>
+      <div class="fb fa">
+        <div class="fstep">Result</div>
+        <div class="flbl">Distributable Profit</div>
+        <div class="fdesc" style="margin-bottom:10px;">Split by equity ratio</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;">
+          <span class="chip chip-f">50%</span>
+          <span class="chip chip-p">20%</span>
+          <span class="chip chip-b">30%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bar">
+      <span style="color:var(--accent);font-size:14px;flex-shrink:0;">ℹ</span>
+      <span>The <strong>Designer Fee</strong> is a fixed service payment to the Founder as the primary creative executor — paid before the profit pool is calculated and <strong>in addition to</strong> the Founder's 50% profit share.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 5 — REVENUE MODEL AT STAGE 3
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="5">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">05 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">Revenue Model at <span class="acc">Stage 3</span></div>
+    <div class="ss">$15,000 monthly gross revenue — illustrative breakdown</div>
+
+    <div class="two-col">
+      <!-- Left: breakdown -->
+      <div class="panel">
+        <div class="ptitle">Revenue Breakdown</div>
+        <table class="dtbl">
+          <thead>
+            <tr>
+              <th>Line Item</th>
+              <th style="text-align:right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="lc">Gross Revenue</td>
+              <td class="vc" style="text-align:right;">$15,000</td>
+            </tr>
+            <tr>
+              <td class="lc" style="color:var(--accent);">– Company Reserve (20%)</td>
+              <td style="text-align:right;color:var(--accent);font-weight:700;">– $3,000</td>
+            </tr>
+            <tr>
+              <td class="lc" style="color:var(--text-sec);">– Operating Costs</td>
+              <td style="text-align:right;color:var(--text-sec);font-weight:700;">– $1,500</td>
+            </tr>
+            <tr>
+              <td class="lc" style="color:var(--text-sec);">– Designer Fee</td>
+              <td style="text-align:right;color:var(--text-sec);font-weight:700;">– $2,000</td>
+            </tr>
+            <tr>
+              <td colspan="2"><hr class="div" style="margin:6px 0;"></td>
+            </tr>
+            <tr>
+              <td class="lc" style="color:var(--text);font-weight:700;font-size:14px;">Distributable Profit</td>
+              <td class="vc" style="text-align:right;font-size:18px;">$8,500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Right: profit share + founder callout -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="panel">
+          <div class="ptitle">Profit Share — 50 / 20 / 30</div>
+          <table class="dtbl">
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th style="text-align:center;">Share</th>
+                <th style="text-align:right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="lc" style="color:var(--founder);">Founder</td>
+                <td style="text-align:center;"><span class="chip chip-f">50%</span></td>
+                <td class="vc" style="text-align:right;">$4,250</td>
+              </tr>
+              <tr>
+                <td class="lc" style="color:var(--pm);">PM</td>
+                <td style="text-align:center;"><span class="chip chip-p">20%</span></td>
+                <td class="vc" style="text-align:right;">$1,700</td>
+              </tr>
+              <tr>
+                <td class="lc" style="color:var(--bdm);">BDM</td>
+                <td style="text-align:center;"><span class="chip chip-b">30%</span></td>
+                <td class="vc" style="text-align:right;">$2,550</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Founder total highlight — lime accent block -->
+        <div style="background:rgba(163,230,53,0.06);border:1px solid rgba(163,230,53,0.25);border-radius:14px;padding:18px 20px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Founder Total Earnings</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+            <span style="font-family:'Syne',sans-serif;font-size:40px;font-weight:900;color:var(--text);">$6,250</span>
+            <span style="font-size:12px;color:var(--text-muted);">/ month</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);">
+            Designer Fee <span style="color:var(--text-sec);font-weight:600;">$2,000</span>
+            &nbsp;+&nbsp;
+            Profit Share <span style="color:var(--accent);font-weight:600;">$4,250</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 6 — GROWTH PROJECTIONS
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="6">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">06 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">Growth <span class="acc">Projections</span></div>
+    <div class="ss">Monthly income across three revenue stages</div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+      <table class="dtbl" style="font-size:13px;">
+        <thead>
+          <tr style="background:rgba(255,255,255,0.02);">
+            <th style="padding:12px 20px;">Metric</th>
+            <th style="text-align:right;padding:12px 20px;">
+              <span style="background:rgba(163,230,53,0.12);color:var(--accent);padding:3px 11px;border-radius:5px;font-size:11px;font-weight:700;">Stage 3 · $15k</span>
+            </th>
+            <th style="text-align:right;padding:12px 20px;">
+              <span style="background:rgba(163,230,53,0.07);color:rgba(163,230,53,0.7);padding:3px 11px;border-radius:5px;font-size:11px;font-weight:700;">Stage 4 · $20k</span>
+            </th>
+            <th style="text-align:right;padding:12px 20px;">
+              <span style="background:rgba(163,230,53,0.04);color:rgba(163,230,53,0.5);padding:3px 11px;border-radius:5px;font-size:11px;font-weight:700;">Stage 5 · $30k</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lc" style="padding:11px 20px;">Gross Revenue</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:600;color:var(--text);">$15,000</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:600;">$20,000</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:600;">$30,000</td>
+          </tr>
+          <tr>
+            <td class="lc" style="padding:11px 20px;color:var(--accent);">Reserve (20%)</td>
+            <td style="text-align:right;padding:11px 20px;color:var(--accent);font-weight:600;">$3,000</td>
+            <td style="text-align:right;padding:11px 20px;color:var(--text-muted);font-weight:600;">$4,000</td>
+            <td style="text-align:right;padding:11px 20px;color:var(--text-muted);font-weight:600;">$6,000</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);background:rgba(163,230,53,0.03);">
+            <td style="padding:13px 20px;font-family:'Syne',sans-serif;font-weight:800;color:var(--founder);">Founder Total *</td>
+            <td style="text-align:right;padding:13px 20px;font-family:'Syne',sans-serif;font-weight:900;color:var(--founder);font-size:17px;">$6,250</td>
+            <td style="text-align:right;padding:13px 20px;font-family:'Syne',sans-serif;font-weight:900;color:var(--founder);font-size:17px;">$8,250</td>
+            <td style="text-align:right;padding:13px 20px;font-family:'Syne',sans-serif;font-weight:900;color:var(--founder);font-size:17px;">$12,250</td>
+          </tr>
+          <tr style="background:rgba(228,228,231,0.02);">
+            <td style="padding:11px 20px;font-weight:700;color:var(--pm);">PM Share</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--pm);font-size:15px;">$1,700</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--text-sec);font-size:15px;">$2,500</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--text-sec);font-size:15px;">$4,100</td>
+          </tr>
+          <tr style="background:rgba(161,161,170,0.03);">
+            <td style="padding:11px 20px;font-weight:700;color:var(--bdm);">BDM Share †</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--bdm);font-size:15px;">$2,550</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--text-muted);font-size:15px;">$3,750</td>
+            <td style="text-align:right;padding:11px 20px;font-weight:800;color:var(--text-muted);font-size:15px;">$6,150</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="info-bar">
+        <span style="color:var(--accent);font-size:12px;flex-shrink:0;margin-top:1px;">*</span>
+        <span>Founder Total includes fixed <strong>$2,000 designer fee</strong> plus 50% of distributable profit. Designer fee is fixed regardless of revenue stage.</span>
+      </div>
+      <div class="info-bar">
+        <span style="color:var(--text-muted);font-size:12px;flex-shrink:0;margin-top:1px;">†</span>
+        <span>BDM figures do <strong>not include closing bonuses</strong>. Bonuses are deal-specific and deducted from project revenue before the profit pool is formed.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 7 — VESTING & PROTECTION
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="7">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">07 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">Vesting & <span class="acc">Protection</span></div>
+    <div class="ss">Equity is earned over time — fair for everyone, including the Founder</div>
+
+    <div class="vp">
+      <div class="vpi">
+        <div class="vpico">📅</div>
+        <div>
+          <strong>4-Year Vesting Schedule</strong>
+          <p>All three co-founders vest their equity over 4 years. This applies equally to the Founder, PM, and BDM — ensuring long-term commitment is rewarded and short-term exits are managed fairly.</p>
+        </div>
+      </div>
+      <div class="vpi">
+        <div class="vpico">🗓</div>
+        <div>
+          <strong>1-Year Cliff</strong>
+          <p>No equity vests during the first 12 months. After the cliff, 25% of each person's total equity vests immediately. The remaining 75% vests in equal monthly instalments over the following 36 months.</p>
+        </div>
+      </div>
+      <div class="vpi">
+        <div class="vpico">🔄</div>
+        <div>
+          <strong>Monthly Vesting After Cliff</strong>
+          <p>After the 1-year cliff, equity vests monthly over months 13–48. This provides predictable and steady ownership accumulation for all three co-founders throughout their tenure.</p>
+        </div>
+      </div>
+      <div class="vpi">
+        <div class="vpico">🔐</div>
+        <div>
+          <strong>Buyback Clause on Unvested Shares</strong>
+          <p>If a co-founder exits before fully vesting, the company retains the right to buy back unvested shares at nominal value. <strong style="color:var(--text);">Reverse vesting applies to the Founder too</strong> — a signal of good faith and equal accountability to all parties.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 8 — BDM INCENTIVE STRUCTURE
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="8">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">08 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">BDM <span class="acc">Incentive Structure</span></div>
+    <div class="ss">Rewarding the deals that drive our growth</div>
+
+    <div class="two-col" style="align-items:stretch;">
+      <!-- Big highlight -->
+      <div style="background:rgba(163,230,53,0.05);border:1px solid rgba(163,230,53,0.22);border-radius:16px;padding:26px 28px;">
+        <div style="font-family:'Syne',sans-serif;font-size:76px;font-weight:900;color:var(--accent);line-height:1;margin-bottom:12px;">5%</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px;">Closing Bonus on Every Deal</div>
+        <div style="font-size:13px;color:var(--text-sec);line-height:1.65;">
+          The BDM receives a <strong style="color:var(--text);">5% closing bonus</strong> on the total revenue of every new deal they bring in. This bonus is paid directly from that project's revenue <strong style="color:var(--text);">before it enters the shared profit pool</strong> — it does not come out of anyone else's share.
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:13px;">
+        <div class="panel" style="flex:1;">
+          <div class="ptitle">Worked Example — $5,000 Deal</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text-sec);">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="color:var(--accent);font-weight:700;flex-shrink:0;min-width:18px;">1.</span>
+              <span>BDM closes a new client deal worth <strong style="color:var(--text);">$5,000</strong></span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="color:var(--accent);font-weight:700;flex-shrink:0;min-width:18px;">2.</span>
+              <span>BDM receives <strong style="color:var(--accent);">$250</strong> closing bonus (5% of $5,000) from that project's revenue immediately</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="color:var(--accent);font-weight:700;flex-shrink:0;min-width:18px;">3.</span>
+              <span>Remaining <strong style="color:var(--text);">$4,750</strong> enters the standard revenue waterfall (reserve → costs → designer fee → profit pool)</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="color:var(--accent);font-weight:700;flex-shrink:0;min-width:18px;">4.</span>
+              <span>BDM still receives their <strong style="color:var(--text);">30% profit share</strong> on top of the closing bonus</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--accent-dim);border:1px solid rgba(163,230,53,0.18);border-radius:10px;padding:13px 14px;font-size:12px;color:var(--text-muted);line-height:1.5;">
+          <span style="color:var(--accent);font-weight:700;">Key point: </span>The 5% closing bonus is <strong style="color:var(--text-sec);">in addition to</strong> the BDM's 30% equity profit share — not a replacement for it.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 9 — RESERVE POLICY
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="9">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">09 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st">Reserve <span class="acc">Policy</span></div>
+    <div class="ss">Building financial resilience before optimising for distribution</div>
+
+    <div class="phase-grid">
+      <div class="phcard ph1">
+        <div class="phlbl">Phase 1 — Building the Reserve</div>
+        <div class="phrate">20%</div>
+        <div class="phsub">of all revenue → Reserve</div>
+        <div class="phdesc">All incoming revenue contributes 20% to the company reserve fund. This phase continues until the reserve reaches a target of <strong style="color:var(--text-sec);">3 months of operating costs</strong>, estimated at approximately <strong style="color:var(--text-sec);">$4,500–$6,000</strong>.</div>
+      </div>
+      <div class="phcard ph2">
+        <div class="phlbl">Phase 2 — Reserve Target Reached</div>
+        <div class="phrate">10%</div>
+        <div class="phsub">of all revenue → Reserve</div>
+        <div class="phdesc">Once the target balance is reached, the reserve rate drops to 10%. The freed-up <strong style="color:var(--text-sec);">10% difference redistributes to co-founders</strong> as additional profit, split by the standard 50/20/30 equity ratio.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 17px;font-size:13px;color:var(--text-sec);display:flex;gap:10px;align-items:flex-start;line-height:1.5;">
+      <span style="font-size:17px;flex-shrink:0;">🎯</span>
+      <span><strong style="color:var(--text);">Phase 2 trigger:</strong> Reserve balance reaches <strong style="color:var(--accent);">$4,500–$6,000</strong> (approximately 3× monthly operating costs). At that point the lower 10% reserve rate takes effect automatically and the 10% difference flows directly into co-founder profit distributions.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 10 — NEXT STEPS
+═══════════════════════════════════════════════════════ -->
+<div class="slide" data-slide="10">
+  <div class="sh">
+    <div class="brand">Sprintix<span class="brand-dot">.</span></div>
+    <div class="snum">10 / 10</div>
+  </div>
+  <div class="sb">
+    <div class="st"><span class="acc">Next Steps</span></div>
+    <div class="ss">Three action items to formalise the Sprintix co-founder agreement</div>
+
+    <div class="nsteps">
+      <div class="nsi">
+        <div class="nsnum n1">1</div>
+        <div>
+          <strong>Agree and Sign Co-Founder Agreement</strong>
+          <p>Review the full co-founder agreement covering equity split, vesting schedule, roles, decision-making rights, and exit clauses. All three co-founders must sign before any client work or revenue is processed.</p>
+        </div>
+      </div>
+      <div class="nsi">
+        <div class="nsnum n2">2</div>
+        <div>
+          <strong>Set Up Company Bank Account with Reserve Separation</strong>
+          <p>Open a dedicated business bank account and establish a separate reserve sub-account or savings pot. Implement the habit of allocating 20% to reserve on every incoming payment from day one of trading.</p>
+        </div>
+      </div>
+      <div class="nsi">
+        <div class="nsnum n3">3</div>
+        <div>
+          <strong>Formalise Designer Fee Rate and BDM Closing Bonus in Writing</strong>
+          <p>Confirm and document the fixed monthly designer fee paid to the Founder, and the 5% closing bonus rate for the BDM. These should be appended to the co-founder agreement or set out in a separate financial schedule signed by all parties.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer strip -->
+    <div style="margin-top:20px;background:rgba(163,230,53,0.04);border:1px solid rgba(163,230,53,0.14);border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:900;color:var(--text);margin-bottom:2px;">Sprintix<span style="color:var(--accent);">.</span></div>
+        <div style="font-size:11px;color:var(--text-muted);">Internal Co-Founder Reference — Strictly Confidential</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="chip chip-f">3 Co-Founders</span>
+        <span class="chip chip-a">E-Commerce Growth</span>
+        <span style="background:rgba(255,255,255,0.05);color:var(--text-muted);padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700;">50 / 20 / 30</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+</div><!-- /scale-root -->
+
+<!-- ── Navigation pill ── -->
+<div id="nav">
+  <button class="nbtn" id="prev-btn" onclick="prevSlide()" disabled>
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+      <path d="M8 2L4 6L8 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="dots" id="dots"></div>
+  <div class="sctr" id="counter">1 / 10</div>
+  <button class="nbtn" id="next-btn" onclick="nextSlide()">
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+      <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const TOTAL = 10;
+  let cur = 1;
+
+  const dotsEl = document.getElementById('dots');
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.onclick = () => go(i);
+    dotsEl.appendChild(d);
+  }
+
+  function go(n) {
+    if (n < 1 || n > TOTAL || n === cur) return;
+    const slides = document.querySelectorAll('.slide');
+    const dots   = document.querySelectorAll('.dot');
+    const prev   = cur;
+    slides[prev - 1].classList.remove('active');
+    slides[prev - 1].classList.add('exit');
+    setTimeout(() => slides[prev - 1].classList.remove('exit'), 400);
+    cur = n;
+    slides[cur - 1].classList.add('active');
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur - 1));
+    document.getElementById('counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('prev-btn').disabled = cur === 1;
+    document.getElementById('next-btn').disabled = cur === TOTAL;
+  }
+
+  function nextSlide() { go(cur + 1); }
+  function prevSlide() { go(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    { e.preventDefault(); prevSlide(); }
+  });
+
+  function scale() {
+    const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    document.getElementById('scale-root').style.setProperty('--scale', s);
+  }
+  scale();
+  window.addEventListener('resize', scale);
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+  });
+</script>
+
+<script>
+  // ── Change this password before going live ──
+  const GATE_PASSWORD = 'founders2025';
+  const SESSION_KEY   = 'sprintix_founders_auth';
+
+  function unlock() {
+    const val = document.getElementById('pw-input').value;
+    const err = document.getElementById('gate-err');
+    const inp = document.getElementById('pw-input');
+    if (val === GATE_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      const gate = document.getElementById('gate');
+      gate.style.transition = 'opacity 0.4s ease';
+      gate.style.opacity = '0';
+      setTimeout(() => gate.remove(), 420);
+    } else {
+      err.classList.add('show');
+      inp.classList.add('shake');
+      inp.value = '';
+      setTimeout(() => inp.classList.remove('shake'), 450);
+    }
+  }
+
+  // Unlock on Enter key
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+    document.getElementById('gate-err').classList.remove('show');
+  });
+
+  // Skip gate if already authenticated this session
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    document.getElementById('gate').remove();
+  }
+</script>
+
+</body>
+</html>
