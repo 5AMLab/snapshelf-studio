@@ -44,6 +44,7 @@ import AdminDashboard from './components/AdminDashboard'
 import AdminLogin from './components/AdminLogin'
 import ProtectedRoute from './components/ProtectedRoute'
 import SprintixPage from './pages/SprintixPage'
+import NotFoundPage from './pages/NotFoundPage'
 import { ModalProvider } from './context/ModalContext'
 import ModalManager from './components/ModalManager'
 
@@ -107,6 +108,9 @@ function App() {
           <Route path="/refund-policy" element={<RefundPolicy />} />
 
           <Route path="/sprintix" element={<SprintixPage />} />
+
+          {/* 404 catch-all */}
+          <Route path="*" element={<NotFoundPage />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
